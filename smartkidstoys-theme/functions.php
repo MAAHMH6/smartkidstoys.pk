@@ -1,0 +1,378 @@
+<?php
+/**
+ * SmartKids Toys Theme Functions & Definitions
+ *
+ * @package SmartKidsToys
+ * @version 1.2.1
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// 1. Theme Setup
+function smartkidstoys_setup() {
+    add_theme_support( 'title-tag' );
+    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
+    add_theme_support( 'custom-logo' );
+
+    register_nav_menus( array(
+        'primary-menu' => __( 'Primary Header Menu', 'smartkidstoys' ),
+        'footer-menu'  => __( 'Footer Menu', 'smartkidstoys' ),
+    ) );
+}
+add_action( 'after_setup_theme', 'smartkidstoys_setup' );
+
+// 2. Enqueue Styles & Scripts
+function smartkidstoys_scripts() {
+    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap', array(), null );
+    wp_enqueue_style( 'smartkidstoys-style', get_stylesheet_uri(), array(), '1.2.1' );
+
+    wp_enqueue_script( 'smartkidstoys-main', get_template_directory_uri() . '/assets/js/main.js', array( 'jquery' ), '1.2.1', true );
+
+    wp_localize_script( 'smartkidstoys-main', 'skt_ajax', array(
+        'ajax_url' => admin_url( 'admin-ajax.php' ),
+        'nonce'    => wp_create_nonce( 'skt_order_nonce' ),
+        'whatsapp_number' => get_theme_mod( 'skt_whatsapp_number', '923098444501' )
+    ) );
+}
+add_action( 'wp_enqueue_scripts', 'smartkidstoys_scripts' );
+
+// 2b. Theme Image & Media Helper (Works with WP Media uploads or default theme assets)
+function smartkidstoys_get_image_url( $setting_key, $default_filename ) {
+    $custom_url = get_theme_mod( $setting_key );
+    if ( ! empty( $custom_url ) ) {
+        return esc_url( $custom_url );
+    }
+    return esc_url( get_template_directory_uri() . '/assets/img/' . $default_filename );
+}
+
+// 2c. WordPress Customizer Settings (Appearance -> Customize -> SmartKids Banners & Contact)
+function smartkidstoys_customize_register( $wp_customize ) {
+    $wp_customize->add_section( 'skt_media_section', array(
+        'title'    => __( 'SmartKids Toys Media & Banners', 'smartkidstoys' ),
+        'priority' => 30,
+    ) );
+
+    // Logo
+    $wp_customize->add_setting( 'skt_logo_url', array( 'default' => '' ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_logo_url', array(
+        'label'    => __( 'Header & Footer Logo', 'smartkidstoys' ),
+        'section'  => 'skt_media_section',
+        'settings' => 'skt_logo_url',
+    ) ) );
+
+    // Hero Banner
+    $wp_customize->add_setting( 'skt_hero_banner', array( 'default' => '' ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_hero_banner', array(
+        'label'    => __( 'Hero Mega Sale Banner', 'smartkidstoys' ),
+        'section'  => 'skt_media_section',
+        'settings' => 'skt_hero_banner',
+    ) ) );
+
+    // Train Banner (New Arrivals)
+    $wp_customize->add_setting( 'skt_train_banner', array( 'default' => '' ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_train_banner', array(
+        'label'    => __( 'New Arrivals Train Banner', 'smartkidstoys' ),
+        'section'  => 'skt_media_section',
+        'settings' => 'skt_train_banner',
+    ) ) );
+
+    // Teddy Bear Banner (Special Deals)
+    $wp_customize->add_setting( 'skt_teddy_banner', array( 'default' => '' ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_teddy_banner', array(
+        'label'    => __( 'Special Deals Teddy Bear Banner', 'smartkidstoys' ),
+        'section'  => 'skt_media_section',
+        'settings' => 'skt_teddy_banner',
+    ) ) );
+
+    // WhatsApp Number
+    $wp_customize->add_setting( 'skt_whatsapp_number', array( 'default' => '923098444501' ) );
+    $wp_customize->add_control( 'skt_whatsapp_number', array(
+        'label'    => __( 'WhatsApp Support & Order Number (e.g. 923098444501)', 'smartkidstoys' ),
+        'section'  => 'skt_media_section',
+        'type'     => 'text',
+    ) );
+}
+add_action( 'customize_register', 'smartkidstoys_customize_register' );
+
+// 3. Smart Dynamic Template Router (Bypasses 404s cleanly)
+add_filter( 'redirect_canonical', '__return_false' );
+
+function smartkidstoys_smart_router( $template ) {
+    // Never intercept admin, login, cron, or AJAX requests
+    if ( is_admin() || wp_doing_ajax() || ( defined( 'DOING_CRON' ) && DOING_CRON ) ) {
+        return $template;
+    }
+
+    if ( is_front_page() || is_home() ) {
+        $front = get_template_directory() . '/front-page.php';
+        return file_exists( $front ) ? $front : $template;
+    }
+
+    $request_uri = trim( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), '/' );
+    $home_path   = trim( parse_url( home_url(), PHP_URL_PATH ), '/' );
+    if ( ! empty( $home_path ) && strpos( $request_uri, $home_path ) === 0 ) {
+        $request_uri = trim( substr( $request_uri, strlen( $home_path ) ), '/' );
+    }
+
+    if ( empty( $request_uri ) ) return $template;
+
+    $segments  = explode( '/', $request_uri );
+    $last_slug = end( $segments );
+
+    // Don't intercept wp core endpoints
+    if ( strpos( $last_slug, 'wp-' ) === 0 ) {
+        return $template;
+    }
+
+    $slug_mappings = array(
+        'shop'              => 'page-shop.php',
+        'deals'             => 'page-deals.php',
+        'new-arrivals'      => 'page-new-arrivals.php',
+        'categories'        => 'page-categories.php',
+        'about'             => 'page-about.php',
+        'contact'           => 'page-contact.php',
+        'bag'               => 'page-bag.php',
+        'cart'              => 'page-bag.php',
+        'checkout'          => 'page-bag.php',
+        'account'           => 'page-account.php',
+        'my-account'        => 'page-account.php',
+        'product-detail'    => 'page-product-detail.php',
+        'toy'               => 'page-product-detail.php',
+        'privacy-policy'    => 'page-privacy-policy.php',
+        'terms'             => 'page-terms.php',
+        'shipping-delivery' => 'page-shipping-delivery.php',
+        'returns-refunds'   => 'page-returns-refunds.php'
+    );
+
+    if ( isset( $slug_mappings[ $last_slug ] ) ) {
+        $file_path = get_template_directory() . '/' . $slug_mappings[ $last_slug ];
+        if ( file_exists( $file_path ) ) {
+            global $wp_query;
+            if ( isset( $wp_query ) && is_object( $wp_query ) ) {
+                $wp_query->is_404  = false;
+                $wp_query->is_page = true;
+            }
+            return $file_path;
+        }
+    }
+
+    $candidate = get_template_directory() . "/page-{$last_slug}.php";
+    if ( file_exists( $candidate ) ) {
+        global $wp_query;
+        if ( isset( $wp_query ) && is_object( $wp_query ) ) {
+            $wp_query->is_404  = false;
+            $wp_query->is_page = true;
+        }
+        return $candidate;
+    }
+
+    return $template;
+}
+add_filter( 'template_include', 'smartkidstoys_smart_router', 99 );
+
+// Load Admin Dashboard Hub, CPTs, and Analytics
+$admin_hub_file = get_template_directory() . '/inc/admin-dashboard.php';
+if ( file_exists( $admin_hub_file ) ) {
+    require_once $admin_hub_file;
+}
+
+// 7. Native AJAX Endpoint for Direct Order Placement
+function smartkidstoys_ajax_submit_order() {
+    check_ajax_referer( 'skt_order_nonce', 'nonce' );
+
+    $name    = isset( $_POST['customer_name'] ) ? sanitize_text_field( $_POST['customer_name'] ) : 'Customer';
+    $phone   = isset( $_POST['phone'] ) ? sanitize_text_field( $_POST['phone'] ) : '';
+    $city    = isset( $_POST['city'] ) ? sanitize_text_field( $_POST['city'] ) : 'Lahore';
+    $address = isset( $_POST['address'] ) ? sanitize_textarea_field( $_POST['address'] ) : '';
+    $total   = isset( $_POST['total'] ) ? floatval( $_POST['total'] ) : 0;
+    $items   = isset( $_POST['items'] ) ? sanitize_text_field( $_POST['items'] ) : '';
+
+    $order_num = 'SKT-ORD-' . rand( 1000, 9999 );
+
+    $post_id = wp_insert_post( array(
+        'post_type'   => 'toy_order',
+        'post_title'  => $order_num . ' - ' . $name,
+        'post_status' => 'publish',
+    ) );
+
+    if ( $post_id ) {
+        update_post_meta( $post_id, 'order_number', $order_num );
+        update_post_meta( $post_id, 'order_customer_name', $name );
+        update_post_meta( $post_id, 'order_phone', $phone );
+        update_post_meta( $post_id, 'order_city', $city );
+        update_post_meta( $post_id, 'order_address', $address );
+        update_post_meta( $post_id, 'order_total', $total );
+        update_post_meta( $post_id, 'order_status', 'confirmed' );
+        update_post_meta( $post_id, 'order_items_json', $items );
+
+        // Automatically create or update Customer Profile in CRM
+        if ( function_exists( 'smartkidstoys_sync_customer_record' ) ) {
+            smartkidstoys_sync_customer_record( $name, $phone, $city, $address, $total );
+        }
+
+        wp_send_json_success( array(
+            'order_id'     => $post_id,
+            'order_number' => $order_num,
+            'message'      => 'Order received successfully'
+        ) );
+    } else {
+        wp_send_json_error( array( 'message' => 'Failed to save order' ) );
+    }
+}
+add_action( 'wp_ajax_skt_submit_order', 'smartkidstoys_ajax_submit_order' );
+add_action( 'wp_ajax_nopriv_skt_submit_order', 'smartkidstoys_ajax_submit_order' );
+
+// 8. Dynamic Catalog Helper (Queries skt_toy posts from WP database with sample fallback)
+function smartkidstoys_get_catalog_toys() {
+    $db_toys = get_posts( array(
+        'post_type'      => 'skt_toy',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+    ) );
+
+    if ( ! empty( $db_toys ) && is_array( $db_toys ) ) {
+        $catalog = array();
+        foreach ( $db_toys as $post ) {
+            $terms = wp_get_post_terms( $post->ID, 'skt_toy_cat' );
+            $cat_name = ( ! is_wp_error( $terms ) && ! empty( $terms ) && is_object( $terms[0] ) ) ? $terms[0]->name : 'Soft Toys';
+            $img_url = has_post_thumbnail( $post->ID ) ? get_the_post_thumbnail_url( $post->ID, 'large' ) : 'https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=500&auto=format&fit=crop&q=80';
+
+            $catalog[] = array(
+                'id'          => $post->ID,
+                'name'        => $post->post_title,
+                'category'    => $cat_name,
+                'price'       => floatval( get_post_meta( $post->ID, 'toy_price', true ) ?: 1500 ),
+                'old_price'   => floatval( get_post_meta( $post->ID, 'toy_old_price', true ) ),
+                'rating'      => floatval( get_post_meta( $post->ID, 'toy_rating', true ) ?: 4.9 ),
+                'reviews'     => intval( get_post_meta( $post->ID, 'toy_reviews', true ) ?: 50 ),
+                'image'       => $img_url,
+                'is_new'      => get_post_meta( $post->ID, 'toy_is_new', true ) === '1',
+                'is_deal'     => get_post_meta( $post->ID, 'toy_is_deal', true ) === '1',
+                'badge'       => get_post_meta( $post->ID, 'toy_badge', true ) ?: '',
+                'description' => ! empty( $post->post_excerpt ) ? $post->post_excerpt : wp_trim_words( $post->post_content, 30 )
+            );
+        }
+        if ( ! empty( $catalog ) ) {
+            return $catalog;
+        }
+    }
+
+    // Fallback catalog for instant theme preview
+    return array(
+        array(
+            'id'          => 1,
+            'name'        => 'Cute Teddy Bear',
+            'category'    => 'Soft Toys',
+            'price'       => 1750,
+            'old_price'   => 2500,
+            'rating'      => 4.9,
+            'reviews'     => 128,
+            'image'       => 'https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=500&auto=format&fit=crop&q=80',
+            'is_new'      => true,
+            'is_deal'     => true,
+            'badge'       => '30% OFF',
+            'description' => 'Super soft and cuddly plush teddy bear made with hypoallergenic non-toxic fabric.'
+        ),
+        array(
+            'id'          => 2,
+            'name'        => 'Wooden Building Blocks Set',
+            'category'    => 'Building Blocks',
+            'price'       => 2890,
+            'old_price'   => 3500,
+            'rating'      => 4.8,
+            'reviews'     => 94,
+            'image'       => 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500&auto=format&fit=crop&q=80',
+            'is_new'      => true,
+            'is_deal'     => false,
+            'badge'       => 'NEW',
+            'description' => '100 pieces natural solid wood building blocks with vibrant non-toxic water-based paint.'
+        ),
+        array(
+            'id'          => 3,
+            'name'        => 'Remote Control Monster Truck',
+            'category'    => 'Vehicles',
+            'price'       => 3450,
+            'old_price'   => 4500,
+            'rating'      => 4.9,
+            'reviews'     => 156,
+            'image'       => 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=500&auto=format&fit=crop&q=80',
+            'is_new'      => false,
+            'is_deal'     => true,
+            'badge'       => 'HOT DEAL',
+            'description' => 'High speed 4WD off-road RC monster truck with rechargeable battery and shockproof chassis.'
+        ),
+        array(
+            'id'          => 4,
+            'name'        => 'Solar Robot 12-in-1 Kit',
+            'category'    => 'Educational',
+            'price'       => 2200,
+            'old_price'   => 2900,
+            'rating'      => 4.7,
+            'reviews'     => 82,
+            'image'       => 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=500&auto=format&fit=crop&q=80',
+            'is_new'      => false,
+            'is_deal'     => true,
+            'badge'       => 'POPULAR',
+            'description' => 'Hands-on STEM solar powered robot kit that builds 12 different walking and crawling robots.'
+        ),
+        array(
+            'id'          => 5,
+            'name'        => 'Color Sorting Wooden Rainbow Stacker',
+            'category'    => 'Educational',
+            'price'       => 1299,
+            'old_price'   => 1600,
+            'rating'      => 4.9,
+            'reviews'     => 67,
+            'image'       => 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80',
+            'is_new'      => true,
+            'is_deal'     => false,
+            'badge'       => 'BESTSELLER',
+            'description' => 'Montessori wooden stacking rings to foster hand-eye coordination and color identification.'
+        ),
+        array(
+            'id'          => 6,
+            'name'        => 'Classic Electric Train Set',
+            'category'    => 'Vehicles',
+            'price'       => 3200,
+            'old_price'   => 4000,
+            'rating'      => 4.8,
+            'reviews'     => 112,
+            'image'       => 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=500&auto=format&fit=crop&q=80',
+            'is_new'      => true,
+            'is_deal'     => true,
+            'badge'       => 'TOP TOY',
+            'description' => 'Complete railway train set with headlight locomotive, passenger cars, and loop tracks.'
+        ),
+        array(
+            'id'          => 7,
+            'name'        => 'Superhero Articulated Action Figure',
+            'category'    => 'Action Figures',
+            'price'       => 1450,
+            'old_price'   => 1950,
+            'rating'      => 4.9,
+            'reviews'     => 98,
+            'image'       => 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500&auto=format&fit=crop&q=80',
+            'is_new'      => false,
+            'is_deal'     => true,
+            'badge'       => '25% OFF',
+            'description' => 'Poseable superhero action figure with 16 points of articulation and premium detailed sculpting.'
+        ),
+        array(
+            'id'          => 8,
+            'name'        => 'Animals 3D Wooden Jigsaw Puzzle',
+            'category'    => 'Puzzles',
+            'price'       => 990,
+            'old_price'   => 1350,
+            'rating'      => 4.7,
+            'reviews'     => 45,
+            'image'       => 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500&auto=format&fit=crop&q=80',
+            'is_new'      => false,
+            'is_deal'     => false,
+            'badge'       => 'SALE',
+            'description' => 'Laser cut 3D jigsaw puzzle developing spatial reasoning and fine motor dexterity.'
+        )
+    );
+}
