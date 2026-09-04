@@ -206,6 +206,16 @@ export default function ProductDetail() {
             </span>
           </div>
 
+          {/* Age & Educational Skill Badges */}
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
+            <span style={{ background: '#EFF6FF', color: '#0284C7', fontWeight: 800, fontSize: '0.82rem', padding: '4px 12px', borderRadius: '9999px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              👶 Age: {product.age_range || '3–8 Years'}
+            </span>
+            <span style={{ background: '#ECFDF5', color: '#059669', fontWeight: 800, fontSize: '0.82rem', padding: '4px 12px', borderRadius: '9999px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              🧠 Educational: {product.educational_skill || 'STEM & Motor Skills'}
+            </span>
+          </div>
+
           {/* Price */}
           <div className="price" style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '20px' }}>
             <span style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', fontWeight: 900, color: 'var(--dark-heading)' }}>
@@ -240,13 +250,13 @@ export default function ProductDetail() {
               </span>
             </div>
 
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '12px' }}>
               <button
                 type="button"
                 onClick={handleAddToCart}
                 disabled={!inStock}
                 className="btn-add-cart-yellow"
-                style={{ padding: '12px 24px', fontSize: '0.95rem', flex: 1, minWidth: '160px' }}
+                style={{ padding: '14px 24px', fontSize: '1rem', flex: 1, minWidth: '160px', fontWeight: 800 }}
               >
                 {isAdded ? (
                   <>
@@ -266,7 +276,7 @@ export default function ProductDetail() {
                 onClick={handleBuyNow}
                 disabled={!inStock}
                 className="btn-hero-shop"
-                style={{ flex: 1, minWidth: '160px', justifyContent: 'center' }}
+                style={{ flex: 1, minWidth: '160px', justifyContent: 'center', fontWeight: 800 }}
               >
                 <Zap size={18} />
                 <span>Buy Now</span>
@@ -276,24 +286,39 @@ export default function ProductDetail() {
                 type="button"
                 onClick={() => setIsWishlisted(!isWishlisted)}
                 className="btn-wishlist-outline"
-                style={{ width: '46px', height: '46px', color: isWishlisted ? 'var(--accent-red)' : 'var(--text-muted)' }}
+                style={{ width: '48px', height: '48px', color: isWishlisted ? 'var(--accent-red)' : 'var(--text-muted)' }}
                 aria-label="Wishlist"
               >
                 <Heart size={20} fill={isWishlisted ? 'var(--accent-red)' : 'none'} />
               </button>
             </div>
-          </div>
 
-          {/* WhatsApp Direct Inquiry Button */}
-          <div style={{ marginBottom: '28px' }}>
+            {/* Prominent WhatsApp Order Button underneath Add to Cart */}
             <a
-              href={`https://wa.me/923098444501?text=Hello%20SmartKids%20Toys!%20I%20have%20a%20question%20about%20*${encodeURIComponent(product.name)}*%20(SKU:%20${sku}).`}
+              href={`https://wa.me/923098444501?text=${encodeURIComponent(`Hello SmartKids Toys! 💬\nI want to order: *${product.name}*\nPrice: PKR ${price.toLocaleString()}\nQuantity: ${quantity}\nTotal: PKR ${(price * quantity).toLocaleString()}\nSKU: ${sku}\nPlease confirm my delivery details!`)}`}
               target="_blank"
               rel="noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#16A34A', fontWeight: 800, fontSize: '0.9rem', padding: '8px 16px', background: '#DCFCE7', borderRadius: 'var(--radius-md)' }}
+              style={{
+                width: '100%',
+                background: '#25D366',
+                color: '#FFFFFF',
+                borderRadius: '9999px',
+                padding: '14px 20px',
+                fontWeight: 900,
+                fontSize: '1rem',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 15px rgba(37, 211, 102, 0.35)',
+                transition: 'transform 0.15s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             >
-              <MessageCircle size={18} />
-              <span>Ask a question about this toy on WhatsApp</span>
+              <MessageCircle size={20} fill="currentColor" color="none" />
+              <span>💬 Order on WhatsApp</span>
             </a>
           </div>
 

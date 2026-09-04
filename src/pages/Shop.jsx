@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { productService } from '../services/productService';
 import ProductCard from '../components/common/ProductCard';
-import { Filter, SlidersHorizontal } from 'lucide-react';
+import { Filter, SlidersHorizontal, Sparkles } from 'lucide-react';
 
 const CATEGORIES = [
   'Action Figures',
@@ -15,21 +15,37 @@ const CATEGORIES = [
   'Baby Toys'
 ];
 
+const AGE_RANGES = [
+  { label: '👶 1–3 Years', key: '1-3' },
+  { label: '🧒 3–5 Years', key: '3-5' },
+  { label: '🧠 5–8 Years', key: '5-8' },
+  { label: '🚀 8+ Years', key: '8+' }
+];
+
 const PRICE_RANGES = [
   { label: 'Under PKR 1,000', min: 0, max: 1000 },
-  { label: 'PKR 1,000–2,500', min: 1000, max: 2500 },
-  { label: 'PKR 2,500–5,000', min: 2500, max: 5000 },
-  { label: 'Above PKR 5,000', min: 5000, max: Infinity }
+  { label: 'PKR 1,000–1,500', min: 1000, max: 1500 },
+  { label: 'PKR 1,500–2,000', min: 1500, max: 2000 },
+  { label: 'PKR 2,000–3,000', min: 2000, max: 3000 },
+  { label: 'Above PKR 3,000', min: 3000, max: Infinity }
 ];
 
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCategory = searchParams.get('category') || '';
+  const initialAge = searchParams.get('age') || '';
+  const initialMaxPrice = searchParams.get('maxPrice') || '';
+  const initialFilter = searchParams.get('filter') || '';
 
   const [products, setProducts] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState(
     initialCategory ? [initialCategory] : []
   );
+  const [selectedAges, setSelectedAges] = useState(
+    initialAge ? [initialAge] : []
+  );
+  const [maxBudget, setMaxBudget] = useState(initialMaxPrice ? Number(initialMaxPrice) : null);
+  const [isBestSellerOnly, setIsBestSellerOnly] = useState(initialFilter === 'bestseller');
   const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
   const [availability, setAvailability] = useState({ inStock: false, outOfStock: false });
   const [sortBy, setSortBy] = useState('featured');
@@ -47,6 +63,18 @@ export default function Shop() {
     if (cat && !selectedCategories.includes(cat)) {
       setSelectedCategories([cat]);
     }
+    const age = searchParams.get('age');
+    if (age && !selectedAges.includes(age)) {
+      setSelectedAges([age]);
+    }
+    const maxP = searchParams.get('maxPrice');
+    if (maxP) {
+      setMaxBudget(Number(maxP));
+    }
+    const filter = searchParams.get('filter');
+    if (filter === 'bestseller') {
+      setIsBestSellerOnly(true);
+    }
   }, [searchParams]);
 
   const handleCategoryToggle = (category) => {
@@ -54,6 +82,14 @@ export default function Shop() {
       prev.includes(category)
         ? prev.filter((c) => c !== category)
         : [...prev, category]
+    );
+  };
+
+  const handleAgeToggle = (ageKey) => {
+    setSelectedAges((prev) =>
+      prev.includes(ageKey)
+        ? prev.filter((a) => a !== ageKey)
+        : [...prev, ageKey]
     );
   };
 
@@ -67,16 +103,32 @@ export default function Shop() {
 
   const handleClearFilters = () => {
     setSelectedCategories([]);
+    setSelectedAges([]);
+    setMaxBudget(null);
+    setIsBestSellerOnly(false);
     setSelectedPriceRanges([]);
     setAvailability({ inStock: false, outOfStock: false });
     setSearchParams({});
   };
 
   const filteredProducts = products.filter((product) => {
+    if (isBestSellerOnly && !product.is_bestseller && (product.rating || 0) < 4.8) {
+      return false;
+    }
+
     if (selectedCategories.length > 0) {
       if (!selectedCategories.some((cat) => cat.toLowerCase() === product.category?.toLowerCase())) {
         return false;
       }
+    }
+
+    if (selectedAges.length > 0) {
+      const matchAge = selectedAges.some((age) => product.age_range?.toLowerCase().includes(age.toLowerCase()));
+      if (!matchAge) return false;
+    }
+
+    if (maxBudget) {
+      if (Number(product.price) > maxBudget) return false;
     }
 
     if (selectedPriceRanges.length > 0) {
@@ -106,15 +158,17 @@ export default function Shop() {
     return 0;
   });
 
+  const hasActiveFilters = selectedCategories.length > 0 || selectedAges.length > 0 || maxBudget || isBestSellerOnly || selectedPriceRanges.length > 0 || availability.inStock || availability.outOfStock;
+
   return (
     <div className="container archive post-type-archive post-type-archive-product woocommerce-page" style={{ padding: '32px 20px 80px' }}>
       {/* Header Banner */}
       <div style={{ marginBottom: '28px' }}>
         <h1 className="woocommerce-products-header__title page-title" style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '6px' }}>
-          Shop All Toys
+          {isBestSellerOnly ? '🔥 SmartKids Best Sellers' : (maxBudget ? `🎁 Toys Under PKR ${maxBudget.toLocaleString()}` : (selectedAges.length === 1 ? `Toys for Ages ${selectedAges[0]}` : 'Shop All Toys'))}
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-          Discover fun, creative, and educational toys for every little explorer.
+          Discover fun, creative, and educational toys for every little explorer in Pakistan.
         </p>
       </div>
 
@@ -125,11 +179,26 @@ export default function Shop() {
             <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: 800 }}>
               <Filter size={18} color="var(--primary-blue)" /> Filters
             </h3>
-            {(selectedCategories.length > 0 || selectedPriceRanges.length > 0 || availability.inStock || availability.outOfStock) && (
-              <button onClick={handleClearFilters} className="filter-clear-btn" style={{ color: 'var(--primary-blue)' }}>
+            {hasActiveFilters && (
+              <button onClick={handleClearFilters} className="filter-clear-btn" style={{ color: 'var(--primary-blue)', fontWeight: 700 }}>
                 Clear All
               </button>
             )}
+          </div>
+
+          {/* Shop by Age Filter */}
+          <div className="filter-group widget woocommerce">
+            <h4 className="filter-group-title">Shop by Age</h4>
+            {AGE_RANGES.map((range) => (
+              <label key={range.key} className="filter-option-item">
+                <input
+                  type="checkbox"
+                  checked={selectedAges.includes(range.key)}
+                  onChange={() => handleAgeToggle(range.key)}
+                />
+                <span style={{ fontWeight: 600 }}>{range.label}</span>
+              </label>
+            ))}
           </div>
 
           {/* Category Filter */}

@@ -92,6 +92,16 @@ $sku = 'SKT-' . strtoupper( substr( $product['category'], 0, 3 ) ) . '-' . str_p
                 </span>
             </div>
 
+            <!-- Age & Educational Skill Badges -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+                <span style="background: #EFF6FF; color: #0284C7; font-weight: 800; font-size: 0.82rem; padding: 4px 12px; border-radius: var(--radius-full); display: inline-flex; align-items: center; gap: 4px;">
+                    <span>Age: <?php echo esc_html( isset( $product['age_range'] ) ? $product['age_range'] : '3-8 Years' ); ?></span>
+                </span>
+                <span style="background: #ECFDF5; color: #059669; font-weight: 800; font-size: 0.82rem; padding: 4px 12px; border-radius: var(--radius-full); display: inline-flex; align-items: center; gap: 4px;">
+                    <span>Educational: <?php echo esc_html( isset( $product['educational_skill'] ) ? $product['educational_skill'] : 'STEM &amp; Motor Skills' ); ?></span>
+                </span>
+            </div>
+
             <!-- Price Row -->
             <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px;">
                 <span style="font-size: 2.2rem; font-weight: 900; color: var(--dark-heading); font-family: var(--font-heading);">
@@ -131,23 +141,23 @@ $sku = 'SKT-' . strtoupper( substr( $product['category'], 0, 3 ) ) . '-' . str_p
                         data-toy-name="<?php echo esc_attr( $product['name'] ); ?>"
                         data-toy-price="<?php echo esc_attr( $product['price'] ); ?>"
                         data-toy-image="<?php echo esc_attr( $product['image'] ); ?>"
-                        style="background: linear-gradient(135deg, #0284C7, #0369A1); padding: 12px 28px; font-size: 0.95rem; border-radius: var(--radius-full);"
+                        style="background: linear-gradient(135deg, #0284C7, #0369A1); padding: 14px 28px; font-size: 1rem; border-radius: var(--radius-full); flex: 1; font-weight: 800;"
                     >
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
                         <span>Add to Shopping Bag</span>
                     </button>
-
-                    <a 
-                        href="https://wa.me/923098444501?text=<?php echo urlencode( 'Hello! I want to order: ' . $product['name'] . ' (SKU: ' . $sku . ' | PKR ' . number_format( $product['price'] ) . ')' ); ?>" 
-                        target="_blank" 
-                        rel="noreferrer"
-                        class="btn-whatsapp"
-                        style="padding: 12px 24px; font-size: 0.95rem; border-radius: var(--radius-full);"
-                    >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                        <span>Buy Now via WhatsApp</span>
-                    </a>
                 </div>
+
+                <!-- Prominent Order on WhatsApp Button -->
+                <a 
+                    href="https://wa.me/923098444501?text=<?php echo urlencode( 'Hello SmartKids Toys! I want to order: ' . $product['name'] . ' (Price: PKR ' . number_format( $product['price'] ) . ' | SKU: ' . $sku . '). Please confirm my delivery details!' ); ?>" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    style="width: 100%; background: #25D366; color: #FFFFFF; border-radius: var(--radius-full); padding: 14px 20px; font-weight: 900; font-size: 1rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);"
+                >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    <span>Order on WhatsApp</span>
+                </a>
 
             </div>
 
