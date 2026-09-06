@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
+import { settingsService, DEFAULT_SETTINGS } from '../services/settingsService';
 import ProductCard from '../components/common/ProductCard';
 import { Tag, Filter, SlidersHorizontal } from 'lucide-react';
 
@@ -23,6 +24,7 @@ const PRICE_RANGES = [
 
 export default function SpecialDeals() {
   const [products, setProducts] = useState([]);
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
   const [availability, setAvailability] = useState({ inStock: false, outOfStock: false });
@@ -30,8 +32,15 @@ export default function SpecialDeals() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    productService.getDeals().then((data) => {
-      setProducts(data);
+    Promise.all([
+      productService.getDeals().catch(() => []),
+      settingsService.getSettings().catch(() => DEFAULT_SETTINGS)
+    ]).then(([data, sets]) => {
+      setProducts(Array.isArray(data) ? data : []);
+      if (sets) setSettings(sets);
+      setLoading(false);
+    }).catch(err => {
+      console.warn('Failed to load special deals:', err);
       setLoading(false);
     });
   }, []);
@@ -58,15 +67,16 @@ export default function SpecialDeals() {
     setAvailability({ inStock: false, outOfStock: false });
   };
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = (products || []).filter((product) => {
+    if (!product) return false;
     if (selectedCategories.length > 0) {
-      if (!selectedCategories.some((cat) => cat.toLowerCase() === product.category?.toLowerCase())) {
+      if (!selectedCategories.some((cat) => cat.toLowerCase() === (product.category || '').toLowerCase())) {
         return false;
       }
     }
 
     if (selectedPriceRanges.length > 0) {
-      const price = Number(product.price);
+      const price = Number(product.price) || 0;
       const matchesPrice = selectedPriceRanges.some((rangeIdx) => {
         const range = PRICE_RANGES[rangeIdx];
         return price >= range.min && price <= range.max;
@@ -75,19 +85,28 @@ export default function SpecialDeals() {
     }
 
     if (availability.inStock && !availability.outOfStock) {
-      if (product.stock <= 0) return false;
+      if ((product.stock ?? 0) <= 0) return false;
     }
     if (availability.outOfStock && !availability.inStock) {
-      if (product.stock > 0) return false;
+      if ((product.stock ?? 0) > 0) return false;
     }
 
     return true;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy === 'price-low') return a.price - b.price;
-    if (sortBy === 'price-high') return b.price - a.price;
-    if (sortBy === 'rating') return (b.rating || 0) - (a.rating || 0);
+    if (sortBy === 'discount') {
+      const discountA = a.old_price && Number(a.old_price) > Number(a.price)
+        ? ((Number(a.old_price) - Number(a.price)) / Number(a.old_price))
+        : 0;
+      const discountB = b.old_price && Number(b.old_price) > Number(b.price)
+        ? ((Number(b.old_price) - Number(b.price)) / Number(b.old_price))
+        : 0;
+      return discountB - discountA;
+    }
+    if (sortBy === 'price-low') return (Number(a.price) || 0) - (Number(b.price) || 0);
+    if (sortBy === 'price-high') return (Number(b.price) || 0) - (Number(a.price) || 0);
+    if (sortBy === 'rating') return (Number(b.rating) || 0) - (Number(a.rating) || 0);
     return 0;
   });
 
@@ -96,7 +115,7 @@ export default function SpecialDeals() {
       {/* 1. Deals Header Banner (Full background with teddy bear) */}
       <section className="demo-hero-section" style={{ minHeight: '220px', background: '#FEF6DF', marginBottom: '32px' }}>
         <img
-          src="/assets/teddy-banner.png"
+          src={settings.deals_banner_image || settings.teddy_banner_image || '/assets/teddy-banner.png'}
           alt="Special Deals Banner"
           className="demo-banner-full-bg"
         />

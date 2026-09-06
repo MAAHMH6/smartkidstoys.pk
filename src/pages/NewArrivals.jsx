@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
+import { settingsService, DEFAULT_SETTINGS } from '../services/settingsService';
 import ProductCard from '../components/common/ProductCard';
 import { Sparkles, Filter, SlidersHorizontal } from 'lucide-react';
 
@@ -23,6 +24,7 @@ const PRICE_RANGES = [
 
 export default function NewArrivals() {
   const [products, setProducts] = useState([]);
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
   const [availability, setAvailability] = useState({ inStock: false, outOfStock: false });
@@ -30,8 +32,15 @@ export default function NewArrivals() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    productService.getNewArrivals().then((data) => {
-      setProducts(data);
+    Promise.all([
+      productService.getNewArrivals().catch(() => []),
+      settingsService.getSettings().catch(() => DEFAULT_SETTINGS)
+    ]).then(([data, sets]) => {
+      setProducts(Array.isArray(data) ? data : []);
+      if (sets) setSettings(sets);
+      setLoading(false);
+    }).catch(err => {
+      console.warn('Failed to load new arrivals:', err);
       setLoading(false);
     });
   }, []);
@@ -58,15 +67,16 @@ export default function NewArrivals() {
     setAvailability({ inStock: false, outOfStock: false });
   };
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = (products || []).filter((product) => {
+    if (!product) return false;
     if (selectedCategories.length > 0) {
-      if (!selectedCategories.some((cat) => cat.toLowerCase() === product.category?.toLowerCase())) {
+      if (!selectedCategories.some((cat) => cat.toLowerCase() === (product.category || '').toLowerCase())) {
         return false;
       }
     }
 
     if (selectedPriceRanges.length > 0) {
-      const price = Number(product.price);
+      const price = Number(product.price) || 0;
       const matchesPrice = selectedPriceRanges.some((rangeIdx) => {
         const range = PRICE_RANGES[rangeIdx];
         return price >= range.min && price <= range.max;
@@ -75,19 +85,19 @@ export default function NewArrivals() {
     }
 
     if (availability.inStock && !availability.outOfStock) {
-      if (product.stock <= 0) return false;
+      if ((product.stock ?? 0) <= 0) return false;
     }
     if (availability.outOfStock && !availability.inStock) {
-      if (product.stock > 0) return false;
+      if ((product.stock ?? 0) > 0) return false;
     }
 
     return true;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy === 'price-low') return a.price - b.price;
-    if (sortBy === 'price-high') return b.price - a.price;
-    if (sortBy === 'rating') return (b.rating || 0) - (a.rating || 0);
+    if (sortBy === 'price-low') return (Number(a.price) || 0) - (Number(b.price) || 0);
+    if (sortBy === 'price-high') return (Number(b.price) || 0) - (Number(a.price) || 0);
+    if (sortBy === 'rating') return (Number(b.rating) || 0) - (Number(a.rating) || 0);
     return 0; // newest default
   });
 
@@ -96,7 +106,7 @@ export default function NewArrivals() {
       {/* 1. New Arrivals Header Banner (Full background with train) */}
       <section className="demo-hero-section" style={{ minHeight: '220px', background: '#DCEFFA', marginBottom: '32px' }}>
         <img
-          src="/assets/train-banner.png"
+          src={settings.new_arrivals_banner_image || settings.train_banner_image || '/assets/train-banner.png'}
           alt="New Arrivals Banner"
           className="demo-banner-full-bg"
         />

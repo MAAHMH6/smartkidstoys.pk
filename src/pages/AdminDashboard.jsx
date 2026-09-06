@@ -1088,6 +1088,15 @@ export default function AdminDashboard() {
                   ]
                 },
                 {
+                  section: 'New Arrivals & Special Deals (Bottom Cards & Page Banners)',
+                  icon: '🚂',
+                  bg: '#DCEFFA',
+                  cards: [
+                    { label: 'New Arrivals Train Banner / Card Image', key: 'new_arrivals_banner_image' },
+                    { label: 'Special Deals Teddy Banner / Card Image', key: 'deals_banner_image' }
+                  ]
+                },
+                {
                   section: 'Instagram Gallery (6 Photos)',
                   icon: '📸',
                   bg: '#FCE7F3',

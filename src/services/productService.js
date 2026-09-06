@@ -475,6 +475,24 @@ export const productService = {
     );
   },
 
+  async getNewArrivals() {
+    const products = await this.getAll();
+    // Return products marked as new, or most recently added if none flagged
+    const newOnes = products.filter(p => p.is_new === true || p.is_new === 1);
+    return newOnes.length > 0 ? newOnes : products.slice(0, 8);
+  },
+
+  async getDeals() {
+    const products = await this.getAll();
+    // Return products marked as deals (has old_price > price), or is_deal flagged
+    const deals = products.filter(p => 
+      p.is_deal === true || 
+      p.is_deal === 1 || 
+      (p.old_price && Number(p.old_price) > Number(p.price))
+    );
+    return deals.length > 0 ? deals : products.slice(0, 8);
+  },
+
   async createProduct(productData) {
     const newId = 'prod-' + Date.now();
     const cleanSlug = productData.slug || slugify(productData.name || newId);
