@@ -29,6 +29,9 @@ CREATE TABLE IF NOT EXISTS products (
   is_new BOOLEAN DEFAULT FALSE,
   is_deal BOOLEAN DEFAULT FALSE,
   image_url TEXT,
+  age_range TEXT DEFAULT '3–5 Years',
+  educational_skill TEXT DEFAULT 'General Fun',
+  badge TEXT DEFAULT '🔥 Best Seller',
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -79,7 +82,9 @@ INSERT INTO site_settings (key, value, label, group_name) VALUES
   ('youtube_url', '', 'YouTube URL', 'social'),
   ('delivery_note', 'Calculated on WhatsApp', 'Delivery Note', 'shipping'),
   ('free_delivery_threshold', '3000', 'Free Delivery Above (PKR)', 'shipping'),
-  ('site_announcement', 'Free Shipping on orders above PKR 3,000 🚀', 'Announcement Bar Text', 'general')
+  ('site_announcement', 'Free Shipping on orders above PKR 3,000 🚀', 'Announcement Bar Text', 'general'),
+  ('announcement_messages', '🚚 Free Shipping on orders above PKR 3,000 🚀 | ⚡ Flash Sale — Up to 40% OFF selected toys! | 🎁 Fast Delivery across Pakistan in 2–4 days | 📞 Order via WhatsApp: 03098444501 | ✨ New arrivals added every week — Shop now!', 'Scrolling Announcement Bar Messages', 'general'),
+  ('flash_sale_end_date', (NOW() + INTERVAL '3 days')::TEXT, 'Flash Sale End Date', 'promotions')
 ON CONFLICT (key) DO NOTHING;
 
 -- 7. Trigger: auto-assign customer number on signup

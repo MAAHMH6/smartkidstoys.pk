@@ -21,29 +21,49 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<!-- ===== TOP ANNOUNCEMENT BAR ===== -->
-<div class="top-utilities-bar">
-    <div class="container top-utilities-content">
-        <div class="top-utilities-left">
-            <!-- Truck SVG -->
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            Free Delivery Across Pakistan on Orders Over PKR 3,000
-        </div>
-        <div class="top-utilities-right">
-            <a href="https://wa.me/923098444501" target="_blank" rel="noreferrer" class="top-util-link">
-                <!-- WhatsApp SVG -->
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                WhatsApp: 03098444501
-            </a>
-            <a href="tel:+923098444501" class="top-util-link">
-                <!-- Phone SVG -->
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.78 16.92z"/></svg>
-                Call: 03098444501
-            </a>
-            <a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="top-util-link">Store Support</a>
+<!-- ===== TOP SHOPIFY-STYLE SCROLLING ANNOUNCEMENT BAR ===== -->
+<?php
+$announcement_raw = get_theme_mod( 'skt_announcement_messages', "🚚 Free Shipping on orders above PKR 3,000 🚀 | ⚡ Flash Sale — Up to 40% OFF selected toys! | 🎁 Fast Delivery across Pakistan in 2–4 days | 📞 Order via WhatsApp: 03098444501 | ✨ New arrivals added every week — Shop now!" );
+$announcements = array_filter( array_map( 'trim', explode( '|', $announcement_raw ) ) );
+if ( empty( $announcements ) ) {
+    $announcements = array(
+        '🚚 Free Shipping on orders above PKR 3,000 🚀',
+        '⚡ Flash Sale — Up to 40% OFF selected toys!',
+        '🎁 Fast Delivery across Pakistan in 2–4 days',
+        '📞 Order via WhatsApp: 03098444501',
+        '✨ New arrivals added every week — Shop now!'
+    );
+}
+// Duplicate array for seamless infinite marquee loop
+$ticker_items = array_merge( $announcements, $announcements );
+$whatsapp_num = get_theme_mod( 'skt_whatsapp_number', '03098444501' );
+?>
+<aside class="announcement-bar-shopify" aria-label="Store announcements">
+    <div class="announcement-ticker-wrap">
+        <div class="announcement-ticker-track">
+            <?php foreach ( $ticker_items as $item ) : ?>
+                <span class="announcement-ticker-item">
+                    <?php echo esc_html( $item ); ?>
+                    <span class="announcement-dot" aria-hidden="true">✦</span>
+                </span>
+            <?php endforeach; ?>
         </div>
     </div>
-</div>
+    <div class="announcement-bar-links">
+        <a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $whatsapp_num ) ); ?>" class="ann-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.78 16.92z"/></svg>
+            <span><?php echo esc_html( $whatsapp_num ); ?></span>
+        </a>
+        <a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="ann-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Help</span>
+        </a>
+        <a href="<?php echo esc_url( home_url( '/account' ) ); ?>" class="ann-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            <span>Track Order</span>
+        </a>
+    </div>
+</aside>
 
 <!-- ===== MAIN HEADER: 3-Column Centered Logo Grid ===== -->
 <header class="main-header" role="banner">

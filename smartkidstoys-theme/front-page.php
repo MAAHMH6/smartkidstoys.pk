@@ -290,31 +290,74 @@ $button_colors = array(
                 Limited-time deals on kids' favourite toys
             </p>
 
-            <!-- Countdown Box -->
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
+            <!-- Countdown Box (Dynamic Ticking Timer) -->
+            <?php
+            $default_end_ts = time() + (3 * 24 * 3600);
+            $custom_end_date = get_theme_mod( 'skt_flash_sale_end_date', '' );
+            $target_iso = !empty($custom_end_date) ? $custom_end_date : gmdate('Y-m-d\TH:i:s\Z', $default_end_ts);
+            ?>
+            <div id="skt-flash-countdown" style="display:flex; align-items:center; gap:8px; margin-bottom:18px; flex-wrap:wrap;" data-fallback-end="<?php echo esc_attr( $target_iso ); ?>">
                 <div style="background:#FFFFFF; border:1.5px solid #E2E8F0; border-radius:10px; padding:6px 12px; text-align:center; min-width:54px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
-                    <div style="font-size:1.2rem; font-weight:900; color:#0F172A;">02</div>
+                    <div id="skt-cd-days" style="font-size:1.2rem; font-weight:900; color:#0F172A;">03</div>
                     <div style="font-size:0.65rem; color:#64748B; font-weight:700; text-transform:uppercase;">Days</div>
                 </div>
                 <span style="font-weight:900; color:#DB2777; font-size:1.1rem;">:</span>
 
                 <div style="background:#FFFFFF; border:1.5px solid #E2E8F0; border-radius:10px; padding:6px 12px; text-align:center; min-width:54px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
-                    <div style="font-size:1.2rem; font-weight:900; color:#0F172A;">14</div>
+                    <div id="skt-cd-hours" style="font-size:1.2rem; font-weight:900; color:#0F172A;">00</div>
                     <div style="font-size:0.65rem; color:#64748B; font-weight:700; text-transform:uppercase;">Hours</div>
                 </div>
                 <span style="font-weight:900; color:#DB2777; font-size:1.1rem;">:</span>
 
                 <div style="background:#FFFFFF; border:1.5px solid #E2E8F0; border-radius:10px; padding:6px 12px; text-align:center; min-width:54px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
-                    <div style="font-size:1.2rem; font-weight:900; color:#0F172A;">36</div>
+                    <div id="skt-cd-mins" style="font-size:1.2rem; font-weight:900; color:#0F172A;">00</div>
                     <div style="font-size:0.65rem; color:#64748B; font-weight:700; text-transform:uppercase;">Minutes</div>
                 </div>
                 <span style="font-weight:900; color:#DB2777; font-size:1.1rem;">:</span>
 
                 <div style="background:#FFFFFF; border:1.5px solid #E2E8F0; border-radius:10px; padding:6px 12px; text-align:center; min-width:54px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
-                    <div style="font-size:1.2rem; font-weight:900; color:#DB2777;">22</div>
+                    <div id="skt-cd-secs" style="font-size:1.2rem; font-weight:900; color:#DB2777;">00</div>
                     <div style="font-size:0.65rem; color:#64748B; font-weight:700; text-transform:uppercase;">Seconds</div>
                 </div>
             </div>
+
+            <script>
+            (function() {
+                var container = document.getElementById('skt-flash-countdown');
+                if (!container) return;
+                
+                var targetStr = container.getAttribute('data-fallback-end');
+                // Check if admin dashboard saved settings in localStorage
+                try {
+                    var localSettings = JSON.parse(localStorage.getItem('smartkids_site_settings') || '{}');
+                    if (localSettings.flash_sale_end_date) {
+                        targetStr = localSettings.flash_sale_end_date;
+                    }
+                } catch(e) {}
+
+                var elDays = document.getElementById('skt-cd-days');
+                var elHours = document.getElementById('skt-cd-hours');
+                var elMins = document.getElementById('skt-cd-mins');
+                var elSecs = document.getElementById('skt-cd-secs');
+
+                function updateCountdown() {
+                    var diff = Math.max(0, new Date(targetStr).getTime() - Date.now());
+                    var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    var pad = function(n) { return String(n).padStart(2, '0'); };
+                    if (elDays) elDays.textContent = pad(days);
+                    if (elHours) elHours.textContent = pad(hours);
+                    if (elMins) elMins.textContent = pad(minutes);
+                    if (elSecs) elSecs.textContent = pad(seconds);
+                }
+
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            })();
+            </script>
 
             <a href="<?php echo esc_url( home_url( '/deals' ) ); ?>" style="background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:10px 22px; border-radius:9999px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 14px rgba(236,72,153,0.35); text-decoration:none;">
                 <span>Shop Flash Sale</span>

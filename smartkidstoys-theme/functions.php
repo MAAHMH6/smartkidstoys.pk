@@ -102,6 +102,26 @@ function smartkidstoys_customize_register( $wp_customize ) {
         'section'  => 'skt_media_section',
         'type'     => 'text',
     ) );
+
+    // Scrolling Announcement Bar Messages
+    $wp_customize->add_setting( 'skt_announcement_messages', array(
+        'default' => "🚚 Free Shipping on orders above PKR 3,000 🚀 | ⚡ Flash Sale — Up to 40% OFF selected toys! | 🎁 Fast Delivery across Pakistan in 2–4 days | 📞 Order via WhatsApp: 03098444501 | ✨ New arrivals added every week — Shop now!"
+    ) );
+    $wp_customize->add_control( 'skt_announcement_messages', array(
+        'label'       => __( 'Scrolling Announcement Bar Messages (Separate each message with |)', 'smartkidstoys' ),
+        'section'     => 'skt_media_section',
+        'type'        => 'textarea',
+        'description' => __( 'Each item will scroll smoothly across the top bar. Use pipe | to separate announcements.', 'smartkidstoys' ),
+    ) );
+
+    // Flash Sale End Date
+    $wp_customize->add_setting( 'skt_flash_sale_end_date', array( 'default' => '' ) );
+    $wp_customize->add_control( 'skt_flash_sale_end_date', array(
+        'label'       => __( 'Flash Sale Countdown End Date (ISO / YYYY-MM-DDTHH:MM)', 'smartkidstoys' ),
+        'section'     => 'skt_media_section',
+        'type'        => 'text',
+        'description' => __( 'Leave empty for automatic 3-day rolling countdown, or set e.g. 2026-09-20T23:59:59', 'smartkidstoys' ),
+    ) );
 }
 add_action( 'customize_register', 'smartkidstoys_customize_register' );
 
