@@ -155,19 +155,49 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--primary-blue-hover);
 }
 
-/* ── Shopify-style Scrolling Announcement Bar ── */
+/* ── Shopify-style Scrolling Announcement Bar (Rainbow Edition) ── */
 .announcement-bar-shopify {
-  background: linear-gradient(90deg, #0F172A 0%, #1E3A5F 40%, #0F172A 100%);
-  color: #F0F9FF;
-  font-size: 0.82rem;
-  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #FF1E56 0%,
+    #FF6B08 14%,
+    #FFB800 28%,
+    #05C46B 42%,
+    #00D2D3 56%,
+    #3B82F6 70%,
+    #8854D0 84%,
+    #FF1E56 100%
+  );
+  background-size: 200% auto;
+  animation: rainbowFlow 9s linear infinite;
+  color: #FFFFFF;
+  font-size: 0.83rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   height: 38px;
   overflow: hidden;
   position: relative;
   z-index: 100;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 12px rgba(255, 30, 86, 0.25);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  transition: all 0.35s ease;
+}
+
+/* Speeds up rainbow flow and intensifies glow on hover */
+.announcement-bar-shopify:hover {
+  animation-duration: 3s;
+  box-shadow: 0 4px 22px rgba(255, 107, 8, 0.5), 0 0 35px rgba(136, 84, 208, 0.35);
+  filter: brightness(1.06);
+}
+
+@keyframes rainbowFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 .announcement-ticker-wrap {
@@ -198,41 +228,83 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   gap: 0;
-  padding: 0 24px;
+  padding: 4px 22px;
+  border-radius: 9999px;
   letter-spacing: 0.01em;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+/* Rainbow glow pill on ticker item hover */
+.announcement-ticker-item:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.25);
+  transform: scale(1.03);
 }
 
 .announcement-dot {
-  margin-left: 24px;
-  font-size: 0.6rem;
-  color: #7DD3FC;
-  opacity: 0.7;
+  margin-left: 22px;
+  font-size: 0.72rem;
+  color: #FFF385;
+  text-shadow: 0 0 6px #FFD700, 0 0 12px #FF6B08;
+  opacity: 0.95;
+  animation: rainbowDotPulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes rainbowDotPulse {
+  0%   { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.25); opacity: 1; }
 }
 
 .announcement-bar-links {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   padding: 0 16px 0 12px;
   flex-shrink: 0;
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
   height: 100%;
 }
 
 .ann-link {
   display: flex;
   align-items: center;
-  gap: 4px;
-  color: #BAE6FD;
+  gap: 5px;
+  color: #FFFFFF;
   font-size: 0.78rem;
   font-weight: 700;
-  transition: color 0.15s;
+  padding: 3px 11px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   text-decoration: none;
+  text-shadow: none;
 }
 
+/* Rainbow hover effect on links: white pill with rainbow text gradient & rainbow aura */
 .ann-link:hover {
-  color: #FFFFFF;
+  background: #FFFFFF;
+  color: #0F172A;
+  border-color: #FFFFFF;
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.9), 0 0 24px rgba(255, 107, 8, 0.6);
+}
+
+.ann-link:hover span {
+  background: linear-gradient(90deg, #E11D48, #EA580C, #16A34A, #2563EB, #9333EA);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowFlow 2s linear infinite;
+}
+
+.ann-link:hover svg {
+  stroke: #EA580C;
+  filter: drop-shadow(0 0 4px rgba(234, 88, 12, 0.7));
 }
 
 @media (max-width: 768px) {
