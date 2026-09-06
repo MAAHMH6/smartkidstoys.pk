@@ -12,6 +12,8 @@ export const DEFAULT_SETTINGS = {
   delivery_note: 'Calculated on WhatsApp',
   free_delivery_threshold: '3000',
   site_announcement: 'Free Shipping on orders above PKR 3,000 🚀 | Fast Delivery Across Pakistan',
+  // Multi-message ticker — pipe-separated, each shown in the scrolling marquee
+  announcement_messages: '🚚 Free Shipping on orders above PKR 3,000 🚀|⚡ Flash Sale — Up to 40% OFF selected toys!|🎁 Fast Delivery across Pakistan in 2–4 days|📞 Order via WhatsApp: 03098444501|✨ New arrivals added every week — Shop now!',
 
   // 1. Hero Section Banner & Visuals
   hero_image_url: '/assets/hero-banner.png',
@@ -26,6 +28,8 @@ export const DEFAULT_SETTINGS = {
   flash_sale_bg_color: '#FFF9E6',
   flash_sale_bg_position: 'right center',
   flash_sale_bg_size: 'cover',
+  // ISO date string — admin can push this forward/back to extend or shorten the countdown
+  flash_sale_end_date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
 
   // 3. Shop Toys by Age (4 Full Background Images)
   age_0_2_bg_image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',

@@ -32,31 +32,19 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Flash Sale Countdown Timer (Live ticking)
-  const [timeLeft, setTimeLeft] = useState({
-    days: 2,
-    hours: 14,
-    minutes: 36,
-    seconds: 22
-  });
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        } else if (prev.days > 0) {
-          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
-        }
-        return prev;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  // Flash Sale Countdown Timer — driven by settings.flash_sale_end_date
+  const calcTimeLeft = (endDate) => {
+    const diff = Math.max(0, new Date(endDate).getTime() - Date.now());
+    return {
+      days:    Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours:   Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / (1000 * 60)) % 60),
+      seconds: Math.floor((diff / 1000) % 60)
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     Promise.all([
@@ -66,13 +54,26 @@ export default function Home() {
     ]).then(([popData, bestData, setsData]) => {
       setPopularProducts(popData || []);
       setBestSellers(bestData || []);
-      if (setsData) setSettings(setsData);
+      if (setsData) {
+        setSettings(setsData);
+        setTimeLeft(calcTimeLeft(setsData.flash_sale_end_date || DEFAULT_SETTINGS.flash_sale_end_date));
+      }
       setLoading(false);
     }).catch(err => {
       console.warn('Error loading home data:', err);
       setLoading(false);
     });
   }, []);
+
+  // Tick every second
+  useEffect(() => {
+    const endDate = settings.flash_sale_end_date || DEFAULT_SETTINGS.flash_sale_end_date;
+    const timer = setInterval(() => {
+      setTimeLeft(calcTimeLeft(endDate));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [settings.flash_sale_end_date]);
+
 
   const circularCategories = [
     { name: 'Action Figures', icon: '🤖', bg: '#F3E8FF', link: '/shop?category=Action%20Figures' },

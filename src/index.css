@@ -145,46 +145,90 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--primary-blue-hover);
 }
 
-/* Top Utilities Announcement Bar */
-.top-utilities-bar {
-  background-color: #F0F9FF;
-  border-bottom: 1px solid #E0F2FE;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.top-utilities-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.top-utilities-left {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* ── Shopify-style Scrolling Announcement Bar ── */
+.announcement-bar-shopify {
+  background: linear-gradient(90deg, #0F172A 0%, #1E3A5F 40%, #0F172A 100%);
+  color: #F0F9FF;
+  font-size: 0.82rem;
   font-weight: 600;
-  color: var(--primary-blue);
-}
-
-.top-utilities-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  height: 38px;
+  overflow: hidden;
+  position: relative;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.top-util-link {
+/* Scrolling ticker area (takes remaining width) */
+.announcement-ticker-wrap {
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+  mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+}
+
+/* The moving track — infinite loop via CSS animation */
+.announcement-ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: annTicker 28s linear infinite;
+  will-change: transform;
+}
+
+.announcement-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes annTicker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.announcement-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 24px;
+  letter-spacing: 0.01em;
+}
+
+.announcement-dot {
+  margin-left: 24px;
+  font-size: 0.6rem;
+  color: #7DD3FC;
+  opacity: 0.7;
+}
+
+/* Right links (non-scrolling) */
+.announcement-bar-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px 0 12px;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  height: 100%;
+}
+
+.ann-link {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: var(--text-muted);
-  font-weight: 600;
-  transition: var(--transition);
+  color: #BAE6FD;
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition: color 0.15s;
+  white-space: nowrap;
 }
 
-.top-util-link:hover {
-  color: var(--primary-blue);
+.ann-link:hover {
+  color: #FFFFFF;
 }
+
+/* Legacy classes kept for any WP theme references */
+.top-utilities-bar { display: none; }
 
 /* Main Header: 3-Column Centered Logo Grid */
 .main-header {

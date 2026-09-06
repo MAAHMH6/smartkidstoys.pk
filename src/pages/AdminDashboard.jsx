@@ -1265,9 +1265,85 @@ export default function AdminDashboard() {
                     onChange={(e) => setSettingsForm({ ...settingsForm, site_announcement: e.target.value })}
                     style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem' }}
                   />
+                  <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>Legacy fallback text (not shown in scrolling ticker)</span>
+                </div>
+
+                {/* Scrolling Announcement Messages */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>📢 Scrolling Announcement Messages</label>
+                  <textarea
+                    rows={4}
+                    value={settingsForm.announcement_messages || ''}
+                    onChange={(e) => setSettingsForm({ ...settingsForm, announcement_messages: e.target.value })}
+                    style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.88rem', resize: 'vertical' }}
+                    placeholder="🚚 Free Shipping on orders above PKR 3,000|⚡ Flash Sale — Up to 40% OFF!"
+                  />
+                  <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>Separate messages with a pipe <strong>|</strong> — each one scrolls across the dark top bar.</span>
+                </div>
+
+                {/* ⚡ Flash Sale Countdown Timer Control */}
+                <div style={{ background: 'linear-gradient(135deg, #FFF7ED, #FEF3C7)', borderRadius: 'var(--radius-lg)', padding: '22px', border: '1.5px solid #FDE68A' }}>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 900, marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>⚡</span> Flash Sale Countdown Timer
+                  </h3>
+                  <p style={{ fontSize: '0.82rem', color: '#92400E', marginBottom: '16px', fontWeight: 600 }}>
+                    Set the exact end date & time for the flash sale. The homepage countdown will sync automatically.
+                  </p>
+
+                  {/* Current target display */}
+                  {settingsForm.flash_sale_end_date && (
+                    <div style={{ background: 'white', borderRadius: 'var(--radius-md)', padding: '10px 14px', marginBottom: '14px', border: '1px solid #FDE68A', fontSize: '0.85rem', fontWeight: 700, color: '#92400E' }}>
+                      ⏰ Current end: {new Date(settingsForm.flash_sale_end_date).toLocaleString('en-PK', { dateStyle: 'full', timeStyle: 'short' })}
+                    </div>
+                  )}
+
+                  {/* Exact datetime input */}
+                  <div style={{ marginBottom: '14px' }}>
+                    <label style={{ display: 'block', fontSize: '0.83rem', fontWeight: 700, marginBottom: '6px' }}>Set Exact End Date & Time</label>
+                    <input
+                      type="datetime-local"
+                      value={settingsForm.flash_sale_end_date ? settingsForm.flash_sale_end_date.slice(0, 16) : ''}
+                      onChange={(e) => {
+                        const iso = e.target.value ? new Date(e.target.value).toISOString() : '';
+                        setSettingsForm({ ...settingsForm, flash_sale_end_date: iso });
+                      }}
+                      style={{ padding: '10px 14px', border: '1.5px solid #FDE68A', borderRadius: 'var(--radius-md)', fontSize: '0.92rem', background: 'white', width: '100%', maxWidth: '340px' }}
+                    />
+                  </div>
+
+                  {/* Quick-adjust buttons */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.83rem', fontWeight: 700, marginBottom: '8px' }}>Quick Adjust</label>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      {[
+                        { label: '+1 Hour', delta: 60 * 60 * 1000, color: '#059669' },
+                        { label: '+1 Day',  delta: 24 * 60 * 60 * 1000, color: '#0284C7' },
+                        { label: '+3 Days', delta: 3 * 24 * 60 * 60 * 1000, color: '#7C3AED' },
+                        { label: '+7 Days', delta: 7 * 24 * 60 * 60 * 1000, color: '#DB2777' },
+                        { label: '−1 Day',  delta: -24 * 60 * 60 * 1000, color: '#EF4444' },
+                        { label: '−1 Hour', delta: -60 * 60 * 1000, color: '#F59E0B' }
+                      ].map(({ label, delta, color }) => (
+                        <button
+                          key={label}
+                          type="button"
+                          onClick={() => {
+                            const current = settingsForm.flash_sale_end_date
+                              ? new Date(settingsForm.flash_sale_end_date).getTime()
+                              : Date.now() + 24 * 60 * 60 * 1000;
+                            const next = new Date(Math.max(Date.now(), current + delta));
+                            setSettingsForm({ ...settingsForm, flash_sale_end_date: next.toISOString() });
+                          }}
+                          style={{ padding: '7px 14px', borderRadius: 'var(--radius-full)', background: color, color: 'white', fontWeight: 800, fontSize: '0.8rem', border: 'none', cursor: 'pointer' }}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Social Links */}
+
                 <div style={{ borderTop: '1px solid var(--gray-2)', paddingTop: '20px' }}>
                   <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '14px' }}>Social Media Links</h3>
 
