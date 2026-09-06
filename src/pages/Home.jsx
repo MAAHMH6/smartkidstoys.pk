@@ -369,16 +369,18 @@ export default function Home() {
       {/* 5. ⚡ FLASH SALE UP TO 40% OFF BANNER (Full BG Image Card) */}
       <section style={{
         margin: '36px 0 48px',
-        borderRadius: '20px',
+        borderRadius: '24px',
         position: 'relative',
         overflow: 'hidden',
-        minHeight: '280px',
-        backgroundImage: `url(${settings.flash_sale_image_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900'})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        minHeight: 'clamp(340px, 32vw, 460px)',
+        backgroundColor: settings.flash_sale_bg_color || '#FFF9E6',
+        backgroundImage: `url(${settings.flash_sale_image_url || '/assets/flash-sale-banner.png'})`,
+        backgroundSize: settings.flash_sale_bg_size || 'cover',
+        backgroundPosition: settings.flash_sale_bg_position || 'right center',
+        backgroundRepeat: 'no-repeat',
         display: 'flex',
         alignItems: 'center',
-        padding: '24px 32px'
+        padding: '32px 36px'
       }}>
         {/* Transparent frosted text card: ensures text readability while keeping the user-uploaded background image 100% visible, bright and clear with no greyish tint */}
         <div style={{

@@ -30,7 +30,10 @@ import {
   Check,
   UserPlus,
   ShoppingCart,
-  Phone
+  Phone,
+  Upload,
+  Image as ImageIcon,
+  Tag
 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -42,7 +45,37 @@ const CATEGORIES = [
   'Puzzles',
   'Outdoor Toys',
   'Baby Toys',
-  'Arts & Crafts'
+  'Arts & Crafts',
+  'Other'
+];
+
+const AGE_RANGES = [
+  '0–2 Years',
+  '1–3 Years',
+  '3–5 Years',
+  '5–8 Years',
+  '8+ Years',
+  'All Ages'
+];
+
+const EDUCATIONAL_SKILLS = [
+  'STEM & Logic',
+  'Creativity & Arts',
+  'Problem Solving',
+  'Fine Motor Skills',
+  'Sensory Exploration',
+  'Language & Phonics',
+  'Physical & Active Play',
+  'General Fun'
+];
+
+const BADGE_PRESETS = [
+  '🔥 Best Seller',
+  '⚡ Flash Deal',
+  '⭐ Customer Favourite',
+  '✨ New Arrival',
+  '🧠 Brain Booster',
+  '🎁 Top Gift Pick'
 ];
 
 const PAKISTAN_CITIES = [
@@ -88,6 +121,9 @@ export default function AdminDashboard() {
     name: '',
     description: '',
     category: 'Soft Toys',
+    age_range: '3–5 Years',
+    educational_skill: 'General Fun',
+    badge: '🔥 Best Seller',
     price: '',
     old_price: '',
     stock: '25',
@@ -163,6 +199,9 @@ export default function AdminDashboard() {
       name: '',
       description: '',
       category: 'Soft Toys',
+      age_range: '3–5 Years',
+      educational_skill: 'General Fun',
+      badge: '🔥 Best Seller',
       price: '',
       old_price: '',
       stock: '25',
@@ -179,6 +218,9 @@ export default function AdminDashboard() {
       name: product.name || '',
       description: product.description || '',
       category: product.category || 'Soft Toys',
+      age_range: product.age_range || '3–5 Years',
+      educational_skill: product.educational_skill || 'General Fun',
+      badge: product.badge || '🔥 Best Seller',
       price: product.price || '',
       old_price: product.old_price || '',
       stock: product.stock !== undefined ? String(product.stock) : '20',
@@ -196,6 +238,9 @@ export default function AdminDashboard() {
         name: productForm.name.trim(),
         description: productForm.description.trim(),
         category: productForm.category,
+        age_range: productForm.age_range,
+        educational_skill: productForm.educational_skill,
+        badge: productForm.badge,
         price: Number(productForm.price),
         old_price: productForm.old_price ? Number(productForm.old_price) : null,
         stock: Number(productForm.stock),
@@ -1091,20 +1136,21 @@ export default function AdminDashboard() {
                           {currentUrl ? (
                             <div style={{
                               width: '100%',
-                              height: '130px',
+                              height: '160px',
                               borderRadius: 'var(--radius-md)',
-                              backgroundImage: `url(${currentUrl})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
+                              overflow: 'hidden',
                               border: '2px solid #0284C7',
-                              position: 'relative',
-                              overflow: 'hidden'
+                              background: '#F8FAFC',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
                             }}>
-                              <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <span style={{ color: 'white', fontWeight: 800, fontSize: '0.8rem', background: 'rgba(0,0,0,0.5)', padding: '4px 10px', borderRadius: '6px' }}>
-                                  Live Preview
-                                </span>
-                              </div>
+                              <img
+                                src={currentUrl}
+                                alt="preview"
+                                onError={(e) => { e.target.style.display='none'; }}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+                              />
                             </div>
                           ) : (
                             <div style={{ width: '100%', height: '130px', borderRadius: 'var(--radius-md)', background: group.bg, border: '2px dashed var(--gray-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
@@ -1548,21 +1594,23 @@ export default function AdminDashboard() {
 
             <form onSubmit={handleSaveProduct} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               
+              {/* Product Name */}
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Product Name *</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Cute Teddy Bear"
+                  placeholder="e.g. Cute Teddy Bear Plush"
                   value={productForm.name}
                   onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
                   style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem' }}
                 />
               </div>
 
+              {/* Category + Age Range */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Category *</label>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>🏷️ Category *</label>
                   <select
                     value={productForm.category}
                     onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
@@ -1575,6 +1623,51 @@ export default function AdminDashboard() {
                 </div>
 
                 <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>👶 Age Range *</label>
+                  <select
+                    value={productForm.age_range}
+                    onChange={(e) => setProductForm({ ...productForm, age_range: e.target.value })}
+                    style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem', background: 'white' }}
+                  >
+                    {AGE_RANGES.map(a => (
+                      <option key={a} value={a}>{a}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Educational Skill + Badge */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>🧠 Educational Skill</label>
+                  <select
+                    value={productForm.educational_skill}
+                    onChange={(e) => setProductForm({ ...productForm, educational_skill: e.target.value })}
+                    style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem', background: 'white' }}
+                  >
+                    {EDUCATIONAL_SKILLS.map(s => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>🎖️ Product Badge</label>
+                  <select
+                    value={productForm.badge}
+                    onChange={(e) => setProductForm({ ...productForm, badge: e.target.value })}
+                    style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem', background: 'white' }}
+                  >
+                    {BADGE_PRESETS.map(b => (
+                      <option key={b} value={b}>{b}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Stock + Price */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                <div>
                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Inventory Stock *</label>
                   <input
                     type="number"
@@ -1585,9 +1678,7 @@ export default function AdminDashboard() {
                     style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem' }}
                   />
                 </div>
-              </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Sale Price (PKR) *</label>
                   <input
@@ -1599,30 +1690,61 @@ export default function AdminDashboard() {
                     style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem' }}
                   />
                 </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Original Price (PKR)</label>
-                  <input
-                    type="number"
-                    placeholder="2500"
-                    value={productForm.old_price}
-                    onChange={(e) => setProductForm({ ...productForm, old_price: e.target.value })}
-                    style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem' }}
-                  />
-                </div>
               </div>
 
+              {/* Original Price */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Image URL</label>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Original Price (PKR) <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(optional — shows strikethrough discount)</span></label>
                 <input
-                  type="url"
-                  placeholder="https://images.unsplash.com/..."
-                  value={productForm.image_url}
-                  onChange={(e) => setProductForm({ ...productForm, image_url: e.target.value })}
+                  type="number"
+                  placeholder="2500"
+                  value={productForm.old_price}
+                  onChange={(e) => setProductForm({ ...productForm, old_price: e.target.value })}
                   style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem' }}
                 />
               </div>
 
+              {/* Image URL + Live Preview */}
+              <div>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>🖼️ Product Image URL</label>
+                <input
+                  type="url"
+                  placeholder="https://images.unsplash.com/photo-... or any direct image link"
+                  value={productForm.image_url}
+                  onChange={(e) => setProductForm({ ...productForm, image_url: e.target.value })}
+                  style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem', marginBottom: '10px' }}
+                />
+                {/* Live image preview — object-fit contain so you see the full product, no cropping */}
+                <div style={{
+                  width: '100%',
+                  aspectRatio: '4/3',
+                  border: productForm.image_url ? '2px solid #0284C7' : '2px dashed #CBD5E1',
+                  borderRadius: 'var(--radius-md)',
+                  background: '#F8FAFC',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  position: 'relative'
+                }}>
+                  {productForm.image_url ? (
+                    <img
+                      src={productForm.image_url}
+                      alt="Product preview"
+                      onError={(e) => { e.target.style.display='none'; }}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '12px' }}
+                    />
+                  ) : (
+                    <div style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
+                      <ImageIcon size={32} style={{ marginBottom: '8px', opacity: 0.4 }} />
+                      <div style={{ fontSize: '0.8rem', fontWeight: 600 }}>Paste a URL above to see a live preview</div>
+                      <div style={{ fontSize: '0.72rem', marginTop: '4px', opacity: 0.7 }}>Recommended: square or 4:3 product photo on white/light bg</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Description */}
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Product Description</label>
                 <textarea
@@ -1630,11 +1752,12 @@ export default function AdminDashboard() {
                   placeholder="Super soft and cuddly plush teddy bear. Perfect companion for kids."
                   value={productForm.description}
                   onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
-                  style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem' }}
+                  style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem', resize: 'vertical' }}
                 />
               </div>
 
-              <div style={{ display: 'flex', gap: '20px', margin: '4px 0 10px' }}>
+              {/* Checkboxes */}
+              <div style={{ display: 'flex', gap: '20px', margin: '4px 0 10px', flexWrap: 'wrap' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.88rem', fontWeight: 700 }}>
                   <input
                     type="checkbox"
@@ -1642,7 +1765,7 @@ export default function AdminDashboard() {
                     onChange={(e) => setProductForm({ ...productForm, is_new: e.target.checked })}
                     style={{ width: '16px', height: '16px', accentColor: 'var(--primary-blue)' }}
                   />
-                  <span>Mark as New Arrival</span>
+                  <span>✨ New Arrival</span>
                 </label>
 
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.88rem', fontWeight: 700 }}>
@@ -1652,7 +1775,7 @@ export default function AdminDashboard() {
                     onChange={(e) => setProductForm({ ...productForm, is_deal: e.target.checked })}
                     style={{ width: '16px', height: '16px', accentColor: '#F59E0B' }}
                   />
-                  <span>Mark as Special Deal</span>
+                  <span>⚡ Special Deal</span>
                 </label>
               </div>
 
@@ -1669,7 +1792,7 @@ export default function AdminDashboard() {
                   className="btn"
                   style={{ background: 'linear-gradient(135deg, #0284C7, #0369A1)', color: 'white', padding: '10px 24px', borderRadius: 'var(--radius-full)', fontWeight: 800 }}
                 >
-                  Save Changes
+                  {editingProduct ? 'Save Changes' : '+ Add Toy'}
                 </button>
               </div>
 

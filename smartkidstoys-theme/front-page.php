@@ -276,7 +276,7 @@ $button_colors = array(
     }
     ?>
     <!-- 5. FLASH SALE UP TO 40% OFF BANNER (Full BG Image Card) -->
-    <section style="margin:36px 0 48px; border-radius:20px; position:relative; overflow:hidden; min-height:280px; background-image:url('<?php echo esc_url( $flash_sale_bg ); ?>'); background-size:cover; background-position:center; display:flex; align-items:center; padding:24px 32px;">
+    <section style="margin:36px 0 48px; border-radius:24px; position:relative; overflow:hidden; min-height:clamp(340px, 32vw, 460px); background-color:#FFF9E6; background-image:url('<?php echo esc_url( $flash_sale_bg ); ?>'); background-size:cover; background-position:right center; background-repeat:no-repeat; display:flex; align-items:center; padding:32px 36px;">
         <!-- Clean frosted text card: ensures text readability while keeping the user-uploaded background image 100% visible, bright and clear with no greyish tint -->
         <div style="position:relative; z-index:2; background:rgba(255, 255, 255, 0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:16px; padding:24px 28px; max-width:520px; box-shadow:0 8px 30px rgba(0,0,0,0.12); border:1px solid rgba(255, 255, 255, 0.85);">
             <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">

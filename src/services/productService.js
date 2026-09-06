@@ -240,30 +240,51 @@ export const SMARTKIDS_BUNDLES = [
 
 export const productService = {
   async getAll() {
+    let prods = [...FALLBACK_PRODUCTS];
     try {
       const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
-      if (error || !data || data.length === 0) {
-        return FALLBACK_PRODUCTS;
+      if (!error && data && data.length > 0) {
+        prods = data.map((item, idx) => {
+          const fallback = FALLBACK_PRODUCTS[idx % FALLBACK_PRODUCTS.length];
+          return {
+            ...fallback,
+            ...item,
+            age_range: item.age_range || fallback.age_range || '3–5 Years',
+            educational_skill: item.educational_skill || fallback.educational_skill || 'STEM & Motor Skills',
+            badge: item.badge || fallback.badge || '🔥 Best Seller'
+          };
+        });
       }
-      return data.map((item, idx) => {
-        const fallback = FALLBACK_PRODUCTS[idx % FALLBACK_PRODUCTS.length];
-        return {
-          ...fallback,
-          ...item,
-          age_range: item.age_range || fallback.age_range || '3–5 Years',
-          educational_skill: item.educational_skill || fallback.educational_skill || 'STEM & Motor Skills',
-          badge: item.badge || fallback.badge || '🔥 Best Seller'
-        };
-      });
     } catch (e) {
-      return FALLBACK_PRODUCTS;
+      console.warn('Supabase fetch products error, using fallback:', e);
     }
+
+    // Merge custom products created by admin from localStorage
+    try {
+      const localCustom = JSON.parse(localStorage.getItem('smartkids_custom_products') || '[]');
+      if (Array.isArray(localCustom) && localCustom.length > 0) {
+        const existingIds = new Set(prods.map(p => String(p.id)));
+        const filteredLocal = localCustom.filter(p => !existingIds.has(String(p.id)));
+        prods = [...filteredLocal, ...prods];
+      }
+    } catch (e) {
+      console.warn('Could not read custom local products:', e);
+    }
+
+    return prods;
   },
 
   async getById(id) {
     try {
       const bundle = SMARTKIDS_BUNDLES.find(b => b.id === id);
       if (bundle) return bundle;
+
+      // Check local custom products first
+      try {
+        const localCustom = JSON.parse(localStorage.getItem('smartkids_custom_products') || '[]');
+        const foundLocal = localCustom.find(p => String(p.id) === String(id));
+        if (foundLocal) return foundLocal;
+      } catch (e) {}
 
       const { data, error } = await supabase.from('products').select('*').eq('id', id).single();
       if (error || !data) {
@@ -304,5 +325,111 @@ export const productService = {
       p.category?.toLowerCase().includes(q) ||
       p.description?.toLowerCase().includes(q)
     );
+  },
+
+  async createProduct(productData) {
+    const newId = 'prod-' + Date.now();
+    const newProduct = {
+      id: newId,
+      created_at: new Date().toISOString(),
+      rating: 5.0,
+      rating_count: 1,
+      ...productData
+    };
+
+    // 1. Try Supabase insert
+    try {
+      const { data, error } = await supabase.from('products').insert([productData]).select().single();
+      if (!error && data) {
+        newProduct.id = data.id;
+      } else if (error) {
+        // Fallback for schema variance: insert only baseline columns
+        const basePayload = {
+          name: productData.name,
+          description: productData.description || '',
+          price: Number(productData.price),
+          old_price: productData.old_price ? Number(productData.old_price) : null,
+          category: productData.category,
+          stock: Number(productData.stock || 0),
+          is_new: Boolean(productData.is_new),
+          is_deal: Boolean(productData.is_deal),
+          image_url: productData.image_url || ''
+        };
+        const { data: bData } = await supabase.from('products').insert([basePayload]).select().single();
+        if (bData) newProduct.id = bData.id;
+      }
+    } catch (err) {
+      console.warn('Supabase product creation notice:', err);
+    }
+
+    // 2. Always persist locally for instant availability
+    try {
+      const local = JSON.parse(localStorage.getItem('smartkids_custom_products') || '[]');
+      localStorage.setItem('smartkids_custom_products', JSON.stringify([newProduct, ...local]));
+    } catch (err) {
+      console.warn('Local storage save error:', err);
+    }
+
+    return newProduct;
+  },
+
+  async updateProduct(id, productData) {
+    // 1. Try Supabase update
+    try {
+      const { error } = await supabase.from('products').update(productData).eq('id', id);
+      if (error) {
+        const basePayload = {
+          name: productData.name,
+          description: productData.description || '',
+          price: Number(productData.price),
+          old_price: productData.old_price ? Number(productData.old_price) : null,
+          category: productData.category,
+          stock: Number(productData.stock || 0),
+          is_new: Boolean(productData.is_new),
+          is_deal: Boolean(productData.is_deal),
+          image_url: productData.image_url || ''
+        };
+        await supabase.from('products').update(basePayload).eq('id', id);
+      }
+    } catch (err) {
+      console.warn('Supabase product update notice:', err);
+    }
+
+    // 2. Update localStorage cache
+    try {
+      const local = JSON.parse(localStorage.getItem('smartkids_custom_products') || '[]');
+      const idx = local.findIndex(p => String(p.id) === String(id));
+      if (idx !== -1) {
+        local[idx] = { ...local[idx], ...productData };
+        localStorage.setItem('smartkids_custom_products', JSON.stringify(local));
+      } else {
+        localStorage.setItem('smartkids_custom_products', JSON.stringify([{ id, ...productData }, ...local]));
+      }
+    } catch (err) {
+      console.warn('Local storage update error:', err);
+    }
+
+    return { id, ...productData };
+  },
+
+  async deleteProduct(id) {
+    // 1. Try Supabase delete
+    try {
+      await supabase.from('products').delete().eq('id', id);
+    } catch (err) {
+      console.warn('Supabase delete product notice:', err);
+    }
+
+    // 2. Remove from localStorage cache
+    try {
+      const local = JSON.parse(localStorage.getItem('smartkids_custom_products') || '[]');
+      const filtered = local.filter(p => String(p.id) !== String(id));
+      localStorage.setItem('smartkids_custom_products', JSON.stringify(filtered));
+    } catch (err) {
+      console.warn('Local storage delete error:', err);
+    }
+
+    return true;
   }
 };
+

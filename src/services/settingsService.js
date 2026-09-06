@@ -20,9 +20,12 @@ export const DEFAULT_SETTINGS = {
   hero_subtitle: 'Safe, fun and educational toys for every age...',
 
   // 2. Flash Sale Banner
-  flash_sale_image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600',
+  flash_sale_image_url: '/assets/flash-sale-banner.png',
   flash_sale_title: 'FLASH SALE UP TO 40% OFF',
   flash_sale_subtitle: "Limited-time deals on kids' favourite toys",
+  flash_sale_bg_color: '#FFF9E6',
+  flash_sale_bg_position: 'right center',
+  flash_sale_bg_size: 'cover',
 
   // 3. Shop Toys by Age (4 Full Background Images)
   age_0_2_bg_image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
