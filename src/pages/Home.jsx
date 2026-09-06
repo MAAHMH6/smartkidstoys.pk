@@ -378,51 +378,55 @@ export default function Home() {
         backgroundPosition: 'center',
         display: 'flex',
         alignItems: 'center',
-        padding: '28px 36px'
+        padding: '24px 32px'
       }}>
-        {/* Light gradient overlay */}
+        {/* Transparent frosted text card: ensures text readability while keeping the user-uploaded background image 100% visible, bright and clear with no greyish tint */}
         <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(135deg, rgba(254, 243, 199, 0.88) 0%, rgba(252, 231, 243, 0.82) 50%, rgba(254, 243, 199, 0.7) 100%)',
-          zIndex: 1
-        }} />
-
-        <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-            <span style={{ fontSize: '1.8rem', color: '#F59E0B' }}>⚡</span>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 900, color: '#DB2777', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.5px' }}>
+          position: 'relative',
+          zIndex: 2,
+          background: 'rgba(255, 255, 255, 0.92)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderRadius: '16px',
+          padding: '24px 28px',
+          maxWidth: '520px',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
+          border: '1px solid rgba(255, 255, 255, 0.85)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+            <span style={{ fontSize: '1.6rem', color: '#F59E0B' }}>⚡</span>
+            <h2 style={{ fontSize: 'clamp(1.3rem, 2.5vw, 1.85rem)', fontWeight: 900, color: '#DB2777', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.5px' }}>
               FLASH SALE <span style={{ color: '#0284C7' }}>UP TO 40% OFF</span>
             </h2>
           </div>
 
-          <p style={{ color: '#64748B', fontSize: '0.95rem', fontWeight: 600, margin: '0 0 18px' }}>
+          <p style={{ color: '#475569', fontSize: '0.92rem', fontWeight: 600, margin: '0 0 16px' }}>
             Limited-time deals on kids' favourite toys
           </p>
 
           {/* Countdown Box */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
-            <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
-              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.days).padStart(2, '0')}</div>
-              <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Days</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px', flexWrap: 'wrap' }}>
+            <div style={{ background: '#FFFFFF', border: '1.5px solid #E2E8F0', borderRadius: '10px', padding: '6px 12px', textAlign: 'center', minWidth: '54px', boxShadow: '0 2px 6px rgba(0,0,0,0.05)' }}>
+              <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.days).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.65rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Days</div>
             </div>
-            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
+            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.1rem' }}>:</span>
 
-            <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
-              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.hours).padStart(2, '0')}</div>
-              <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Hours</div>
+            <div style={{ background: '#FFFFFF', border: '1.5px solid #E2E8F0', borderRadius: '10px', padding: '6px 12px', textAlign: 'center', minWidth: '54px', boxShadow: '0 2px 6px rgba(0,0,0,0.05)' }}>
+              <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.hours).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.65rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Hours</div>
             </div>
-            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
+            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.1rem' }}>:</span>
 
-            <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
-              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.minutes).padStart(2, '0')}</div>
-              <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Minutes</div>
+            <div style={{ background: '#FFFFFF', border: '1.5px solid #E2E8F0', borderRadius: '10px', padding: '6px 12px', textAlign: 'center', minWidth: '54px', boxShadow: '0 2px 6px rgba(0,0,0,0.05)' }}>
+              <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.minutes).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.65rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Minutes</div>
             </div>
-            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
+            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.1rem' }}>:</span>
 
-            <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
-              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#DB2777' }}>{String(timeLeft.seconds).padStart(2, '0')}</div>
-              <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Seconds</div>
+            <div style={{ background: '#FFFFFF', border: '1.5px solid #E2E8F0', borderRadius: '10px', padding: '6px 12px', textAlign: 'center', minWidth: '54px', boxShadow: '0 2px 6px rgba(0,0,0,0.05)' }}>
+              <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#DB2777' }}>{String(timeLeft.seconds).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.65rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Seconds</div>
             </div>
           </div>
 
@@ -432,8 +436,8 @@ export default function Home() {
               background: 'linear-gradient(135deg, #EC4899, #DB2777)',
               color: '#FFFFFF',
               fontWeight: 800,
-              fontSize: '0.92rem',
-              padding: '10px 24px',
+              fontSize: '0.9rem',
+              padding: '10px 22px',
               borderRadius: '9999px',
               display: 'inline-flex',
               alignItems: 'center',
@@ -731,7 +735,7 @@ export default function Home() {
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.3) 55%, rgba(15, 23, 42, 0.5) 100%)',
+                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.18) 40%, rgba(15, 23, 42, 0.52) 100%)',
                 zIndex: 1
               }} />
 

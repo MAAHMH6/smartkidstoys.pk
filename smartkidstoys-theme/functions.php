@@ -87,6 +87,14 @@ function smartkidstoys_customize_register( $wp_customize ) {
         'settings' => 'skt_teddy_banner',
     ) ) );
 
+    // Flash Sale Banner
+    $wp_customize->add_setting( 'skt_flash_sale_banner', array( 'default' => '' ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_flash_sale_banner', array(
+        'label'    => __( 'Flash Sale Banner Image', 'smartkidstoys' ),
+        'section'  => 'skt_media_section',
+        'settings' => 'skt_flash_sale_banner',
+    ) ) );
+
     // WhatsApp Number
     $wp_customize->add_setting( 'skt_whatsapp_number', array( 'default' => '923098444501' ) );
     $wp_customize->add_control( 'skt_whatsapp_number', array(

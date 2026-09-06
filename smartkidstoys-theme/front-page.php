@@ -263,50 +263,60 @@ $button_colors = array(
         </div>
     </section>
 
+    <?php
+    $flash_sale_bg = get_theme_mod( 'skt_flash_sale_banner' );
+    if ( empty( $flash_sale_bg ) ) {
+        $flash_sale_bg = get_option( 'flash_sale_image_url' );
+    }
+    if ( empty( $flash_sale_bg ) ) {
+        $flash_sale_bg = smartkidstoys_get_image_url( 'skt_flash_sale_banner', 'flash-sale-banner.png' );
+    }
+    if ( empty( $flash_sale_bg ) || ( strpos( $flash_sale_bg, 'flash-sale-banner.png' ) !== false && ! file_exists( get_template_directory() . '/assets/img/flash-sale-banner.png' ) ) ) {
+        $flash_sale_bg = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900';
+    }
+    ?>
     <!-- 5. FLASH SALE UP TO 40% OFF BANNER (Full BG Image Card) -->
-    <section style="margin:36px 0 48px; border-radius:20px; position:relative; overflow:hidden; min-height:280px; background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900'); background-size:cover; background-position:center; display:flex; align-items:center; padding:28px 36px;">
-        <!-- Light gradient overlay -->
-        <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(254, 243, 199, 0.88) 0%, rgba(252, 231, 243, 0.82) 50%, rgba(254, 243, 199, 0.7) 100%); z-index:1;"></div>
-
-        <div style="position:relative; z-index:2; width:100%;">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <h2 style="font-size:clamp(1.5rem, 3vw, 2.2rem); font-weight:900; color:#DB2777; margin:0; text-transform:uppercase; letter-spacing:-0.5px;">
+    <section style="margin:36px 0 48px; border-radius:20px; position:relative; overflow:hidden; min-height:280px; background-image:url('<?php echo esc_url( $flash_sale_bg ); ?>'); background-size:cover; background-position:center; display:flex; align-items:center; padding:24px 32px;">
+        <!-- Clean frosted text card: ensures text readability while keeping the user-uploaded background image 100% visible, bright and clear with no greyish tint -->
+        <div style="position:relative; z-index:2; background:rgba(255, 255, 255, 0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:16px; padding:24px 28px; max-width:520px; box-shadow:0 8px 30px rgba(0,0,0,0.12); border:1px solid rgba(255, 255, 255, 0.85);">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <h2 style="font-size:clamp(1.3rem, 2.5vw, 1.85rem); font-weight:900; color:#DB2777; margin:0; text-transform:uppercase; letter-spacing:-0.5px;">
                     FLASH SALE <span style="color:#0284C7;">UP TO 40% OFF</span>
                 </h2>
             </div>
 
-            <p style="color:#64748B; font-size:0.95rem; font-weight:600; margin:0 0 18px;">
+            <p style="color:#475569; font-size:0.92rem; font-weight:600; margin:0 0 16px;">
                 Limited-time deals on kids' favourite toys
             </p>
 
             <!-- Countdown Box -->
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-                <div style="background:rgba(255,255,255,0.9); backdrop-filter:blur(8px); border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                    <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">02</div>
-                    <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Days</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
+                <div style="background:#FFFFFF; border:1.5px solid #E2E8F0; border-radius:10px; padding:6px 12px; text-align:center; min-width:54px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
+                    <div style="font-size:1.2rem; font-weight:900; color:#0F172A;">02</div>
+                    <div style="font-size:0.65rem; color:#64748B; font-weight:700; text-transform:uppercase;">Days</div>
                 </div>
-                <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
+                <span style="font-weight:900; color:#DB2777; font-size:1.1rem;">:</span>
 
-                <div style="background:rgba(255,255,255,0.9); backdrop-filter:blur(8px); border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                    <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">14</div>
-                    <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Hours</div>
+                <div style="background:#FFFFFF; border:1.5px solid #E2E8F0; border-radius:10px; padding:6px 12px; text-align:center; min-width:54px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
+                    <div style="font-size:1.2rem; font-weight:900; color:#0F172A;">14</div>
+                    <div style="font-size:0.65rem; color:#64748B; font-weight:700; text-transform:uppercase;">Hours</div>
                 </div>
-                <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
+                <span style="font-weight:900; color:#DB2777; font-size:1.1rem;">:</span>
 
-                <div style="background:rgba(255,255,255,0.9); backdrop-filter:blur(8px); border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                    <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">36</div>
-                    <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Minutes</div>
+                <div style="background:#FFFFFF; border:1.5px solid #E2E8F0; border-radius:10px; padding:6px 12px; text-align:center; min-width:54px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
+                    <div style="font-size:1.2rem; font-weight:900; color:#0F172A;">36</div>
+                    <div style="font-size:0.65rem; color:#64748B; font-weight:700; text-transform:uppercase;">Minutes</div>
                 </div>
-                <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
+                <span style="font-weight:900; color:#DB2777; font-size:1.1rem;">:</span>
 
-                <div style="background:rgba(255,255,255,0.9); backdrop-filter:blur(8px); border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                    <div style="font-size:1.25rem; font-weight:900; color:#DB2777;">22</div>
-                    <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Seconds</div>
+                <div style="background:#FFFFFF; border:1.5px solid #E2E8F0; border-radius:10px; padding:6px 12px; text-align:center; min-width:54px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
+                    <div style="font-size:1.2rem; font-weight:900; color:#DB2777;">22</div>
+                    <div style="font-size:0.65rem; color:#64748B; font-weight:700; text-transform:uppercase;">Seconds</div>
                 </div>
             </div>
 
-            <a href="<?php echo esc_url( home_url( '/deals' ) ); ?>" style="background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; font-weight:800; font-size:0.92rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 14px rgba(236,72,153,0.35); text-decoration:none;">
+            <a href="<?php echo esc_url( home_url( '/deals' ) ); ?>" style="background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:10px 22px; border-radius:9999px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 14px rgba(236,72,153,0.35); text-decoration:none;">
                 <span>Shop Flash Sale</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
@@ -594,7 +604,7 @@ $button_colors = array(
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
             <div style="position:relative; min-height:250px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:24px;">
-                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.3) 55%, rgba(15,23,42,0.5) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.18) 40%, rgba(15,23,42,0.52) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
                     <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Birthday Gifts</h3>
                     <p style="font-size:0.92rem; color:rgba(255,255,255,0.95); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Fun picks they'll remember</p>
@@ -607,7 +617,7 @@ $button_colors = array(
             </div>
 
             <div style="position:relative; min-height:250px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:24px;">
-                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.3) 55%, rgba(15,23,42,0.5) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.18) 40%, rgba(15,23,42,0.52) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
                     <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Educational Gifts</h3>
                     <p style="font-size:0.92rem; color:rgba(255,255,255,0.95); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Play &amp; learning together</p>
@@ -620,7 +630,7 @@ $button_colors = array(
             </div>
 
             <div style="position:relative; min-height:250px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:24px;">
-                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.3) 55%, rgba(15,23,42,0.5) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.18) 40%, rgba(15,23,42,0.52) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
                     <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Gifts Under PKR 2,000</h3>
                     <p style="font-size:0.92rem; color:rgba(255,255,255,0.95); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Great toys, great prices</p>
