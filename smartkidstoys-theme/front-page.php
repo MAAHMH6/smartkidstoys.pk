@@ -263,56 +263,53 @@ $button_colors = array(
         </div>
     </section>
 
-    <!-- 5. FLASH SALE UP TO 40% OFF BANNER -->
-    <section style="margin:36px 0 48px; border-radius:20px; background:linear-gradient(135deg, #FEF3C7 0%, #FCE7F3 100%); border:1px solid #FDE68A; padding:28px 36px; position:relative; overflow:hidden;">
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); align-items:center; gap:24px;">
-            <div>
-                <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                    <h2 style="font-size:clamp(1.5rem, 3vw, 2.2rem); font-weight:900; color:#DB2777; margin:0; text-transform:uppercase; letter-spacing:-0.5px;">
-                        FLASH SALE <span style="color:#0284C7;">UP TO 40% OFF</span>
-                    </h2>
-                </div>
+    <!-- 5. FLASH SALE UP TO 40% OFF BANNER (Full BG Image Card) -->
+    <section style="margin:36px 0 48px; border-radius:20px; position:relative; overflow:hidden; min-height:280px; background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900'); background-size:cover; background-position:center; display:flex; align-items:center; padding:28px 36px;">
+        <!-- Light gradient overlay -->
+        <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(254, 243, 199, 0.88) 0%, rgba(252, 231, 243, 0.82) 50%, rgba(254, 243, 199, 0.7) 100%); z-index:1;"></div>
 
-                <p style="color:#64748B; font-size:0.95rem; font-weight:600; margin:0 0 18px;">
-                    Limited-time deals on kids' favourite toys
-                </p>
-
-                <!-- Countdown Box -->
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-                    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                        <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">02</div>
-                        <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Days</div>
-                    </div>
-                    <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
-
-                    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                        <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">14</div>
-                        <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Hours</div>
-                    </div>
-                    <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
-
-                    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                        <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">36</div>
-                        <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Minutes</div>
-                    </div>
-                    <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
-
-                    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-                        <div style="font-size:1.25rem; font-weight:900; color:#DB2777;">22</div>
-                        <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Seconds</div>
-                    </div>
-                </div>
-
-                <a href="<?php echo esc_url( home_url( '/deals' ) ); ?>" style="background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; font-weight:800; font-size:0.92rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 14px rgba(236,72,153,0.35); text-decoration:none;">
-                    <span>Shop Flash Sale</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
+        <div style="position:relative; z-index:2; width:100%;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <h2 style="font-size:clamp(1.5rem, 3vw, 2.2rem); font-weight:900; color:#DB2777; margin:0; text-transform:uppercase; letter-spacing:-0.5px;">
+                    FLASH SALE <span style="color:#0284C7;">UP TO 40% OFF</span>
+                </h2>
             </div>
 
-            <div style="display:flex; align-items:center; justify-content:center;">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=450" alt="Flash Sale Toys" style="max-height:180px; width:auto; border-radius:16px; object-fit:contain;" />
+            <p style="color:#64748B; font-size:0.95rem; font-weight:600; margin:0 0 18px;">
+                Limited-time deals on kids' favourite toys
+            </p>
+
+            <!-- Countdown Box -->
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                <div style="background:rgba(255,255,255,0.9); backdrop-filter:blur(8px); border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+                    <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">02</div>
+                    <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Days</div>
+                </div>
+                <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
+
+                <div style="background:rgba(255,255,255,0.9); backdrop-filter:blur(8px); border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+                    <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">14</div>
+                    <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Hours</div>
+                </div>
+                <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
+
+                <div style="background:rgba(255,255,255,0.9); backdrop-filter:blur(8px); border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+                    <div style="font-size:1.25rem; font-weight:900; color:#0F172A;">36</div>
+                    <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Minutes</div>
+                </div>
+                <span style="font-weight:900; color:#DB2777; font-size:1.2rem;">:</span>
+
+                <div style="background:rgba(255,255,255,0.9); backdrop-filter:blur(8px); border:1px solid #E2E8F0; border-radius:10px; padding:8px 14px; text-align:center; min-width:60px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+                    <div style="font-size:1.25rem; font-weight:900; color:#DB2777;">22</div>
+                    <div style="font-size:0.68rem; color:#64748B; font-weight:700; text-transform:uppercase;">Seconds</div>
+                </div>
             </div>
+
+            <a href="<?php echo esc_url( home_url( '/deals' ) ); ?>" style="background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; font-weight:800; font-size:0.92rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 14px rgba(236,72,153,0.35); text-decoration:none;">
+                <span>Shop Flash Sale</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
         </div>
     </section>
 
@@ -439,56 +436,56 @@ $button_colors = array(
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:18px;">
             <a href="<?php echo esc_url( home_url( '/shop?age=0-2' ) ); ?>" style="position:relative; height:270px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:20px; text-decoration:none;">
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.45) 40%, rgba(15,23,42,0.9) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.2) 40%, rgba(15,23,42,0.55) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
                     <span style="background:rgba(255,255,255,0.92); color:#0F172A; font-size:0.75rem; font-weight:800; padding:5px 12px; border-radius:9999px;">Baby &amp; Toddler</span>
                 </div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.45rem; font-weight:900; color:#FFFFFF; margin:0 0 4px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">0-2 Years</h3>
-                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.92); margin:0 0 14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.5);">Safe &amp; sensory</p>
-                    <span style="background:#FFFFFF; color:#0284C7; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px;">
+                    <h3 style="font-size:1.45rem; font-weight:900; color:#FFFFFF; margin:0 0 4px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">0-2 Years</h3>
+                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.95); margin:0 0 14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Safe &amp; sensory</p>
+                    <span style="background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
                         Shop Now &rarr;
                     </span>
                 </div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/shop?age=3-5' ) ); ?>" style="position:relative; height:270px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:20px; text-decoration:none;">
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.45) 40%, rgba(15,23,42,0.9) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.2) 40%, rgba(15,23,42,0.55) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
                     <span style="background:rgba(255,255,255,0.92); color:#0F172A; font-size:0.75rem; font-weight:800; padding:5px 12px; border-radius:9999px;">Preschoolers</span>
                 </div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.45rem; font-weight:900; color:#FFFFFF; margin:0 0 4px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">3-5 Years</h3>
-                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.92); margin:0 0 14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.5);">Creative play</p>
-                    <span style="background:#FFFFFF; color:#0284C7; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px;">
+                    <h3 style="font-size:1.45rem; font-weight:900; color:#FFFFFF; margin:0 0 4px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">3-5 Years</h3>
+                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.95); margin:0 0 14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Creative play</p>
+                    <span style="background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
                         Shop Now &rarr;
                     </span>
                 </div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/shop?age=6-8' ) ); ?>" style="position:relative; height:270px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:20px; text-decoration:none;">
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.45) 40%, rgba(15,23,42,0.9) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.2) 40%, rgba(15,23,42,0.55) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
                     <span style="background:rgba(255,255,255,0.92); color:#0F172A; font-size:0.75rem; font-weight:800; padding:5px 12px; border-radius:9999px;">Early Explorers</span>
                 </div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.45rem; font-weight:900; color:#FFFFFF; margin:0 0 4px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">6-8 Years</h3>
-                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.92); margin:0 0 14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.5);">Learning &amp; fun</p>
-                    <span style="background:#FFFFFF; color:#0284C7; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px;">
+                    <h3 style="font-size:1.45rem; font-weight:900; color:#FFFFFF; margin:0 0 4px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">6-8 Years</h3>
+                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.95); margin:0 0 14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Learning &amp; fun</p>
+                    <span style="background:linear-gradient(135deg, #10B981, #059669); color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
                         Shop Now &rarr;
                     </span>
                 </div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/shop?age=9-12' ) ); ?>" style="position:relative; height:270px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:20px; text-decoration:none;">
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.45) 40%, rgba(15,23,42,0.9) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.2) 40%, rgba(15,23,42,0.55) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
                     <span style="background:rgba(255,255,255,0.92); color:#0F172A; font-size:0.75rem; font-weight:800; padding:5px 12px; border-radius:9999px;">Young Innovators</span>
                 </div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.45rem; font-weight:900; color:#FFFFFF; margin:0 0 4px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">9-12 Years</h3>
-                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.92); margin:0 0 14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.5);">STEM &amp; adventure</p>
-                    <span style="background:#FFFFFF; color:#0284C7; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px;">
+                    <h3 style="font-size:1.45rem; font-weight:900; color:#FFFFFF; margin:0 0 4px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">9-12 Years</h3>
+                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.95); margin:0 0 14px; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">STEM &amp; adventure</p>
+                    <span style="background:linear-gradient(135deg, #8B5CF6, #7C3AED); color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
                         Shop Now &rarr;
                     </span>
                 </div>
@@ -516,64 +513,64 @@ $button_colors = array(
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:18px;">
             <a href="<?php echo esc_url( home_url( '/shop?cat=Puzzles' ) ); ?>" style="position:relative; height:270px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:20px; text-decoration:none;">
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.25) 0%, rgba(15,23,42,0.5) 40%, rgba(15,23,42,0.92) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.08) 0%, rgba(15,23,42,0.22) 40%, rgba(15,23,42,0.58) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center;">
-                    <span style="width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center;">
+                    <span style="width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,0.3); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/><path d="M3 12h18"/></svg>
                     </span>
                     <span style="background:rgba(255,255,255,0.92); color:#0F172A; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:9999px;">Critical Thinking</span>
                 </div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.25rem; font-weight:900; color:#FFFFFF; margin:0 0 12px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">Puzzles &amp; Brain Games</h3>
-                    <span style="color:#FFFFFF; font-weight:800; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+                    <h3 style="font-size:1.25rem; font-weight:900; color:#FFFFFF; margin:0 0 12px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Puzzles &amp; Brain Games</h3>
+                    <span style="background:linear-gradient(135deg, #8B5CF6, #7C3AED); color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
                         Explore Collection &rarr;
                     </span>
                 </div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/shop?cat=STEM' ) ); ?>" style="position:relative; height:270px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:20px; text-decoration:none;">
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.25) 0%, rgba(15,23,42,0.5) 40%, rgba(15,23,42,0.92) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.08) 0%, rgba(15,23,42,0.22) 40%, rgba(15,23,42,0.58) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center;">
-                    <span style="width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center;">
+                    <span style="width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,0.3); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
                     </span>
                     <span style="background:rgba(255,255,255,0.92); color:#0F172A; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:9999px;">Science &amp; Logic</span>
                 </div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.25rem; font-weight:900; color:#FFFFFF; margin:0 0 12px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">STEM &amp; Math Toys</h3>
-                    <span style="color:#FFFFFF; font-weight:800; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+                    <h3 style="font-size:1.25rem; font-weight:900; color:#FFFFFF; margin:0 0 12px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">STEM &amp; Math Toys</h3>
+                    <span style="background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
                         Explore Collection &rarr;
                     </span>
                 </div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/shop?cat=Educational' ) ); ?>" style="position:relative; height:270px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:20px; text-decoration:none;">
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.25) 0%, rgba(15,23,42,0.5) 40%, rgba(15,23,42,0.92) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.08) 0%, rgba(15,23,42,0.22) 40%, rgba(15,23,42,0.58) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center;">
-                    <span style="width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center;">
+                    <span style="width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,0.3); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
                     </span>
                     <span style="background:rgba(255,255,255,0.92); color:#0F172A; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:9999px;">Creative Expression</span>
                 </div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.25rem; font-weight:900; color:#FFFFFF; margin:0 0 12px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">Art &amp; Creativity</h3>
-                    <span style="color:#FFFFFF; font-weight:800; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+                    <h3 style="font-size:1.25rem; font-weight:900; color:#FFFFFF; margin:0 0 12px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Art &amp; Creativity</h3>
+                    <span style="background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
                         Explore Collection &rarr;
                     </span>
                 </div>
             </a>
 
             <a href="<?php echo esc_url( home_url( '/shop?cat=Educational' ) ); ?>" style="position:relative; height:270px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:20px; text-decoration:none;">
-                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.25) 0%, rgba(15,23,42,0.5) 40%, rgba(15,23,42,0.92) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,23,42,0.08) 0%, rgba(15,23,42,0.22) 40%, rgba(15,23,42,0.58) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center;">
-                    <span style="width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center;">
+                    <span style="width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,0.3); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>
                     </span>
                     <span style="background:rgba(255,255,255,0.92); color:#0F172A; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:9999px;">Interactive Play</span>
                 </div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.25rem; font-weight:900; color:#FFFFFF; margin:0 0 12px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">Educational Games</h3>
-                    <span style="color:#FFFFFF; font-weight:800; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+                    <h3 style="font-size:1.25rem; font-weight:900; color:#FFFFFF; margin:0 0 12px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Educational Games</h3>
+                    <span style="background:linear-gradient(135deg, #10B981, #059669); color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
                         Explore Collection &rarr;
                     </span>
                 </div>
@@ -597,39 +594,39 @@ $button_colors = array(
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
             <div style="position:relative; min-height:250px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:24px;">
-                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(15,23,42,0.65) 55%, rgba(15,23,42,0.88) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.3) 55%, rgba(15,23,42,0.5) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">Birthday Gifts</h3>
-                    <p style="font-size:0.92rem; color:rgba(255,255,255,0.92); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.5);">Fun picks they'll remember</p>
+                    <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Birthday Gifts</h3>
+                    <p style="font-size:0.92rem; color:rgba(255,255,255,0.95); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Fun picks they'll remember</p>
                 </div>
                 <div style="position:relative; z-index:2; margin-top:24px;">
-                    <a href="<?php echo esc_url( home_url( '/shop?filter=birthday' ) ); ?>" style="background:#84CC16; color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; width:fit-content; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,0.35);">
+                    <a href="<?php echo esc_url( home_url( '/shop?filter=birthday' ) ); ?>" style="background:linear-gradient(135deg, #10B981, #059669); color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; width:fit-content; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,0.25);">
                         <span>Shop Birthday Gifts &rarr;</span>
                     </a>
                 </div>
             </div>
 
             <div style="position:relative; min-height:250px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:24px;">
-                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(15,23,42,0.65) 55%, rgba(15,23,42,0.88) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.3) 55%, rgba(15,23,42,0.5) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">Educational Gifts</h3>
-                    <p style="font-size:0.92rem; color:rgba(255,255,255,0.92); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.5);">Play &amp; learning together</p>
+                    <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Educational Gifts</h3>
+                    <p style="font-size:0.92rem; color:rgba(255,255,255,0.95); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Play &amp; learning together</p>
                 </div>
                 <div style="position:relative; z-index:2; margin-top:24px;">
-                    <a href="<?php echo esc_url( home_url( '/shop?cat=Educational' ) ); ?>" style="background:#EC4899; color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; width:fit-content; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,0.35);">
+                    <a href="<?php echo esc_url( home_url( '/shop?cat=Educational' ) ); ?>" style="background:linear-gradient(135deg, #EC4899, #DB2777); color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; width:fit-content; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,0.25);">
                         <span>Shop Educational &rarr;</span>
                     </a>
                 </div>
             </div>
 
             <div style="position:relative; min-height:250px; border-radius:20px; overflow:hidden; background-image:url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600'); background-size:cover; background-position:center; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:24px;">
-                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(15,23,42,0.65) 55%, rgba(15,23,42,0.88) 100%); z-index:1;"></div>
+                <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.3) 55%, rgba(15,23,42,0.5) 100%); z-index:1;"></div>
                 <div style="position:relative; z-index:2;">
-                    <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.6);">Gifts Under PKR 2,000</h3>
-                    <p style="font-size:0.92rem; color:rgba(255,255,255,0.92); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.5);">Great toys, great prices</p>
+                    <h3 style="font-size:1.4rem; font-weight:900; color:#FFFFFF; margin:0 0 6px; text-shadow:0 2px 4px rgba(0,0,0,0.4);">Gifts Under PKR 2,000</h3>
+                    <p style="font-size:0.92rem; color:rgba(255,255,255,0.95); margin:0; font-weight:600; text-shadow:0 1px 3px rgba(0,0,0,0.4);">Great toys, great prices</p>
                 </div>
                 <div style="position:relative; z-index:2; margin-top:24px;">
-                    <a href="<?php echo esc_url( home_url( '/shop?max_price=2000' ) ); ?>" style="background:#F59E0B; color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; width:fit-content; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,0.35);">
+                    <a href="<?php echo esc_url( home_url( '/shop?max_price=2000' ) ); ?>" style="background:linear-gradient(135deg, #F59E0B, #D97706); color:#FFFFFF; font-weight:800; font-size:0.9rem; padding:10px 24px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; width:fit-content; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,0.25);">
                         <span>Shop Under 2,000 &rarr;</span>
                     </a>
                 </div>
@@ -786,7 +783,7 @@ $button_colors = array(
             <div class="demo-banner-card-content">
                 <h3 class="demo-banner-title" style="color:#0369A1;">New Arrivals</h3>
                 <p class="demo-banner-sub">Fresh toys<br>just for your kids!</p>
-                <span class="btn-banner-action" style="background:#0284C7; color:white; display:inline-block;">Shop Now</span>
+                <span class="btn-banner-action" style="background:linear-gradient(135deg, #0284C7, #0369A1); color:white; font-weight:800; box-shadow:0 4px 14px rgba(2,132,199,0.35); border-radius:9999px; padding:8px 20px; display:inline-flex; align-items:center; gap:6px;">Shop Now &rarr;</span>
             </div>
         </a>
 
@@ -800,7 +797,7 @@ $button_colors = array(
             <div class="demo-banner-card-content">
                 <h3 class="demo-banner-title" style="color:#B45309;">Special Deals</h3>
                 <p class="demo-banner-sub">Up to 30% OFF<br>on selected toys</p>
-                <span class="btn-banner-action" style="background:#F59E0B; color:white; display:inline-block;">Shop Deals</span>
+                <span class="btn-banner-action" style="background:linear-gradient(135deg, #F59E0B, #D97706); color:white; font-weight:800; box-shadow:0 4px 14px rgba(245,158,11,0.35); border-radius:9999px; padding:8px 20px; display:inline-flex; align-items:center; gap:6px;">Shop Deals &rarr;</span>
             </div>
         </a>
     </section>
@@ -884,30 +881,6 @@ $button_colors = array(
         <a href="https://wa.me/923098444501?text=Hello%20SmartKids%20Toys!%20I%20need%20help%20choosing%20the%20right%20toy%20for%20my%20child." target="_blank" rel="noopener noreferrer" style="background:#059669; color:#FFFFFF; font-weight:800; font-size:0.88rem; padding:10px 22px; border-radius:9999px; display:inline-flex; align-items:center; gap:8px; text-decoration:none; box-shadow:0 3px 10px rgba(5,150,105,0.3);">
             <span>Chat on WhatsApp &rarr;</span>
         </a>
-    </section>
-
-    <!-- 14. Newsletter -->
-    <section style="border-radius:16px; background:#EFF6FF; border:1px solid #BFDBFE; padding:24px 28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
-        <div style="display:flex; align-items:center; gap:14px; max-width:520px;">
-            <div style="width:46px; height:46px; border-radius:50%; background:#0284C7; color:#FFFFFF; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div>
-                <h3 style="font-size:1.1rem; font-weight:900; color:#1E3A8A; margin:0 0 2px;">
-                    Get 10% Off Your First Order
-                </h3>
-                <p style="font-size:0.82rem; color:#1D4ED8; margin:0;">
-                    Sign up for new arrivals, special deals, birthday gift ideas and exclusive discounts.
-                </p>
-            </div>
-        </div>
-
-        <form action="#" method="post" style="display:flex; gap:8px; flex:1; max-width:420px; min-width:260px;">
-            <input type="email" placeholder="Enter your email address..." required style="flex:1; padding:10px 16px; border-radius:9999px; border:1px solid #93C5FD; background:#FFFFFF; font-size:0.85rem;" />
-            <button type="submit" style="background:#0284C7; color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:10px 22px; border-radius:9999px; border:none; cursor:pointer;">
-                Subscribe
-            </button>
-        </form>
     </section>
 
 </div>

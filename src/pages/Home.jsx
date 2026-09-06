@@ -18,8 +18,6 @@ import {
   ShoppingBag, 
   Award, 
   Camera, 
-  Mail, 
-  CheckCircle2, 
   Headphones, 
   Palette, 
   Brain, 
@@ -32,8 +30,6 @@ export default function Home() {
   const [bestSellers, setBestSellers] = useState([]);
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [loading, setLoading] = useState(true);
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
   const navigate = useNavigate();
 
   // Flash Sale Countdown Timer (Live ticking)
@@ -95,6 +91,7 @@ export default function Home() {
       subtitle: settings.age_0_2_subtitle || 'Safe & sensory',
       img: settings.age_0_2_bg_image || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
       badge: '👶 Baby & Toddler',
+      btnBg: 'linear-gradient(135deg, #EC4899, #DB2777)',
       link: '/shop?age=0-2'
     },
     {
@@ -102,6 +99,7 @@ export default function Home() {
       subtitle: settings.age_3_5_subtitle || 'Creative play',
       img: settings.age_3_5_bg_image || 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600',
       badge: '🧒 Preschoolers',
+      btnBg: 'linear-gradient(135deg, #0284C7, #0369A1)',
       link: '/shop?age=3-5'
     },
     {
@@ -109,6 +107,7 @@ export default function Home() {
       subtitle: settings.age_6_8_subtitle || 'Learning & fun',
       img: settings.age_6_8_bg_image || 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600',
       badge: '🧠 Early Explorers',
+      btnBg: 'linear-gradient(135deg, #10B981, #059669)',
       link: '/shop?age=6-8'
     },
     {
@@ -116,6 +115,7 @@ export default function Home() {
       subtitle: settings.age_9_12_subtitle || 'STEM & adventure',
       img: settings.age_9_12_bg_image || 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600',
       badge: '🚀 Young Innovators',
+      btnBg: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
       link: '/shop?age=9-12'
     }
   ];
@@ -126,6 +126,7 @@ export default function Home() {
       icon: <Brain size={22} color="#FFFFFF" />,
       img: settings.learn_puzzles_bg_image || 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600',
       tag: 'Critical Thinking',
+      btnBg: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
       link: '/shop?category=Puzzles'
     },
     {
@@ -133,6 +134,7 @@ export default function Home() {
       icon: <Rocket size={22} color="#FFFFFF" />,
       img: settings.learn_stem_bg_image || 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600',
       tag: 'Science & Logic',
+      btnBg: 'linear-gradient(135deg, #0284C7, #0369A1)',
       link: '/shop?category=STEM'
     },
     {
@@ -140,6 +142,7 @@ export default function Home() {
       icon: <Palette size={22} color="#FFFFFF" />,
       img: settings.learn_art_bg_image || 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600',
       tag: 'Creative Expression',
+      btnBg: 'linear-gradient(135deg, #EC4899, #DB2777)',
       link: '/shop?category=Educational'
     },
     {
@@ -147,6 +150,7 @@ export default function Home() {
       icon: <Gamepad2 size={22} color="#FFFFFF" />,
       img: settings.learn_games_bg_image || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600',
       tag: 'Interactive Play',
+      btnBg: 'linear-gradient(135deg, #10B981, #059669)',
       link: '/shop?category=Educational'
     }
   ];
@@ -155,24 +159,24 @@ export default function Home() {
     {
       title: settings.gift_birthday_title || 'Birthday Gifts',
       subtitle: settings.gift_birthday_subtitle || "Fun picks they'll remember",
-      btnText: 'Shop Birthday Gifts',
-      btnBg: '#84CC16',
+      btnText: 'Shop Now',
+      btnBg: 'linear-gradient(135deg, #10B981, #059669)',
       img: settings.gift_birthday_bg_image || 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600',
       link: '/shop?filter=birthday'
     },
     {
       title: settings.gift_educational_title || 'Educational Gifts',
       subtitle: settings.gift_educational_subtitle || 'Play & learning together',
-      btnText: 'Shop Educational',
-      btnBg: '#EC4899',
+      btnText: 'Shop Now',
+      btnBg: 'linear-gradient(135deg, #EC4899, #DB2777)',
       img: settings.gift_educational_bg_image || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600',
       link: '/shop?category=Educational'
     },
     {
       title: settings.gift_under2k_title || 'Gifts Under PKR 2,000',
       subtitle: settings.gift_under2k_subtitle || 'Great toys, great prices',
-      btnText: 'Shop Under 2,000',
-      btnBg: '#F59E0B',
+      btnText: 'Shop Now',
+      btnBg: 'linear-gradient(135deg, #F59E0B, #D97706)',
       img: settings.gift_under2k_bg_image || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
       link: '/shop?maxPrice=2000'
     }
@@ -217,17 +221,6 @@ export default function Home() {
     { id: 5, img: settings.instagram_img_5 || 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500', caption: 'Gift boxes' },
     { id: 6, img: settings.instagram_img_6 || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500', caption: 'Happy Kids Happy Parents' }
   ];
-
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault();
-    if (newsletterEmail.trim()) {
-      setNewsletterSuccess(true);
-      setTimeout(() => {
-        setNewsletterSuccess(false);
-        setNewsletterEmail('');
-      }, 4000);
-    }
-  };
 
   return (
     <div className="container woocommerce-page" style={{ paddingBottom: '40px' }}>
@@ -373,82 +366,84 @@ export default function Home() {
         )}
       </section>
 
-      {/* 5. ⚡ FLASH SALE UP TO 40% OFF BANNER (Pink/Yellow Gradient with Countdown) */}
+      {/* 5. ⚡ FLASH SALE UP TO 40% OFF BANNER (Full BG Image Card) */}
       <section style={{
         margin: '36px 0 48px',
         borderRadius: '20px',
-        background: 'linear-gradient(135deg, #FEF3C7 0%, #FCE7F3 100%)',
-        border: '1px solid #FDE68A',
-        padding: '28px 36px',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        minHeight: '280px',
+        backgroundImage: `url(${settings.flash_sale_image_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900'})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '28px 36px'
       }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'center', gap: '24px' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-              <span style={{ fontSize: '1.8rem', color: '#F59E0B' }}>⚡</span>
-              <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 900, color: '#DB2777', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.5px' }}>
-                FLASH SALE <span style={{ color: '#0284C7' }}>UP TO 40% OFF</span>
-              </h2>
-            </div>
+        {/* Light gradient overlay */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(135deg, rgba(254, 243, 199, 0.88) 0%, rgba(252, 231, 243, 0.82) 50%, rgba(254, 243, 199, 0.7) 100%)',
+          zIndex: 1
+        }} />
 
-            <p style={{ color: '#64748B', fontSize: '0.95rem', fontWeight: 600, margin: '0 0 18px' }}>
-              Limited-time deals on kids' favourite toys
-            </p>
-
-            {/* Countdown Box */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
-              <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
-                <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.days).padStart(2, '0')}</div>
-                <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Days</div>
-              </div>
-              <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
-
-              <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
-                <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.hours).padStart(2, '0')}</div>
-                <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Hours</div>
-              </div>
-              <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
-
-              <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
-                <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.minutes).padStart(2, '0')}</div>
-                <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Minutes</div>
-              </div>
-              <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
-
-              <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
-                <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#DB2777' }}>{String(timeLeft.seconds).padStart(2, '0')}</div>
-                <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Seconds</div>
-              </div>
-            </div>
-
-            <Link 
-              to="/deals" 
-              style={{
-                background: 'linear-gradient(135deg, #EC4899, #DB2777)',
-                color: '#FFFFFF',
-                fontWeight: 800,
-                fontSize: '0.92rem',
-                padding: '10px 24px',
-                borderRadius: '9999px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                boxShadow: '0 4px 14px rgba(236, 72, 153, 0.35)',
-                textDecoration: 'none'
-              }}
-            >
-              Shop Flash Sale <ArrowRight size={16} />
-            </Link>
+        <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <span style={{ fontSize: '1.8rem', color: '#F59E0B' }}>⚡</span>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 900, color: '#DB2777', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.5px' }}>
+              FLASH SALE <span style={{ color: '#0284C7' }}>UP TO 40% OFF</span>
+            </h2>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img 
-              src={settings.flash_sale_image_url || "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=450"} 
-              alt="Flash Sale Toys" 
-              style={{ maxHeight: '180px', width: 'auto', borderRadius: '16px', objectFit: 'contain', filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.1))' }} 
-            />
+          <p style={{ color: '#64748B', fontSize: '0.95rem', fontWeight: 600, margin: '0 0 18px' }}>
+            Limited-time deals on kids' favourite toys
+          </p>
+
+          {/* Countdown Box */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
+              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.days).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Days</div>
+            </div>
+            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
+
+            <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
+              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.hours).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Hours</div>
+            </div>
+            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
+
+            <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
+              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>{String(timeLeft.minutes).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Minutes</div>
+            </div>
+            <span style={{ fontWeight: 900, color: '#DB2777', fontSize: '1.2rem' }}>:</span>
+
+            <div style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '8px 14px', textAlign: 'center', minWidth: '60px', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }}>
+              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#DB2777' }}>{String(timeLeft.seconds).padStart(2, '0')}</div>
+              <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Seconds</div>
+            </div>
           </div>
+
+          <Link 
+            to="/deals" 
+            style={{
+              background: 'linear-gradient(135deg, #EC4899, #DB2777)',
+              color: '#FFFFFF',
+              fontWeight: 800,
+              fontSize: '0.92rem',
+              padding: '10px 24px',
+              borderRadius: '9999px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              boxShadow: '0 4px 14px rgba(236, 72, 153, 0.35)',
+              textDecoration: 'none'
+            }}
+          >
+            Shop Flash Sale <ArrowRight size={16} />
+          </Link>
         </div>
       </section>
 
@@ -529,11 +524,11 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
               }}
             >
-              {/* Full dark gradient overlay behind text */}
+              {/* Light gradient overlay */}
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.45) 40%, rgba(15, 23, 42, 0.9) 100%)',
+                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.2) 40%, rgba(15, 23, 42, 0.55) 100%)',
                 zIndex: 1
               }} />
 
@@ -555,15 +550,15 @@ export default function Home() {
 
               {/* Bottom Content */}
               <div style={{ position: 'relative', zIndex: 2 }}>
-                <h3 style={{ fontSize: '1.45rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 4px', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
+                <h3 style={{ fontSize: '1.45rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 4px', textShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>
                   {card.age}
                 </h3>
-                <p style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.92)', margin: '0 0 14px', fontWeight: 600, textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+                <p style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.95)', margin: '0 0 14px', fontWeight: 600, textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
                   {card.subtitle}
                 </p>
                 <span style={{
-                  background: '#FFFFFF',
-                  color: '#0284C7',
+                  background: card.btnBg,
+                  color: '#FFFFFF',
                   fontWeight: 800,
                   fontSize: '0.85rem',
                   padding: '8px 18px',
@@ -629,11 +624,11 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
               }}
             >
-              {/* Full background gradient overlay behind text */}
+              {/* Light gradient overlay */}
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.25) 0%, rgba(15, 23, 42, 0.5) 40%, rgba(15, 23, 42, 0.92) 100%)',
+                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.08) 0%, rgba(15, 23, 42, 0.22) 40%, rgba(15, 23, 42, 0.58) 100%)',
                 zIndex: 1
               }} />
 
@@ -643,7 +638,7 @@ export default function Home() {
                   width: '42px',
                   height: '42px',
                   borderRadius: '12px',
-                  background: 'rgba(255, 255, 255, 0.25)',
+                  background: 'rgba(255, 255, 255, 0.3)',
                   backdropFilter: 'blur(8px)',
                   display: 'flex',
                   alignItems: 'center',
@@ -667,17 +662,20 @@ export default function Home() {
 
               {/* Bottom: Title & CTA */}
               <div style={{ position: 'relative', zIndex: 2 }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 12px', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 12px', textShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>
                   {card.title}
                 </h3>
                 <span style={{
+                  background: card.btnBg,
                   color: '#FFFFFF',
                   fontWeight: 800,
                   fontSize: '0.85rem',
+                  padding: '8px 18px',
+                  borderRadius: '9999px',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '6px',
-                  textShadow: '0 1px 3px rgba(0,0,0,0.5)'
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.25)'
                 }}>
                   Explore Collection <ArrowRight size={14} />
                 </span>
@@ -729,19 +727,19 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
               }}
             >
-              {/* Full background gradient overlay behind text */}
+              {/* Light gradient overlay */}
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.65) 55%, rgba(15, 23, 42, 0.88) 100%)',
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.3) 55%, rgba(15, 23, 42, 0.5) 100%)',
                 zIndex: 1
               }} />
 
               <div style={{ position: 'relative', zIndex: 2 }}>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 6px', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 6px', textShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>
                   {card.title}
                 </h3>
-                <p style={{ fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.92)', margin: 0, fontWeight: 600, textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+                <p style={{ fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.95)', margin: 0, fontWeight: 600, textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
                   {card.subtitle}
                 </p>
               </div>
@@ -762,7 +760,7 @@ export default function Home() {
                     gap: '6px',
                     width: 'fit-content',
                     textDecoration: 'none',
-                    boxShadow: '0 4px 14px rgba(0,0,0,0.35)'
+                    boxShadow: '0 4px 14px rgba(0,0,0,0.25)'
                   }}
                 >
                   {card.btnText} <ArrowRight size={14} />
@@ -931,8 +929,16 @@ export default function Home() {
               Fresh toys<br />
               just for your kids!
             </p>
-            <button className="btn-banner-action" style={{ background: '#0284C7', color: 'white' }}>
-              Shop Now
+            <button className="btn-banner-action" style={{
+              background: 'linear-gradient(135deg, #0284C7, #0369A1)',
+              color: 'white',
+              fontWeight: 800,
+              boxShadow: '0 4px 14px rgba(2, 132, 199, 0.35)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}>
+              Shop Now <ArrowRight size={14} />
             </button>
           </div>
         </div>
@@ -954,8 +960,16 @@ export default function Home() {
               Up to 30% OFF<br />
               on selected toys
             </p>
-            <button className="btn-banner-action" style={{ background: '#F59E0B', color: 'white' }}>
-              Shop Deals
+            <button className="btn-banner-action" style={{
+              background: 'linear-gradient(135deg, #F59E0B, #D97706)',
+              color: 'white',
+              fontWeight: 800,
+              boxShadow: '0 4px 14px rgba(245, 158, 11, 0.35)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}>
+              Shop Deals <ArrowRight size={14} />
             </button>
           </div>
         </div>
@@ -1075,74 +1089,6 @@ export default function Home() {
         >
           Chat on WhatsApp <ArrowRight size={15} />
         </a>
-      </section>
-
-      {/* 14. ✉️ GET 10% OFF YOUR FIRST ORDER (Newsletter Banner) */}
-      <section style={{
-        borderRadius: '16px',
-        background: '#EFF6FF',
-        border: '1px solid #BFDBFE',
-        padding: '24px 28px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '20px'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', maxWidth: '520px' }}>
-          <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: '#0284C7', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <Mail size={22} />
-          </div>
-          <div>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#1E3A8A', margin: '0 0 2px' }}>
-              Get 10% Off Your First Order
-            </h3>
-            <p style={{ fontSize: '0.82rem', color: '#1D4ED8', margin: 0 }}>
-              Sign up for new arrivals, special deals, birthday gift ideas and exclusive discounts.
-            </p>
-          </div>
-        </div>
-
-        <form onSubmit={handleNewsletterSubmit} style={{ display: 'flex', gap: '8px', flex: 1, maxWidth: '420px', minWidth: '260px' }}>
-          {newsletterSuccess ? (
-            <div style={{ background: '#DCFCE7', color: '#15803D', padding: '10px 18px', borderRadius: '9999px', fontWeight: 800, fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px', width: '100%' }}>
-              <CheckCircle2 size={16} /> Thank you for subscribing!
-            </div>
-          ) : (
-            <>
-              <input
-                type="email"
-                placeholder="Enter your email address..."
-                required
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                style={{
-                  flex: 1,
-                  padding: '10px 16px',
-                  borderRadius: '9999px',
-                  border: '1px solid #93C5FD',
-                  background: '#FFFFFF',
-                  fontSize: '0.85rem'
-                }}
-              />
-              <button
-                type="submit"
-                style={{
-                  background: '#0284C7',
-                  color: '#FFFFFF',
-                  fontWeight: 800,
-                  fontSize: '0.85rem',
-                  padding: '10px 22px',
-                  borderRadius: '9999px',
-                  boxShadow: '0 3px 10px rgba(2, 132, 199, 0.3)',
-                  cursor: 'pointer'
-                }}
-              >
-                Subscribe
-              </button>
-            </>
-          )}
-        </form>
       </section>
 
     </div>
