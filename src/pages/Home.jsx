@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { productService } from '../services/productService';
+import { settingsService, DEFAULT_SETTINGS } from '../services/settingsService';
 import ProductCard from '../components/common/ProductCard';
 import { 
   Truck, 
@@ -29,6 +30,7 @@ import {
 export default function Home() {
   const [popularProducts, setPopularProducts] = useState([]);
   const [bestSellers, setBestSellers] = useState([]);
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [loading, setLoading] = useState(true);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSuccess, setNewsletterSuccess] = useState(false);
@@ -63,10 +65,15 @@ export default function Home() {
   useEffect(() => {
     Promise.all([
       productService.getPopular(),
-      productService.getBestSellers()
-    ]).then(([popData, bestData]) => {
-      setPopularProducts(popData);
-      setBestSellers(bestData);
+      productService.getBestSellers(),
+      settingsService.getSettings()
+    ]).then(([popData, bestData, setsData]) => {
+      setPopularProducts(popData || []);
+      setBestSellers(bestData || []);
+      if (setsData) setSettings(setsData);
+      setLoading(false);
+    }).catch(err => {
+      console.warn('Error loading home data:', err);
       setLoading(false);
     });
   }, []);
@@ -84,96 +91,89 @@ export default function Home() {
 
   const ageCards = [
     {
-      age: '0–2 Years',
-      subtitle: 'Safe & sensory',
-      img: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500',
-      bg: '#FEF9C3',
-      borderColor: '#FDE047',
+      age: settings.age_0_2_title || '0–2 Years',
+      subtitle: settings.age_0_2_subtitle || 'Safe & sensory',
+      img: settings.age_0_2_bg_image || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
+      badge: '👶 Baby & Toddler',
       link: '/shop?age=0-2'
     },
     {
-      age: '3–5 Years',
-      subtitle: 'Creative play',
-      img: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500',
-      bg: '#FFEDD5',
-      borderColor: '#FDBA74',
+      age: settings.age_3_5_title || '3–5 Years',
+      subtitle: settings.age_3_5_subtitle || 'Creative play',
+      img: settings.age_3_5_bg_image || 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600',
+      badge: '🧒 Preschoolers',
       link: '/shop?age=3-5'
     },
     {
-      age: '6–8 Years',
-      subtitle: 'Learning & fun',
-      img: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=500',
-      bg: '#E0F2FE',
-      borderColor: '#BAE6FD',
+      age: settings.age_6_8_title || '6–8 Years',
+      subtitle: settings.age_6_8_subtitle || 'Learning & fun',
+      img: settings.age_6_8_bg_image || 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600',
+      badge: '🧠 Early Explorers',
       link: '/shop?age=6-8'
     },
     {
-      age: '9–12 Years',
-      subtitle: 'STEM & adventure',
-      img: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=500',
-      bg: '#EDE9FE',
-      borderColor: '#DDD6FE',
+      age: settings.age_9_12_title || '9–12 Years',
+      subtitle: settings.age_9_12_subtitle || 'STEM & adventure',
+      img: settings.age_9_12_bg_image || 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600',
+      badge: '🚀 Young Innovators',
       link: '/shop?age=9-12'
     }
   ];
 
   const learnCards = [
     {
-      title: 'Puzzles & Brain Games',
-      icon: <Brain size={24} color="#0284C7" />,
-      img: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400',
-      bg: '#EFF6FF',
+      title: settings.learn_puzzles_title || 'Puzzles & Brain Games',
+      icon: <Brain size={22} color="#FFFFFF" />,
+      img: settings.learn_puzzles_bg_image || 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600',
+      tag: 'Critical Thinking',
       link: '/shop?category=Puzzles'
     },
     {
-      title: 'STEM & Math Toys',
-      icon: <Rocket size={24} color="#0284C7" />,
-      img: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400',
-      bg: '#F0FDFA',
+      title: settings.learn_stem_title || 'STEM & Math Toys',
+      icon: <Rocket size={22} color="#FFFFFF" />,
+      img: settings.learn_stem_bg_image || 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600',
+      tag: 'Science & Logic',
       link: '/shop?category=STEM'
     },
     {
-      title: 'Art & Creativity',
-      icon: <Palette size={24} color="#EC4899" />,
-      img: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400',
-      bg: '#FDF2F8',
+      title: settings.learn_art_title || 'Art & Creativity',
+      icon: <Palette size={22} color="#FFFFFF" />,
+      img: settings.learn_art_bg_image || 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600',
+      tag: 'Creative Expression',
       link: '/shop?category=Educational'
     },
     {
-      title: 'Educational Games',
-      icon: <Gamepad2 size={24} color="#8B5CF6" />,
-      img: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400',
-      bg: '#FEF3C7',
+      title: settings.learn_games_title || 'Educational Games',
+      icon: <Gamepad2 size={22} color="#FFFFFF" />,
+      img: settings.learn_games_bg_image || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600',
+      tag: 'Interactive Play',
       link: '/shop?category=Educational'
     }
   ];
 
   const giftCards = [
     {
-      title: 'Birthday Gifts',
-      subtitle: 'Fun picks they\'ll remember',
+      title: settings.gift_birthday_title || 'Birthday Gifts',
+      subtitle: settings.gift_birthday_subtitle || "Fun picks they'll remember",
       btnText: 'Shop Birthday Gifts',
       btnBg: '#84CC16',
-      bg: '#FEF9C3',
-      img: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400',
+      img: settings.gift_birthday_bg_image || 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600',
       link: '/shop?filter=birthday'
     },
     {
-      title: 'Educational Gifts',
-      subtitle: 'Play & learning together',
+      title: settings.gift_educational_title || 'Educational Gifts',
+      subtitle: settings.gift_educational_subtitle || 'Play & learning together',
       btnText: 'Shop Educational',
       btnBg: '#EC4899',
-      bg: '#FDF2F8',
-      img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',
+      img: settings.gift_educational_bg_image || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600',
       link: '/shop?category=Educational'
     },
     {
-      title: 'Gifts Under PKR 2,000',
-      subtitle: 'Great toys, great prices',
+      title: settings.gift_under2k_title || 'Gifts Under PKR 2,000',
+      subtitle: settings.gift_under2k_subtitle || 'Great toys, great prices',
       btnText: 'Shop Under 2,000',
       btnBg: '#F59E0B',
-      bg: '#FEF3C7',
-      img: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400',
+      img: settings.gift_under2k_bg_image || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
       link: '/shop?maxPrice=2000'
     }
   ];
@@ -210,12 +210,12 @@ export default function Home() {
   ];
 
   const instagramPhotos = [
-    { id: 1, img: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400', caption: 'Playtime joy' },
-    { id: 2, img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400', caption: 'Cuddly bears' },
-    { id: 3, img: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400', caption: 'Montessori stacker' },
-    { id: 4, img: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=400', caption: 'Speed racers' },
-    { id: 5, img: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400', caption: 'Gift boxes' },
-    { id: 6, img: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400', caption: 'Happy Kids Happy Parents' }
+    { id: 1, img: settings.instagram_img_1 || 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500', caption: 'Playtime joy' },
+    { id: 2, img: settings.instagram_img_2 || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500', caption: 'Cuddly bears' },
+    { id: 3, img: settings.instagram_img_3 || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500', caption: 'Montessori stacker' },
+    { id: 4, img: settings.instagram_img_4 || 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=500', caption: 'Speed racers' },
+    { id: 5, img: settings.instagram_img_5 || 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500', caption: 'Gift boxes' },
+    { id: 6, img: settings.instagram_img_6 || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500', caption: 'Happy Kids Happy Parents' }
   ];
 
   const handleNewsletterSubmit = (e) => {
@@ -272,7 +272,7 @@ export default function Home() {
 
           <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
             <img 
-              src="/assets/hero-banner.png" 
+              src={settings.hero_image_url || "/assets/hero-banner.png"} 
               alt="Kids Playing - SmartKids Toys" 
               style={{ width: '100%', maxHeight: '340px', objectFit: 'contain', borderRadius: '12px' }} 
             />
@@ -479,7 +479,7 @@ export default function Home() {
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <img 
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=450" 
+              src={settings.flash_sale_image_url || "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=450"} 
               alt="Flash Sale Toys" 
               style={{ maxHeight: '180px', width: 'auto', borderRadius: '16px', objectFit: 'contain', filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.1))' }} 
             />
@@ -539,54 +539,78 @@ export default function Home() {
             <div
               key={card.age}
               style={{
-                background: card.bg,
-                border: `1px solid ${card.borderColor}`,
-                borderRadius: '16px',
-                padding: '16px',
+                position: 'relative',
+                height: '270px',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                backgroundImage: `url(${card.img})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                cursor: 'pointer'
+                padding: '20px'
               }}
               onClick={() => navigate(card.link)}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 6px 18px rgba(0,0,0,0.06)';
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.boxShadow = '0 12px 28px rgba(0,0,0,0.2)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
               }}
             >
-              <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--dark-heading)', margin: '0 0 2px' }}>
-                  {card.age}
-                </h3>
-                <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: '0 0 12px', fontWeight: 600 }}>
-                  {card.subtitle}
-                </p>
-                <div style={{ height: '140px', borderRadius: '12px', overflow: 'hidden', marginBottom: '14px', background: 'rgba(255,255,255,0.6)' }}>
-                  <img src={card.img} alt={card.age} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
+              {/* Full dark gradient overlay behind text */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.45) 40%, rgba(15, 23, 42, 0.9) 100%)',
+                zIndex: 1
+              }} />
+
+              {/* Top Tag */}
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <span style={{
+                  background: 'rgba(255, 255, 255, 0.92)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#0F172A',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  padding: '5px 12px',
+                  borderRadius: '9999px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
+                }}>
+                  {card.badge}
+                </span>
               </div>
 
-              <span style={{
-                background: 'rgba(255,255,255,0.9)',
-                color: '#0284C7',
-                fontWeight: 800,
-                fontSize: '0.85rem',
-                padding: '8px 16px',
-                borderRadius: '9999px',
-                textAlign: 'center',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
-              }}>
-                Shop Now <ArrowRight size={14} />
-              </span>
+              {/* Bottom Content */}
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <h3 style={{ fontSize: '1.45rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 4px', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
+                  {card.age}
+                </h3>
+                <p style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.92)', margin: '0 0 14px', fontWeight: 600, textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+                  {card.subtitle}
+                </p>
+                <span style={{
+                  background: '#FFFFFF',
+                  color: '#0284C7',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  padding: '8px 18px',
+                  borderRadius: '9999px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.25)'
+                }}>
+                  Shop Now <ArrowRight size={14} />
+                </span>
+              </div>
             </div>
           ))}
         </div>
@@ -615,42 +639,84 @@ export default function Home() {
             <div
               key={card.title}
               style={{
-                background: card.bg,
-                borderRadius: '16px',
-                border: '1px solid var(--gray-2)',
-                padding: '16px',
+                position: 'relative',
+                height: '270px',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                backgroundImage: `url(${card.img})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                transition: 'transform 0.2s ease',
-                cursor: 'pointer'
+                padding: '20px'
               }}
               onClick={() => navigate(card.link)}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.boxShadow = '0 12px 28px rgba(0,0,0,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
+              }}
             >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+              {/* Full background gradient overlay behind text */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.25) 0%, rgba(15, 23, 42, 0.5) 40%, rgba(15, 23, 42, 0.92) 100%)',
+                zIndex: 1
+              }} />
+
+              {/* Top: Icon + Tag */}
+              <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.25)',
+                  backdropFilter: 'blur(8px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                }}>
                   {card.icon}
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 900, color: 'var(--dark-heading)', margin: 0 }}>
-                    {card.title}
-                  </h3>
                 </div>
-                <div style={{ height: '130px', borderRadius: '12px', overflow: 'hidden', marginBottom: '12px', background: '#FFFFFF' }}>
-                  <img src={card.img} alt={card.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
+                <span style={{
+                  background: 'rgba(255, 255, 255, 0.92)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#0F172A',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  padding: '4px 10px',
+                  borderRadius: '9999px'
+                }}>
+                  {card.tag}
+                </span>
               </div>
 
-              <span style={{
-                color: '#0284C7',
-                fontWeight: 800,
-                fontSize: '0.85rem',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px'
-              }}>
-                Shop Now <ArrowRight size={14} />
-              </span>
+              {/* Bottom: Title & CTA */}
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 12px', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
+                  {card.title}
+                </h3>
+                <span style={{
+                  color: '#FFFFFF',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.5)'
+                }}>
+                  Explore Collection <ArrowRight size={14} />
+                </span>
+              </div>
             </div>
           ))}
         </div>
@@ -675,52 +741,68 @@ export default function Home() {
             <div
               key={card.title}
               style={{
-                background: card.bg,
-                borderRadius: '18px',
-                border: '1px solid rgba(0,0,0,0.06)',
-                padding: '24px',
+                position: 'relative',
+                minHeight: '250px',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                backgroundImage: `url(${card.img})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                transition: 'transform 0.2s ease',
-                position: 'relative',
-                overflow: 'hidden'
+                padding: '24px'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.boxShadow = '0 12px 28px rgba(0,0,0,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-                <div>
-                  <h3 style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--dark-heading)', margin: '0 0 4px' }}>
-                    {card.title}
-                  </h3>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: 0, fontWeight: 500 }}>
-                    {card.subtitle}
-                  </p>
-                </div>
-                <div style={{ width: '60px', height: '60px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0, background: '#FFFFFF', padding: '4px' }}>
-                  <img src={card.img} alt={card.title} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
-                </div>
+              {/* Full background gradient overlay behind text */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.65) 55%, rgba(15, 23, 42, 0.88) 100%)',
+                zIndex: 1
+              }} />
+
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 6px', textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
+                  {card.title}
+                </h3>
+                <p style={{ fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.92)', margin: 0, fontWeight: 600, textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+                  {card.subtitle}
+                </p>
               </div>
 
-              <Link
-                to={card.link}
-                style={{
-                  background: card.btnBg,
-                  color: '#FFFFFF',
-                  fontWeight: 800,
-                  fontSize: '0.88rem',
-                  padding: '9px 18px',
-                  borderRadius: '9999px',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px',
-                  width: 'fit-content',
-                  textDecoration: 'none',
-                  boxShadow: '0 3px 10px rgba(0,0,0,0.1)'
-                }}
-              >
-                {card.btnText} <ArrowRight size={14} />
-              </Link>
+              <div style={{ position: 'relative', zIndex: 2, marginTop: '24px' }}>
+                <Link
+                  to={card.link}
+                  style={{
+                    background: card.btnBg,
+                    color: '#FFFFFF',
+                    fontWeight: 800,
+                    fontSize: '0.9rem',
+                    padding: '10px 24px',
+                    borderRadius: '9999px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px',
+                    width: 'fit-content',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 14px rgba(0,0,0,0.35)'
+                  }}
+                >
+                  {card.btnText} <ArrowRight size={14} />
+                </Link>
+              </div>
             </div>
           ))}
         </div>

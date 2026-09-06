@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { productService } from '../services/productService';
 import { orderService } from '../services/orderService';
-import { settingsService } from '../services/settingsService';
+import { settingsService, DEFAULT_SETTINGS } from '../services/settingsService';
 import { supabase } from '../lib/supabase';
 import { 
   Package, 
@@ -119,17 +119,7 @@ export default function AdminDashboard() {
   });
 
   // 4. Site Settings
-  const [settingsForm, setSettingsForm] = useState({
-    whatsapp_number: '923098444501',
-    whatsapp_display: '03098444501',
-    contact_email: 'info@smartkidstoys.pk',
-    free_delivery_threshold: '3000',
-    site_announcement: 'Free Shipping on orders above PKR 3,000 🚀',
-    facebook_url: 'https://facebook.com/smartkidstoys',
-    instagram_url: 'https://instagram.com/smartkidstoys',
-    tiktok_url: 'https://tiktok.com/@smartkidstoys',
-    youtube_url: ''
-  });
+  const [settingsForm, setSettingsForm] = useState(DEFAULT_SETTINGS);
   const [saveSettingsSuccess, setSaveSettingsSuccess] = useState(false);
 
   useEffect(() => {
@@ -563,6 +553,25 @@ export default function AdminDashboard() {
               <Settings size={18} /> Site & WhatsApp
             </button>
 
+            <button
+              onClick={() => setActiveTab('homepage_images')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '12px 16px',
+                borderRadius: 'var(--radius-md)',
+                background: activeTab === 'homepage_images' ? '#FEF3C7' : 'transparent',
+                color: activeTab === 'homepage_images' ? '#D97706' : 'var(--text)',
+                fontWeight: 800,
+                fontSize: '0.92rem',
+                textAlign: 'left',
+                width: '100%'
+              }}
+            >
+              <Sparkles size={18} /> Homepage Images
+            </button>
+
           </div>
         </div>
 
@@ -957,6 +966,182 @@ export default function AdminDashboard() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+
+            </div>
+          )}
+
+          {/* TAB 5b: HOMEPAGE IMAGES */}
+          {activeTab === 'homepage_images' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+
+              <div style={{ background: 'white', padding: '28px', borderRadius: 'var(--radius-xl)', border: '1px solid var(--gray-2)', boxShadow: 'var(--shadow-card)' }}>
+                <h2 style={{ fontSize: '1.35rem', fontWeight: 900, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Sparkles size={20} color="#D97706" /> Homepage Images Manager
+                </h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '0' }}>
+                  Paste an image URL below — it becomes the full-cover background of that card/section. All changes save instantly.
+                </p>
+              </div>
+
+              {/* HELPER: reusable image card editor */}
+              {[
+                {
+                  section: 'Hero Section',
+                  icon: '🏠',
+                  bg: '#EFF6FF',
+                  cards: [
+                    { label: 'Hero Banner Image', key: 'hero_image_url' }
+                  ]
+                },
+                {
+                  section: 'Flash Sale Banner',
+                  icon: '⚡',
+                  bg: '#FEF3C7',
+                  cards: [
+                    { label: 'Flash Sale Image', key: 'flash_sale_image_url' }
+                  ]
+                },
+                {
+                  section: 'Shop by Age (4 Cards)',
+                  icon: '🎂',
+                  bg: '#F0FDF4',
+                  cards: [
+                    { label: '0–2 Years Background', key: 'age_0_2_bg_image' },
+                    { label: '3–5 Years Background', key: 'age_3_5_bg_image' },
+                    { label: '6–8 Years Background', key: 'age_6_8_bg_image' },
+                    { label: '9–12 Years Background', key: 'age_9_12_bg_image' }
+                  ]
+                },
+                {
+                  section: 'Learn While You Play (4 Cards)',
+                  icon: '🧠',
+                  bg: '#EDE9FE',
+                  cards: [
+                    { label: 'Puzzles & Brain Games BG', key: 'learn_puzzles_bg_image' },
+                    { label: 'STEM & Math Toys BG', key: 'learn_stem_bg_image' },
+                    { label: 'Art & Creativity BG', key: 'learn_art_bg_image' },
+                    { label: 'Educational Games BG', key: 'learn_games_bg_image' }
+                  ]
+                },
+                {
+                  section: 'Find the Perfect Gift (3 Cards)',
+                  icon: '🎁',
+                  bg: '#FDF2F8',
+                  cards: [
+                    { label: 'Birthday Gifts Background', key: 'gift_birthday_bg_image' },
+                    { label: 'Educational Gifts Background', key: 'gift_educational_bg_image' },
+                    { label: 'Gifts Under PKR 2,000 BG', key: 'gift_under2k_bg_image' }
+                  ]
+                },
+                {
+                  section: 'Instagram Gallery (6 Photos)',
+                  icon: '📸',
+                  bg: '#FCE7F3',
+                  cards: [
+                    { label: 'Instagram Photo 1', key: 'instagram_img_1' },
+                    { label: 'Instagram Photo 2', key: 'instagram_img_2' },
+                    { label: 'Instagram Photo 3', key: 'instagram_img_3' },
+                    { label: 'Instagram Photo 4', key: 'instagram_img_4' },
+                    { label: 'Instagram Photo 5', key: 'instagram_img_5' },
+                    { label: 'Instagram Photo 6', key: 'instagram_img_6' }
+                  ]
+                }
+              ].map((group) => (
+                <div key={group.section} style={{ background: 'white', padding: '24px', borderRadius: 'var(--radius-xl)', border: '1px solid var(--gray-2)', boxShadow: 'var(--shadow-card)' }}>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 900, color: 'var(--dark-heading)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '1.2rem' }}>{group.icon}</span> {group.section}
+                  </h3>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+                    {group.cards.map((card) => {
+                      const currentUrl = settingsForm[card.key] || '';
+                      return (
+                        <div key={card.key}>
+                          <label style={{ display: 'block', fontSize: '0.83rem', fontWeight: 700, marginBottom: '6px', color: 'var(--dark-heading)' }}>
+                            {card.label}
+                          </label>
+
+                          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '10px' }}>
+                            <input
+                              type="url"
+                              placeholder="https://images.unsplash.com/photo-..."
+                              value={currentUrl}
+                              onChange={(e) => setSettingsForm(prev => ({ ...prev, [card.key]: e.target.value }))}
+                              style={{ flex: 1, padding: '9px 12px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.85rem' }}
+                            />
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                try {
+                                  await settingsService.updateSetting(card.key, settingsForm[card.key] || '');
+                                  setSaveSettingsSuccess(true);
+                                  setTimeout(() => setSaveSettingsSuccess(false), 2500);
+                                } catch(err) {
+                                  alert('Error saving image: ' + err.message);
+                                }
+                              }}
+                              style={{ background: 'linear-gradient(135deg, #0284C7, #0369A1)', color: 'white', padding: '9px 16px', borderRadius: 'var(--radius-md)', fontWeight: 800, fontSize: '0.82rem', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '5px' }}
+                            >
+                              <Save size={14} /> Save
+                            </button>
+                          </div>
+
+                          {/* Live preview as full-cover background */}
+                          {currentUrl ? (
+                            <div style={{
+                              width: '100%',
+                              height: '130px',
+                              borderRadius: 'var(--radius-md)',
+                              backgroundImage: `url(${currentUrl})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                              border: '2px solid #0284C7',
+                              position: 'relative',
+                              overflow: 'hidden'
+                            }}>
+                              <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <span style={{ color: 'white', fontWeight: 800, fontSize: '0.8rem', background: 'rgba(0,0,0,0.5)', padding: '4px 10px', borderRadius: '6px' }}>
+                                  Live Preview
+                                </span>
+                              </div>
+                            </div>
+                          ) : (
+                            <div style={{ width: '100%', height: '130px', borderRadius: 'var(--radius-md)', background: group.bg, border: '2px dashed var(--gray-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600 }}>
+                              No image set — paste a URL above
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              {saveSettingsSuccess && (
+                <div style={{ background: '#DCFCE7', color: '#16A34A', padding: '12px 16px', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700 }}>
+                  <CheckCircle2 size={18} /> Image saved! Refresh homepage to see changes.
+                </div>
+              )}
+
+              {/* Save All Button */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      await settingsService.updateMultipleSettings(settingsForm);
+                      setSaveSettingsSuccess(true);
+                      setTimeout(() => setSaveSettingsSuccess(false), 3000);
+                    } catch(err) {
+                      alert('Error saving: ' + err.message);
+                    }
+                  }}
+                  className="btn"
+                  style={{ background: 'linear-gradient(135deg, #D97706, #B45309)', color: 'white', padding: '12px 28px', borderRadius: 'var(--radius-full)', fontWeight: 800, fontSize: '0.95rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                >
+                  <Save size={18} /> Save All Images
+                </button>
               </div>
 
             </div>
