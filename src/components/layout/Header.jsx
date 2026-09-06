@@ -166,10 +166,10 @@ export default function Header() {
 
             {/* Account Link */}
             <Link to={user ? "/account" : "/login"} className="header-meta-item">
-              <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div className="header-icon-circle" style={{ width: '42px', height: '42px', borderRadius: '50%', background: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <User size={22} color="var(--primary-blue)" />
               </div>
-              <div>
+              <div className="header-meta-text">
                 <div className="header-meta-label">Account</div>
                 <div className="header-meta-value">
                   {user ? (profile?.full_name?.split(' ')[0] || 'Admin') : 'Login / Sign up'}
@@ -179,11 +179,11 @@ export default function Header() {
 
             {/* Cart Link */}
             <Link to="/bag" className="header-meta-item">
-              <div className="cart-icon-wrapper" style={{ width: '42px', height: '42px', borderRadius: '50%', background: '#FEF3C7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div className="cart-icon-wrapper header-icon-circle" style={{ width: '42px', height: '42px', borderRadius: '50%', background: '#FEF3C7', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <ShoppingBag size={22} color="#D97706" />
                 <span className="cart-yellow-badge">{totalCount}</span>
               </div>
-              <div>
+              <div className="header-meta-text">
                 <div className="header-meta-label">Bag</div>
                 <div className="header-meta-value">
                   PKR {subtotal.toLocaleString()}

@@ -22,7 +22,7 @@ export const DEFAULT_SETTINGS = {
   hero_subtitle: 'Safe, fun and educational toys for every age...',
 
   // 2. Flash Sale Banner
-  flash_sale_image_url: '/assets/flash-sale-banner.png',
+  flash_sale_image_url: '/assets/flash-sale-bg-image.png',
   flash_sale_title: 'FLASH SALE UP TO 40% OFF',
   flash_sale_subtitle: "Limited-time deals on kids' favourite toys",
   flash_sale_bg_color: '#FFF9E6',
@@ -32,59 +32,59 @@ export const DEFAULT_SETTINGS = {
   flash_sale_end_date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
 
   // 3. Shop Toys by Age (4 Full Background Images)
-  age_0_2_bg_image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
+  age_0_2_bg_image: '/assets/age-section-0-2.png',
   age_0_2_title: '0–2 Years',
   age_0_2_subtitle: 'Safe & sensory',
 
-  age_3_5_bg_image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600',
+  age_3_5_bg_image: '/assets/age-section-3-5.png',
   age_3_5_title: '3–5 Years',
   age_3_5_subtitle: 'Creative play',
 
-  age_6_8_bg_image: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600',
+  age_6_8_bg_image: '/assets/age-section-6-8.png',
   age_6_8_title: '6–8 Years',
   age_6_8_subtitle: 'Learning & fun',
 
-  age_9_12_bg_image: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600',
+  age_9_12_bg_image: '/assets/age-section-9-12.png',
   age_9_12_title: '9–12 Years',
   age_9_12_subtitle: 'STEM & adventure',
 
   // 4. Learn While You Play (4 Full Background Images)
-  learn_puzzles_bg_image: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600',
+  learn_puzzles_bg_image: '/assets/learn-play-puzzles.png',
   learn_puzzles_title: 'Puzzles & Brain Games',
 
-  learn_stem_bg_image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600',
+  learn_stem_bg_image: '/assets/learn-play-stem-math.png',
   learn_stem_title: 'STEM & Math Toys',
 
-  learn_art_bg_image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600',
+  learn_art_bg_image: '/assets/learn-play-art-creativity.png',
   learn_art_title: 'Art & Creativity',
 
-  learn_games_bg_image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600',
+  learn_games_bg_image: '/assets/learn-play-edu-games.png',
   learn_games_title: 'Educational Games',
 
   // 5. Find the Perfect Gift (3 Full Background Images)
-  gift_birthday_bg_image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600',
+  gift_birthday_bg_image: '/assets/gift-section-birthday.png',
   gift_birthday_title: 'Birthday Gifts',
   gift_birthday_subtitle: "Fun picks they'll remember",
 
-  gift_educational_bg_image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600',
+  gift_educational_bg_image: '/assets/gift-section-edu.png',
   gift_educational_title: 'Educational Gifts',
   gift_educational_subtitle: 'Play & learning together',
 
-  gift_under2k_bg_image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
+  gift_under2k_bg_image: '/assets/gift-section-under-2000.png',
   gift_under2k_title: 'Gifts Under PKR 2,000',
   gift_under2k_subtitle: 'Great toys, great prices',
 
   // 6. Follow the Fun (Instagram 6 Images)
-  instagram_img_1: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=500',
-  instagram_img_2: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500',
-  instagram_img_3: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500',
-  instagram_img_4: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=500',
-  instagram_img_5: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500',
-  instagram_img_6: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500',
+  instagram_img_1: '/assets/insta-1.png',
+  instagram_img_2: '/assets/insta-2.png',
+  instagram_img_3: '/assets/insta-3.png',
+  instagram_img_4: '/assets/insta-4.png',
+  instagram_img_5: '/assets/insta-5.png',
+  instagram_img_6: '/assets/insta-6.png',
 
   // 7. Promotional Cards & Page Banners (Separate for card vs wide banner)
-  new_arrivals_card_image: '/assets/train-banner.png',
-  new_arrivals_banner_image: '/assets/train-banner.png',
+  new_arrivals_card_image: '/assets/new-arrivals-card-image.png',
+  new_arrivals_banner_image: '/assets/new-arrivals-banner-image.png',
   deals_card_image: '/assets/teddy-banner.png',
   deals_banner_image: '/assets/teddy-banner.png'
 };
@@ -97,7 +97,14 @@ export const settingsService = {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        localMap = { ...localMap, ...JSON.parse(saved) };
+        const parsed = JSON.parse(saved);
+        // Clean out legacy unsplash URLs so real uploaded images show across all devices/accounts
+        Object.keys(parsed).forEach(k => {
+          if (typeof parsed[k] === 'string' && parsed[k].includes('images.unsplash.com') && DEFAULT_SETTINGS[k]) {
+            parsed[k] = DEFAULT_SETTINGS[k];
+          }
+        });
+        localMap = { ...localMap, ...parsed };
       }
     } catch (e) {
       console.warn('Could not read local settings:', e);
@@ -108,7 +115,14 @@ export const settingsService = {
       if (!error && data && data.length > 0) {
         const dbMap = {};
         data.forEach(item => {
-          if (item.key) dbMap[item.key] = item.value;
+          if (item.key) {
+            // Replace any old unsplash placeholder with the actual uploaded store asset
+            if (typeof item.value === 'string' && item.value.includes('images.unsplash.com') && DEFAULT_SETTINGS[item.key]) {
+              dbMap[item.key] = DEFAULT_SETTINGS[item.key];
+            } else {
+              dbMap[item.key] = item.value;
+            }
+          }
         });
         const merged = { ...localMap, ...dbMap };
         try {

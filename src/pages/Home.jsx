@@ -301,37 +301,25 @@ export default function Home() {
           </Link>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '14px' }}>
+        <div className="circular-categories-grid">
           {circularCategories.map((cat) => (
             <div
               key={cat.name}
               onClick={() => navigate(cat.link)}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '8px',
-                cursor: 'pointer',
-                transition: 'transform 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              className="circular-cat-card"
             >
-              <div style={{
-                width: '74px',
-                height: '74px',
-                borderRadius: '50%',
-                background: cat.bg,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.9rem',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                border: '1px solid rgba(0,0,0,0.05)'
-              }}>
+              <div 
+                className="circular-cat-circle"
+                style={{
+                  background: cat.bg,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                  border: '1px solid rgba(0,0,0,0.05)',
+                  flexShrink: 0
+                }}
+              >
                 {cat.icon}
               </div>
-              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--dark-heading)', textAlign: 'center' }}>
+              <span className="circular-cat-name">
                 {cat.name}
               </span>
             </div>
@@ -368,14 +356,14 @@ export default function Home() {
       </section>
 
       {/* 5. ⚡ FLASH SALE UP TO 40% OFF BANNER (Full BG Image Card) */}
-      <section style={{
+      <section className="home-flash-sale-section" style={{
         margin: '36px 0 48px',
         borderRadius: '24px',
         position: 'relative',
         overflow: 'hidden',
         minHeight: 'clamp(340px, 32vw, 460px)',
         backgroundColor: settings.flash_sale_bg_color || '#FFF9E6',
-        backgroundImage: `url(${settings.flash_sale_image_url || '/assets/flash-sale-banner.png'})`,
+        backgroundImage: `url(${settings.flash_sale_image_url || '/assets/flash-sale-bg-image.png'})`,
         backgroundSize: settings.flash_sale_bg_size || 'cover',
         backgroundPosition: settings.flash_sale_bg_position || 'right center',
         backgroundRepeat: 'no-repeat',
@@ -384,7 +372,7 @@ export default function Home() {
         padding: '32px 36px'
       }}>
         {/* Transparent frosted text card: ensures text readability while keeping the user-uploaded background image 100% visible, bright and clear with no greyish tint */}
-        <div style={{
+        <div className="home-flash-sale-card" style={{
           position: 'relative',
           zIndex: 2,
           background: 'rgba(255, 255, 255, 0.92)',
@@ -501,10 +489,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '18px' }}>
+        <div className="age-cards-grid">
           {ageCards.map((card) => (
             <div
               key={card.age}
+              className="age-card-item"
               style={{
                 position: 'relative',
                 height: '270px',
@@ -601,10 +590,11 @@ export default function Home() {
           </Link>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '18px' }}>
+        <div className="learn-cards-grid">
           {learnCards.map((card) => (
             <div
               key={card.title}
+              className="learn-card-item"
               style={{
                 position: 'relative',
                 height: '270px',
@@ -650,7 +640,8 @@ export default function Home() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                  flexShrink: 0
                 }}>
                   {card.icon}
                 </div>
@@ -706,10 +697,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+        <div className="gift-cards-grid">
           {giftCards.map((card) => (
             <div
               key={card.title}
+              className="gift-card-item"
               style={{
                 position: 'relative',
                 minHeight: '250px',
@@ -797,10 +789,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+        <div className="testimonials-grid">
           {testimonials.map((t, idx) => (
             <div
               key={idx}
+              className="testimonial-card-item"
               style={{
                 background: '#FFFFFF',
                 borderRadius: '16px',
@@ -825,7 +818,7 @@ export default function Home() {
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: t.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: t.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem', flexShrink: 0 }}>
                     {t.author.charAt(0)}
                   </div>
                   <div>
@@ -853,7 +846,8 @@ export default function Home() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#FFFFFF'
+                color: '#FFFFFF',
+                flexShrink: 0
               }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -899,7 +893,7 @@ export default function Home() {
           </a>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
+        <div className="instagram-grid">
           {instagramPhotos.map((photo) => (
             <div
               key={photo.id}
@@ -996,9 +990,9 @@ export default function Home() {
           <h3 style={{ fontSize: '1.05rem', fontWeight: 900, color: 'var(--dark-heading)', margin: 0 }}>Shopping Made Easy</h3>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '16px' }}>
+        <div className="shopping-easy-grid">
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#E0F2FE', color: '#0284C7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#E0F2FE', color: '#0284C7', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Truck size={18} />
             </div>
             <div>
@@ -1008,7 +1002,7 @@ export default function Home() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#DCFCE7', color: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#DCFCE7', color: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <Banknote size={18} />
             </div>
             <div>
@@ -1018,7 +1012,7 @@ export default function Home() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <RotateCcw size={18} />
             </div>
             <div>
@@ -1028,7 +1022,7 @@ export default function Home() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#DCFCE7', color: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#DCFCE7', color: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <MessageCircle size={18} />
             </div>
             <div>
@@ -1038,7 +1032,7 @@ export default function Home() {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#F3E8FF', color: '#7C3AED', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: '#F3E8FF', color: '#7C3AED', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               <ShieldCheck size={18} />
             </div>
             <div>
@@ -1050,7 +1044,7 @@ export default function Home() {
       </section>
 
       {/* 13. 💬 NEED HELP CHOOSING A TOY? (WhatsApp Mint Green Banner) */}
-      <section style={{
+      <section className="whatsapp-help-banner" style={{
         borderRadius: '16px',
         background: '#DCFCE7',
         border: '1px solid #BBF7D0',

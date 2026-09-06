@@ -1126,7 +1126,12 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-muted);
 }
 
-/* Responsive */
+/* Global SVG Anti-Squish Rule */
+svg {
+  flex-shrink: 0;
+}
+
+/* Responsive Grid & Mobile Layout System */
 @media (max-width: 1100px) {
   .circular-categories-grid { grid-template-columns: repeat(4, 1fr); }
   .demo-trust-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1135,14 +1140,323 @@ h1, h2, h3, h4, h5, h6 {
   .shop-layout { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 768px) {
-  .top-utilities-content { flex-direction: column; gap: 4px; text-align: center; }
-  .main-header-centered-grid { grid-template-columns: 1fr; gap: 14px; }
-  .header-logo-center-wrap { order: 1; }
-  .demo-search-bar { order: 2; max-width: 100%; }
-  .header-right-actions { order: 3; justify-content: center; }
-  .circular-categories-grid { grid-template-columns: repeat(4, 1fr); }
-  .demo-banners-grid { grid-template-columns: 1fr; }
-  .demo-footer-grid { grid-template-columns: 1fr; }
-  .bag-layout { grid-template-columns: 1fr !important; }
+@media (max-width: 1024px) {
+  /* Tablet Header Layout */
+  .main-header {
+    padding: 12px 0;
+  }
+  .main-header-centered-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo actions"
+      "search search";
+    gap: 12px;
+    align-items: center;
+  }
+  .header-logo-center-wrap {
+    grid-area: logo;
+    justify-content: flex-start;
+  }
+  .header-logo-big-img {
+    height: 64px;
+    max-width: 180px;
+  }
+  .header-right-actions {
+    grid-area: actions;
+    justify-content: flex-end;
+    gap: 14px;
+  }
+  .demo-search-bar {
+    grid-area: search;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* Responsive Grids on Tablet */
+  .age-cards-grid,
+  .learn-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .gift-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .instagram-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .shopping-easy-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  .announcement-bar-links {
+    display: none;
+  }
+
+  .nav-bar-row {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 10px;
+    padding: 6px 0;
+  }
+  .nav-bar-row::-webkit-scrollbar {
+    display: none;
+  }
+  .all-categories-btn {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+  }
+  .main-nav-links {
+    gap: 8px;
+    overflow: visible;
+  }
+  .main-nav-link {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  /* Hero Banner */
+  .demo-hero-section {
+    border-radius: 14px !important;
+    margin: 12px 0 16px !important;
+  }
+
+  /* Flash Sale */
+  .home-flash-sale-section {
+    min-height: auto !important;
+    padding: 16px 14px !important;
+    margin: 20px 0 28px !important;
+    background-position: center !important;
+  }
+  .home-flash-sale-card {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 16px 14px !important;
+  }
+
+  /* Gift Section */
+  .gift-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .gift-card-item {
+    min-height: 190px !important;
+    padding: 18px !important;
+  }
+
+  /* Testimonials */
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* WhatsApp Help Banner */
+  .whatsapp-help-banner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: left !important;
+    padding: 16px !important;
+  }
+  .whatsapp-help-banner a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Banners */
+  .demo-banners-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 24px 0 32px;
+  }
+  .demo-banner-card {
+    min-height: 180px;
+  }
+  .demo-banner-card-content {
+    padding: 20px;
+    max-width: 260px;
+  }
+  .demo-banner-title {
+    font-size: 1.35rem;
+  }
+
+  /* Footer */
+  .demo-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .demo-footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  /* Bag Layout */
+  .bag-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .cart_item {
+    grid-template-columns: 70px 1fr !important;
+    gap: 12px !important;
+  }
+  .cart_item > div:last-child {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed var(--gray-2);
+    padding-top: 8px;
+  }
+
+  /* Single Product */
+  .single-product .entry {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Phone Header */
+  .main-header {
+    padding: 8px 0;
+  }
+  .main-header-centered-grid {
+    gap: 8px;
+  }
+  .header-logo-big-img {
+    height: 48px;
+    max-width: 135px;
+  }
+  .header-meta-text {
+    display: none;
+  }
+  .header-right-actions {
+    gap: 8px;
+  }
+  .demo-search-select {
+    display: none;
+  }
+  .demo-search-bar {
+    padding: 2px 4px 2px 12px;
+  }
+  .demo-search-input {
+    font-size: 0.85rem;
+    padding: 5px 4px;
+  }
+  .demo-search-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Phone Categories: 4-column compact grid */
+  .circular-categories-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px 4px;
+  }
+  .circular-cat-circle {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+  }
+  .circular-cat-name {
+    font-size: 0.7rem;
+    line-height: 1.15;
+  }
+
+  /* Trust Bar: 2x2 Clean Grid */
+  .demo-trust-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 8px;
+  }
+  .demo-trust-bar {
+    padding: 12px 14px !important;
+  }
+  .demo-trust-item {
+    gap: 8px !important;
+  }
+  .demo-trust-title {
+    font-size: 0.78rem;
+  }
+  .demo-trust-desc {
+    font-size: 0.68rem;
+  }
+
+  /* Shopping Easy 2x2 Grid */
+  .shopping-easy-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 8px;
+  }
+
+  /* Instagram 3 Columns */
+  .instagram-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  /* Product Cards on Phone */
+  .demo-product-card {
+    padding: 12px;
+  }
+  .demo-product-title {
+    font-size: 0.88rem;
+  }
+  .demo-current-price {
+    font-size: 1.05rem;
+  }
+  .btn-add-cart-colorful {
+    padding: 7px 8px;
+    font-size: 0.78rem;
+  }
+  .btn-wishlist-outline {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  /* Age and Learn cards */
+  .age-cards-grid,
+  .learn-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .age-card-item,
+  .learn-card-item {
+    height: 220px !important;
+    padding: 14px !important;
+  }
+  .age-card-item h3,
+  .learn-card-item h3 {
+    font-size: 1.15rem !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .admin-dashboard-layout {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .age-cards-grid,
+  .learn-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

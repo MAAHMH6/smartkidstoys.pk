@@ -488,7 +488,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Grid: Sidebar Tabs + Content */}
-      <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '28px', alignItems: 'start' }}>
+      <div className="admin-dashboard-layout" style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '28px', alignItems: 'start' }}>
         
         {/* Left Sidebar */}
         <div style={{ background: 'white', padding: '20px', borderRadius: 'var(--radius-xl)', border: '1px solid var(--gray-2)', boxShadow: 'var(--shadow-card)' }}>
