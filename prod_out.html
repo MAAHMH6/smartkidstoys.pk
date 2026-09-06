@@ -1,14 +1,49 @@
-/*
-Theme Name: SmartKids Toys
-Theme URI: https://smartkidstoys.pk
-Author: SmartKids Toys Engineering Team
-Description: Custom high-performance eCommerce & WhatsApp Ordering theme for SmartKids Toys with built-in Order CRM, category SEO pages, product slug routing, and rich Schema.org snippets.
-Version: 1.5.0
-Text Domain: smartkidstoys
-*/
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+    <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;</script>
 
-/* ============================================
-   SMARTKIDS TOYS - Complete WordPress Theme CSS
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartKids Toys ΓÇö Quality, Fun &amp; Educational Toys for Kids in Pakistan</title>
+    <meta name="description" content="Shop SmartKids Toys for safe, fun and educational toys across Pakistan. Fast delivery, child-safe materials, and easy WhatsApp checkout.">
+    <meta name="keywords" content="toys, kids toys, educational toys, soft toys, building blocks, Pakistan toy store, SmartKids Toys, WooCommerce">
+    
+    <!-- OpenGraph & Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SmartKids Toys ΓÇö Play, Learn &amp; Grow Together">
+    <meta property="og:description" content="Discover the best toys for your smart kids. Safe, fun and educational toys for every age with easy WhatsApp ordering.">
+    <meta property="og:image" content="/assets/hero-banner.png">
+    
+    <!-- Schema.org JSON-LD Structured Data for eCommerce & SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "OnlineStore",
+      "name": "SmartKids Toys",
+      "description": "Safe, fun and educational toys for kids across Pakistan.",
+      "url": "https://smartkidstoys.pk",
+      "telephone": "+923098444501",
+      "priceRange": "PKR",
+      "image": "/assets/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "PK"
+      }
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style type="text/css" data-vite-dev-id="D:/SmartKidsToys/src/index.css">/* ============================================
+   SMARTKIDS TOYS ΓÇö Complete Colorful Design System
    ============================================ */
 
 :root {
@@ -65,7 +100,6 @@ a {
 
 img {
   max-width: 100%;
-  height: auto;
   display: block;
 }
 
@@ -155,7 +189,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--primary-blue-hover);
 }
 
-/* ── Shopify-style Scrolling Announcement Bar (Rainbow Edition) ── */
+/* ΓöÇΓöÇ Shopify-style Scrolling Announcement Bar (Rainbow Edition) ΓöÇΓöÇ */
 .announcement-bar-shopify {
   background: linear-gradient(
     90deg,
@@ -200,6 +234,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Scrolling ticker area (takes remaining width) */
 .announcement-ticker-wrap {
   flex: 1;
   overflow: hidden;
@@ -208,6 +243,7 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
 }
 
+/* The moving track ΓÇö infinite loop via CSS animation */
 .announcement-ticker-track {
   display: flex;
   white-space: nowrap;
@@ -256,6 +292,7 @@ h1, h2, h3, h4, h5, h6 {
   100% { transform: scale(1.25); opacity: 1; }
 }
 
+/* Right links (non-scrolling) */
 .announcement-bar-links {
   display: flex;
   align-items: center;
@@ -313,7 +350,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Legacy support fallback */
+/* Legacy classes kept for any WP theme references */
 .top-utilities-bar { display: none; }
 
 /* Main Header: 3-Column Centered Logo Grid */
@@ -519,7 +556,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--primary-blue);
 }
 
-/* Hero Banner */
+/* Hero Banner Demo */
 .demo-hero-section {
   position: relative;
   border-radius: var(--radius-xl);
@@ -637,7 +674,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-/* Product Cards */
+/* Product Cards with Multi-Colored Logo Buttons */
 .demo-product-card {
   background: white;
   border: 1px solid var(--gray-2);
@@ -921,7 +958,7 @@ h1, h2, h3, h4, h5, h6 {
   accent-color: var(--primary-blue);
 }
 
-/* Promo Banners with Full Image Background */
+/* Demo Promo Banners with Full Image Background */
 .demo-banners-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1040,7 +1077,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-/* Footer Style */
+/* Footer Demo Style */
 .demo-footer {
   background-color: #F8FAFC;
   padding: 48px 0 24px;
@@ -1152,423 +1189,11 @@ h1, h2, h3, h4, h5, h6 {
   .demo-banners-grid { grid-template-columns: 1fr; }
   .demo-footer-grid { grid-template-columns: 1fr; }
   .bag-layout { grid-template-columns: 1fr !important; }
-  .why-parents-grid { grid-template-columns: 1fr 1fr; }
-  .header-logo-big-img { height: 90px; }
-  .nav-bar-row { gap: 16px; overflow-x: auto; }
 }
+</style></head>
+  <body class="theme-smartkidstoys woocommerce-active">
+    <div id="root"><div style="display: flex; flex-direction: column; min-height: 100vh;"><aside class="announcement-bar-shopify" aria-label="Store announcements"><div class="announcement-ticker-wrap"><div class="announcement-ticker-track" style="--msg-count: 5;"><span class="announcement-ticker-item">≡ƒÜÜ Free Shipping on orders above PKR 3,000 ≡ƒÜÇ<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">ΓÜí Flash Sale ΓÇö Up to 40% OFF selected toys!<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">≡ƒÄü Fast Delivery across Pakistan in 2ΓÇô4 days<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">≡ƒô₧ Order via WhatsApp: 03098444501<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">Γ£¿ New arrivals added every week ΓÇö Shop now!<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">≡ƒÜÜ Free Shipping on orders above PKR 3,000 ≡ƒÜÇ<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">ΓÜí Flash Sale ΓÇö Up to 40% OFF selected toys!<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">≡ƒÄü Fast Delivery across Pakistan in 2ΓÇô4 days<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">≡ƒô₧ Order via WhatsApp: 03098444501<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span><span class="announcement-ticker-item">Γ£¿ New arrivals added every week ΓÇö Shop now!<span class="announcement-dot" aria-hidden="true">Γ£ª</span></span></div></div><div class="announcement-bar-links"><a href="tel:03098444501" class="ann-link"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-call" aria-hidden="true"><path d="M13 2a9 9 0 0 1 9 9"></path><path d="M13 6a5 5 0 0 1 5 5"></path><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg><span>03098444501</span></a><a class="ann-link" href="/contact"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-question-mark" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg><span>Help</span></a><a class="ann-link" href="/account"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M12 22V12"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><path d="m7.5 4.27 9 5.15"></path></svg><span>Track Order</span></a></div></aside><header class="site-header"><div class="main-header"><div class="container"><div class="main-header-centered-grid"><div class="demo-search-bar"><form style="display: flex; width: 100%; align-items: center;"><input type="text" placeholder="Search for toys..." class="demo-search-input" value=""><select class="demo-search-select"><option value="All Categories">All Categories</option><option value="Soft Toys">Soft Toys</option><option value="Educational">Educational</option><option value="Vehicles">Vehicles</option><option value="Building Blocks">Building Blocks</option><option value="Puzzles">Puzzles</option><option value="Outdoor Toys">Outdoor Toys</option><option value="Baby Toys">Baby Toys</option><option value="Arts &amp; Crafts">Arts &amp; Crafts</option></select><button type="submit" class="demo-search-btn" aria-label="Search"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg></button></form></div><div class="header-logo-center-wrap"><a class="header-logo-wrap" aria-label="SmartKids Toys Home" href="/"><img src="/assets/logo.png" alt="SmartKids Toys" class="header-logo-big-img"></a></div><div class="header-right-actions"><a class="header-meta-item" href="/login"><div style="width: 42px; height: 42px; border-radius: 50%; background: rgb(239, 246, 255); display: flex; align-items: center; justify-content: center;"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><div><div class="header-meta-label">Account</div><div class="header-meta-value">Login / Sign up</div></div></a><a class="header-meta-item" href="/bag"><div class="cart-icon-wrapper" style="width: 42px; height: 42px; border-radius: 50%; background: rgb(254, 243, 199); display: flex; align-items: center; justify-content: center;"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"></path><path d="M3.103 6.034h17.794"></path><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path></svg><span class="cart-yellow-badge">0</span></div><div><div class="header-meta-label">Bag</div><div class="header-meta-value">PKR 0</div></div></a></div></div></div></div><div class="header-nav-bar"><div class="container"><div class="nav-bar-row"><a class="all-categories-btn" href="/categories"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg><span>All Categories</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><nav class="main-nav-links"><a class="main-nav-link " href="/">Home Γû╛</a><a class="main-nav-link " href="/shop">Shop</a><a class="main-nav-link " href="/new-arrivals">New Arrivals</a><a class="main-nav-link " href="/shop?sort=bestseller">Best Sellers</a><a class="main-nav-link " href="/deals">Deals</a><a class="main-nav-link " href="/about">About Us</a><a class="main-nav-link " href="/contact">Contact Us</a></nav></div></div></div></header><main style="flex: 1 1 0%;"><div class="container" style="padding: 100px 20px; text-align: center;"><div style="font-size: 3rem; animation: 1s ease 0s infinite normal none running spin;">≡ƒº╕</div><p style="margin-top: 16px; color: var(--text-muted);">Loading product details...</p></div></main><div><div class="scalloped-divider"></div><footer class="demo-footer"><div class="container"><div class="demo-footer-grid"><div><div style="margin-bottom: 14px;"><img src="/assets/logo.png" alt="SmartKids Toys" style="height: 62px; object-fit: contain;"></div><p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; max-width: 280px;">SmartKids Toys brings joy, learning and creativity to your kids with our wide range of safe, non-toxic and fun toys.</p></div><div><h4 class="footer-column-title">Shop</h4><ul class="footer-links-list"><li><a href="/shop">All Toys</a></li><li><a href="/new-arrivals">New Arrivals</a></li><li><a href="/shop?sort=bestseller">Best Sellers</a></li><li><a href="/deals">Special Deals</a></li></ul></div><div><h4 class="footer-column-title">Help &amp; Support</h4><ul class="footer-links-list"><li><a href="/contact">FAQs</a></li><li><a href="/shipping-delivery">Shipping &amp; Delivery</a></li><li><a href="/returns-refunds">Returns &amp; Refunds</a></li><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div><div><h4 class="footer-column-title">About Us</h4><ul class="footer-links-list"><li><a href="/about">Our Story</a></li><li><a href="/contact">Contact Us</a></li><li><a href="/terms">Terms &amp; Conditions</a></li><li><a href="/about">Careers</a></li></ul></div><div><h4 class="footer-column-title">Stay Connected</h4><p style="font-size: 0.82rem; color: var(--text-muted);">Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p><form class="demo-subscribe-form"><input type="email" required="" placeholder="Enter your email" class="demo-subscribe-input" value=""><button type="submit" class="btn-subscribe" style="background: linear-gradient(135deg, rgb(2, 132, 199), rgb(3, 105, 161));">Subscribe</button></form><div class="footer-social-icons" style="display: flex; gap: 12px; margin-top: 14px;"><a href="https://facebook.com" target="_blank" rel="noreferrer" title="Facebook" style="width: 34px; height: 34px; border-radius: 50%; background: rgb(24, 119, 242); display: flex; align-items: center; justify-content: center; color: white;"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a><a href="https://instagram.com" target="_blank" rel="noreferrer" title="Instagram" style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(45deg, rgb(240, 148, 51), rgb(230, 104, 60), rgb(220, 39, 67), rgb(204, 35, 102), rgb(188, 24, 136)); display: flex; align-items: center; justify-content: center; color: white;"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a><a href="https://youtube.com" target="_blank" rel="noreferrer" title="YouTube" style="width: 34px; height: 34px; border-radius: 50%; background: rgb(255, 0, 0); display: flex; align-items: center; justify-content: center; color: white;"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg></a><a href="https://tiktok.com" target="_blank" rel="noreferrer" title="TikTok" style="width: 34px; height: 34px; border-radius: 50%; background: rgb(0, 0, 0); display: flex; align-items: center; justify-content: center; color: white;"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"></path></svg></a><a href="https://wa.me/923098444501" target="_blank" rel="noreferrer" title="WhatsApp" style="width: 34px; height: 34px; border-radius: 50%; background: rgb(37, 211, 102); display: flex; align-items: center; justify-content: center; color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg></a></div></div></div><div class="demo-footer-bottom"><div>┬⌐ 2026 SmartKids Toys. All rights reserved.</div><div style="display: flex; align-items: center; gap: 8px; color: rgb(22, 163, 74); font-weight: 800; font-size: 0.84rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg><span>100% Verified WhatsApp Orders &amp; Cash on Delivery across Pakistan</span></div></div></div></footer></div></div></div>
+    <script type="module" src="/src/main.jsx"></script>
+  
 
-/* ============================================
-   ADDITIONAL COMPONENT STYLES
-   ============================================ */
-
-/* Auth / Login Modal Overlay */
-#skt-auth-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.7);
-  z-index: 9999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  backdrop-filter: blur(4px);
-}
-
-#skt-auth-modal > div {
-  background: white;
-  border-radius: var(--radius-xl);
-  padding: 40px;
-  max-width: 440px;
-  width: 100%;
-  position: relative;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
-  animation: modalSlideIn 0.3s ease;
-}
-
-@keyframes modalSlideIn {
-  from { opacity: 0; transform: scale(0.9) translateY(20px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.skt-modal-close-btn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: var(--gray-1);
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  transition: var(--transition);
-}
-
-.skt-modal-close-btn:hover {
-  background: var(--gray-2);
-}
-
-.skt-auth-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1.5px solid var(--gray-2);
-  border-radius: var(--radius-md);
-  font-size: 0.95rem;
-  margin-bottom: 14px;
-  transition: var(--transition);
-  background: white;
-}
-
-.skt-auth-input:focus {
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-}
-
-.skt-auth-tab-btn {
-  flex: 1;
-  padding: 10px;
-  background: var(--gray-1);
-  border: none;
-  cursor: pointer;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  border-radius: var(--radius-md);
-  transition: var(--transition);
-}
-
-.skt-auth-tab-btn.active {
-  background: var(--primary-blue);
-  color: white;
-}
-
-/* Shopping Bag / Cart Page */
-.bag-layout {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 32px;
-  align-items: start;
-  margin: 32px 0 80px;
-}
-
-.bag-items-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.bag-item-card {
-  background: white;
-  border: 1px solid var(--gray-2);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-}
-
-.bag-item-card:hover {
-  box-shadow: var(--shadow-card);
-}
-
-.bag-item-img {
-  width: 80px;
-  height: 80px;
-  border-radius: var(--radius-md);
-  object-fit: contain;
-  background: var(--gray-1);
-  flex-shrink: 0;
-}
-
-.bag-item-info {
-  flex: 1;
-}
-
-.bag-item-name {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 0.95rem;
-  color: var(--dark-heading);
-  margin-bottom: 4px;
-}
-
-.bag-item-price {
-  font-size: 1.1rem;
-  font-weight: 900;
-  color: var(--primary-blue);
-  font-family: var(--font-heading);
-}
-
-.bag-order-summary {
-  background: white;
-  border: 1px solid var(--gray-2);
-  border-radius: var(--radius-xl);
-  padding: 28px;
-  box-shadow: var(--shadow-card);
-  position: sticky;
-  top: 100px;
-}
-
-/* Delivery Progress Bar */
-.delivery-progress-bar-bg {
-  height: 8px;
-  background: var(--gray-2);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-  margin: 10px 0 6px;
-}
-
-.delivery-progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #10B981, #0284C7);
-  border-radius: var(--radius-full);
-  transition: width 0.4s ease;
-}
-
-/* WhatsApp Checkout Order Form */
-.wa-checkout-form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.wa-checkout-input {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1.5px solid var(--gray-2);
-  border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  background: white;
-  transition: var(--transition);
-}
-
-.wa-checkout-input:focus {
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
-}
-
-/* Categories Grid Page */
-.categories-big-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin: 32px 0 60px;
-}
-
-.category-big-card {
-  background: white;
-  border: 1px solid var(--gray-2);
-  border-radius: var(--radius-xl);
-  padding: 36px 28px;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition);
-  display: block;
-  box-shadow: var(--shadow-sm);
-}
-
-.category-big-card:hover {
-  border-color: var(--primary-blue);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-6px);
-}
-
-.category-big-icon {
-  font-size: 3.5rem;
-  display: block;
-  margin-bottom: 14px;
-}
-
-.category-big-name {
-  font-family: var(--font-heading);
-  font-weight: 900;
-  font-size: 1.1rem;
-  color: var(--dark-heading);
-  margin-bottom: 6px;
-}
-
-.category-big-count {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-/* Contact Page Cards */
-.contact-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 48px;
-}
-
-.contact-card {
-  background: white;
-  border: 1px solid var(--gray-2);
-  border-radius: var(--radius-xl);
-  padding: 32px 28px;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-}
-
-.contact-card:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-4px);
-}
-
-/* About Page Sections */
-.about-story-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  margin: 40px 0;
-}
-
-.about-promises-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin: 32px 0;
-}
-
-.about-promise-card {
-  background: white;
-  border: 1px solid var(--gray-2);
-  border-radius: var(--radius-xl);
-  padding: 28px 24px;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-}
-
-.about-promise-card:hover {
-  box-shadow: var(--shadow-card);
-  transform: translateY(-4px);
-}
-
-/* Product Detail Page */
-.skt-thumb-item {
-  cursor: pointer;
-  transition: var(--transition);
-  border-radius: var(--radius-md);
-}
-
-.skt-thumb-item.active {
-  border-color: var(--primary-blue) !important;
-}
-
-.skt-thumb-item:hover {
-  border-color: var(--primary-blue-hover) !important;
-}
-
-/* FAQ Accordion */
-.faq-item {
-  border: 1px solid var(--gray-2);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-
-.faq-question {
-  width: 100%;
-  padding: 16px 20px;
-  background: white;
-  text-align: left;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--dark-heading);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: var(--transition);
-}
-
-.faq-question:hover {
-  background: var(--gray-1);
-}
-
-.faq-answer {
-  padding: 0 20px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-}
-
-.faq-answer.open {
-  padding: 12px 20px 20px;
-  max-height: 300px;
-}
-
-/* Policy Pages */
-.policy-content-area {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px 80px;
-}
-
-.policy-content-area h2 {
-  font-size: 1.2rem;
-  margin: 28px 0 12px;
-  color: var(--dark-heading);
-}
-
-.policy-content-area p, .policy-content-area li {
-  color: var(--text);
-  line-height: 1.7;
-  font-size: 0.95rem;
-  margin-bottom: 10px;
-}
-
-.policy-content-area ul {
-  padding-left: 20px;
-}
-
-/* Notification / Toast */
-.skt-toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--dark-heading);
-  color: white;
-  padding: 14px 22px;
-  border-radius: var(--radius-lg);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.95rem;
-  z-index: 10000;
-  display: none;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  animation: toastSlide 0.3s ease;
-}
-
-@keyframes toastSlide {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive extra rules */
-@media (max-width: 900px) {
-  .categories-big-grid { grid-template-columns: repeat(2, 1fr); }
-  .contact-cards-grid { grid-template-columns: 1fr; }
-  .about-story-grid { grid-template-columns: 1fr; }
-  .about-promises-grid { grid-template-columns: 1fr 1fr; }
-  .wa-checkout-form-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 600px) {
-  .categories-big-grid { grid-template-columns: 1fr; }
-  .about-promises-grid { grid-template-columns: 1fr; }
-  .circular-categories-grid { grid-template-columns: repeat(4, 1fr); }
-  .header-logo-big-img { height: 70px; }
-  .demo-trust-grid { grid-template-columns: 1fr 1fr; }
-}
-
+</body></html>

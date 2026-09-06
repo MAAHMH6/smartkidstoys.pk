@@ -10,14 +10,24 @@
 
 get_header();
 
-$toys = smartkidstoys_get_catalog_toys();
-$toy_id = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : ( isset( $_GET['toy_id'] ) ? intval( $_GET['toy_id'] ) : 1 );
+$request_uri = trim( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), '/' );
+$home_path   = trim( parse_url( home_url(), PHP_URL_PATH ), '/' );
+if ( ! empty( $home_path ) && strpos( $request_uri, $home_path ) === 0 ) {
+    $request_uri = trim( substr( $request_uri, strlen( $home_path ) ), '/' );
+}
+$segments = explode( '/', $request_uri );
+$url_identifier = ( isset( $segments[0] ) && $segments[0] === 'product' && isset( $segments[1] ) ) ? sanitize_title( $segments[1] ) : ( isset( $_GET['id'] ) ? sanitize_title( $_GET['id'] ) : '' );
 
+$toys = smartkidstoys_get_catalog_toys();
 $product = null;
-foreach ( $toys as $t ) {
-    if ( $t['id'] === $toy_id ) {
-        $product = $t;
-        break;
+
+if ( ! empty( $url_identifier ) ) {
+    foreach ( $toys as $t ) {
+        $t_slug = function_exists( 'smartkidstoys_slugify' ) ? smartkidstoys_slugify( $t['name'] ) : strtolower( str_replace( ' ', '-', $t['name'] ) );
+        if ( strval( $t['id'] ) === $url_identifier || $t_slug === $url_identifier ) {
+            $product = $t;
+            break;
+        }
     }
 }
 
@@ -30,20 +40,81 @@ $related = array_filter( $toys, function( $t ) use ( $product ) {
 } );
 $related = array_slice( $related, 0, 4 );
 
+$cat_slug = function_exists( 'smartkidstoys_slugify' ) ? smartkidstoys_slugify( $product['category'] ) : strtolower( str_replace( ' ', '-', $product['category'] ) );
+$prod_slug = function_exists( 'smartkidstoys_slugify' ) ? smartkidstoys_slugify( $product['name'] ) : 'toy-' . $product['id'];
+$canonical_url = home_url( '/product/' . $prod_slug );
 $sku = 'SKT-' . strtoupper( substr( $product['category'], 0, 3 ) ) . '-' . str_pad( $product['id'], 4, '0', STR_PAD_LEFT );
 ?>
+
+<!-- Schema.org JSON-LD Structured Data for Product -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "<?php echo esc_url( home_url( '/' ) ); ?>"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Categories",
+          "item": "<?php echo esc_url( home_url( '/categories' ) ); ?>"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "<?php echo esc_js( $product['category'] ); ?>",
+          "item": "<?php echo esc_url( home_url( '/category/' . $cat_slug ) ); ?>"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "<?php echo esc_js( $product['name'] ); ?>",
+          "item": "<?php echo esc_url( $canonical_url ); ?>"
+        }
+      ]
+    },
+    {
+      "@type": "Product",
+      "@id": "<?php echo esc_url( $canonical_url ); ?>#product",
+      "name": "<?php echo esc_js( $product['name'] ); ?>",
+      "image": ["<?php echo esc_url( $product['image'] ); ?>"],
+      "description": "<?php echo esc_js( $product['description'] ); ?>",
+      "sku": "<?php echo esc_js( $sku ); ?>",
+      "brand": {
+        "@type": "Brand",
+        "name": "Smart Kids Toys"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "<?php echo esc_url( $canonical_url ); ?>",
+        "priceCurrency": "PKR",
+        "price": "<?php echo esc_js( $product['price'] ); ?>",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    }
+  ]
+}
+</script>
 
 <div class="container" style="padding: 24px 20px 80px;">
     
     <!-- Breadcrumbs -->
     <nav style="display: flex; align-items: center; gap: 8px; font-size: 0.86rem; color: var(--text-muted); margin-bottom: 28px;" aria-label="Breadcrumb">
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color: var(--text-muted);">Home</a>
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color: var(--text-muted); text-decoration: none;">Home</a>
         <span>&rsaquo;</span>
-        <a href="<?php echo esc_url( home_url( '/shop' ) ); ?>" style="color: var(--text-muted);">Shop</a>
+        <a href="<?php echo esc_url( home_url( '/categories' ) ); ?>" style="color: var(--text-muted); text-decoration: none;">Categories</a>
         <span>&rsaquo;</span>
-        <a href="<?php echo esc_url( home_url( '/shop?cat=' . urlencode( $product['category'] ) ) ); ?>" style="color: var(--text-muted);"><?php echo esc_html( $product['category'] ); ?></a>
+        <a href="<?php echo esc_url( home_url( '/category/' . $cat_slug ) ); ?>" style="color: var(--text-muted); text-decoration: none;"><?php echo esc_html( $product['category'] ); ?></a>
         <span>&rsaquo;</span>
-        <strong style="color: var(--dark-heading);"><?php echo esc_html( $product['name'] ); ?></strong>
+        <strong style="color: #FF4D8D;"><?php echo esc_html( $product['name'] ); ?></strong>
     </nav>
 
     <!-- Main Product Two-Column Section -->

@@ -5,7 +5,9 @@ import { productService } from '../services/productService';
 import { orderService } from '../services/orderService';
 import { settingsService, DEFAULT_SETTINGS } from '../services/settingsService';
 import { supabase } from '../lib/supabase';
+import { slugify } from '../utils/slugify';
 import { 
+  Globe,
   Package, 
   ShoppingBag, 
   Users, 
@@ -37,15 +39,16 @@ import {
 } from 'lucide-react';
 
 const CATEGORIES = [
-  'Action Figures',
-  'Soft Toys',
+  'Baby & Toddler',
   'Educational',
-  'Vehicles',
+  'Action Figures',
+  'Dolls & Playsets',
+  'Vehicles & Track Sets',
+  'Remote Control',
+  'Puzzles & Games',
+  'Outdoor & Sports',
   'Building Blocks',
-  'Puzzles',
-  'Outdoor Toys',
-  'Baby Toys',
-  'Arts & Crafts',
+  'Soft Toys',
   'Other'
 ];
 
@@ -119,8 +122,9 @@ export default function AdminDashboard() {
   const [editingProduct, setEditingProduct] = useState(null);
   const [productForm, setProductForm] = useState({
     name: '',
+    slug: '',
     description: '',
-    category: 'Soft Toys',
+    category: 'Educational',
     age_range: '3–5 Years',
     educational_skill: 'General Fun',
     badge: '🔥 Best Seller',
@@ -197,8 +201,9 @@ export default function AdminDashboard() {
     setEditingProduct(null);
     setProductForm({
       name: '',
+      slug: '',
       description: '',
-      category: 'Soft Toys',
+      category: 'Educational',
       age_range: '3–5 Years',
       educational_skill: 'General Fun',
       badge: '🔥 Best Seller',
@@ -216,8 +221,9 @@ export default function AdminDashboard() {
     setEditingProduct(product);
     setProductForm({
       name: product.name || '',
+      slug: product.slug || slugify(product.name || ''),
       description: product.description || '',
-      category: product.category || 'Soft Toys',
+      category: product.category || 'Educational',
       age_range: product.age_range || '3–5 Years',
       educational_skill: product.educational_skill || 'General Fun',
       badge: product.badge || '🔥 Best Seller',
@@ -234,8 +240,10 @@ export default function AdminDashboard() {
   const handleSaveProduct = async (e) => {
     e.preventDefault();
     try {
+      const generatedSlug = productForm.slug.trim() ? slugify(productForm.slug.trim()) : slugify(productForm.name.trim());
       const payload = {
         name: productForm.name.trim(),
+        slug: generatedSlug,
         description: productForm.description.trim(),
         category: productForm.category,
         age_range: productForm.age_range,
@@ -1678,9 +1686,43 @@ export default function AdminDashboard() {
                   required
                   placeholder="e.g. Cute Teddy Bear Plush"
                   value={productForm.name}
-                  onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
+                  onChange={(e) => {
+                    const newName = e.target.value;
+                    const autoSlug = (!editingProduct || !productForm.slug) ? slugify(newName) : productForm.slug;
+                    setProductForm({ ...productForm, name: newName, slug: autoSlug });
+                  }}
                   style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.92rem' }}
                 />
+              </div>
+
+              {/* SEO URL Slug */}
+              <div>
+                <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                    <Globe size={14} color="#0284C7" /> SEO URL Slug (Permalink) *
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setProductForm({ ...productForm, slug: slugify(productForm.name) })}
+                    style={{ background: 'none', border: 'none', color: '#0284C7', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', textDecoration: 'underline' }}
+                  >
+                    Auto-Generate
+                  </button>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. cute-teddy-bear-plush"
+                  value={productForm.slug}
+                  onChange={(e) => setProductForm({ ...productForm, slug: slugify(e.target.value) })}
+                  style={{ width: '100%', padding: '10px 14px', border: '1.5px solid var(--gray-2)', borderRadius: 'var(--radius-md)', fontSize: '0.88rem', fontFamily: 'monospace' }}
+                />
+                <div style={{ marginTop: '6px', fontSize: '0.78rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
+                  <span>Live Product URL:</span>
+                  <span style={{ color: '#0284C7', fontWeight: 700, background: '#F0F9FF', padding: '2px 8px', borderRadius: '4px', wordBreak: 'break-all' }}>
+                    smartkidstoys.pk/product/{productForm.slug || slugify(productForm.name) || 'toy-slug'}
+                  </span>
+                </div>
               </div>
 
               {/* Category + Age Range */}

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { productService } from '../services/productService';
+import { productService, FALLBACK_PRODUCTS } from '../services/productService';
 import { useCart } from '../context/CartContext';
 import QuantitySelector from '../components/common/QuantitySelector';
 import ProductCard from '../components/common/ProductCard';
+import SEO from '../components/common/SEO';
+import { slugify } from '../utils/slugify';
 import { 
   ShoppingCart, 
   Zap, 
@@ -19,7 +21,8 @@ import {
 } from 'lucide-react';
 
 export default function ProductDetail() {
-  const { id } = useParams();
+  const { id, slug } = useParams();
+  const identifier = slug || id;
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -56,17 +59,23 @@ export default function ProductDetail() {
     setQuantity(1);
     setIsAdded(false);
 
-    productService.getById(id).then((prod) => {
-      setProduct(prod);
-      if (prod) {
-        setSelectedImage(prod.image_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600');
-        productService.getByCategory(prod.category).then((rel) => {
-          setRelatedProducts(rel.filter((p) => p.id !== prod.id).slice(0, 4));
-        });
+    productService.getBySlugOrId(identifier).then((prod) => {
+      const activeProd = prod || (FALLBACK_PRODUCTS && FALLBACK_PRODUCTS[0]) || null;
+      setProduct(activeProd);
+      if (activeProd) {
+        setSelectedImage(activeProd.image_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600');
+        productService.getByCategory(activeProd.category).then((rel) => {
+          setRelatedProducts(rel.filter((p) => String(p.id) !== String(activeProd.id) && p.slug !== activeProd.slug).slice(0, 4));
+        }).catch(() => {});
       }
       setLoading(false);
+    }).catch((err) => {
+      console.warn('Product load exception:', err);
+      const fallback = FALLBACK_PRODUCTS && FALLBACK_PRODUCTS[0] ? FALLBACK_PRODUCTS[0] : null;
+      setProduct(fallback);
+      setLoading(false);
     });
-  }, [id]);
+  }, [identifier]);
 
   if (loading) {
     return (
@@ -129,17 +138,92 @@ export default function ProductDetail() {
     'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600'
   ];
 
+  const productSlug = product.slug || slugify(product.name);
+  const categorySlug = slugify(product.category || 'educational');
+  const canonicalUrl = `https://smartkidstoys.pk/product/${productSlug}`;
+
+  const schemaJson = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://smartkidstoys.pk"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": product.category || "Categories",
+            "item": `https://smartkidstoys.pk/category/${categorySlug}`
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": product.name,
+            "item": canonicalUrl
+          }
+        ]
+      },
+      {
+        "@type": "Product",
+        "@id": `${canonicalUrl}/#product`,
+        "name": product.name,
+        "image": [product.image_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600'],
+        "description": product.description || `Buy ${product.name} online in Pakistan. High quality educational toys for kids with cash on delivery.`,
+        "sku": sku,
+        "brand": {
+          "@type": "Brand",
+          "name": "Smart Kids Toys"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": canonicalUrl,
+          "priceCurrency": "PKR",
+          "price": price,
+          "priceValidUntil": "2027-12-31",
+          "itemCondition": "https://schema.org/NewCondition",
+          "availability": inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+          "seller": {
+            "@type": "Organization",
+            "name": "Smart Kids Toys Pakistan"
+          }
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": String(rating),
+          "reviewCount": String(product.rating_count || 45),
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="container single-product woocommerce-page" style={{ padding: '24px 20px 80px' }}>
+      {/* Dynamic Native SEO & Schema.org Rich Snippets */}
+      <SEO
+        title={`${product.name} | Buy Online Pakistan`}
+        description={`${product.name}: ${product.description}. Buy authentic toys in Pakistan at Smart Kids Toys with Cash on Delivery.`}
+        canonical={canonicalUrl}
+        ogImage={product.image_url}
+        ogType="product"
+        schemaJson={schemaJson}
+      />
+
       {/* 1. WooCommerce Standard Breadcrumbs (SEO friendly) */}
       <nav className="woocommerce-breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.86rem', color: 'var(--text-muted)', marginBottom: '28px' }} aria-label="Breadcrumb">
-        <Link to="/" style={{ color: 'var(--text-muted)' }}>Home</Link>
+        <Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Home</Link>
         <ChevronRight size={14} />
-        <Link to="/shop" style={{ color: 'var(--text-muted)' }}>Shop</Link>
+        <Link to="/categories" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Categories</Link>
         <ChevronRight size={14} />
-        <Link to={`/shop?category=${encodeURIComponent(product.category)}`} style={{ color: 'var(--text-muted)' }}>{product.category}</Link>
+        <Link to={`/category/${categorySlug}`} style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>{product.category}</Link>
         <ChevronRight size={14} />
-        <span style={{ color: 'var(--dark-heading)', fontWeight: 700 }}>{product.name}</span>
+        <span style={{ color: '#FF4D8D', fontWeight: 700 }}>{product.name}</span>
       </nav>
 
       {/* 2. Main Single Product Content */}

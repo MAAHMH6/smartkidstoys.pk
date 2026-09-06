@@ -76,48 +76,48 @@ export default function Home() {
 
 
   const circularCategories = [
-    { name: 'Action Figures', icon: '🤖', bg: '#F3E8FF', link: '/shop?category=Action%20Figures' },
-    { name: 'Building Blocks', icon: '🧱', bg: '#FFEDD5', link: '/shop?category=Building%20Blocks' },
-    { name: 'Soft Toys', icon: '🧸', bg: '#FCE7F3', link: '/shop?category=Soft%20Toys' },
-    { name: 'Cars & Vehicles', icon: '🚗', bg: '#DCFCE7', link: '/shop?category=Cars%20%26%20Vehicles' },
-    { name: 'Puzzles', icon: '🧩', bg: '#EDE9FE', link: '/shop?category=Puzzles' },
-    { name: 'Learning Toys', icon: '🎓', bg: '#DBEAFE', link: '/shop?category=Learning%20Toys' },
-    { name: 'Outdoor Toys', icon: '⚽', bg: '#FEF9C3', link: '/shop?category=Outdoor%20Toys' },
-    { name: 'All Toys', icon: '🎪', bg: '#F1F5F9', link: '/shop' }
+    { name: 'Action Figures', icon: '🤖', bg: '#F3E8FF', link: '/category/action-figures' },
+    { name: 'Building Blocks', icon: '🧱', bg: '#FFEDD5', link: '/category/educational' },
+    { name: 'Soft Toys', icon: '🧸', bg: '#FCE7F3', link: '/category/baby-toddler' },
+    { name: 'Cars & Vehicles', icon: '🚗', bg: '#DCFCE7', link: '/category/vehicles-track-sets' },
+    { name: 'Puzzles', icon: '🧩', bg: '#EDE9FE', link: '/category/puzzles-games' },
+    { name: 'Learning Toys', icon: '🎓', bg: '#DBEAFE', link: '/category/educational' },
+    { name: 'Outdoor Toys', icon: '⚽', bg: '#FEF9C3', link: '/category/outdoor-sports' },
+    { name: 'All Categories', icon: '🎪', bg: '#F1F5F9', link: '/categories' }
   ];
 
   const ageCards = [
     {
       age: settings.age_0_2_title || '0–2 Years',
       subtitle: settings.age_0_2_subtitle || 'Safe & sensory',
-      img: settings.age_0_2_bg_image || 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600',
+      img: settings.age_0_2_bg_image || '/assets/baby-banner.png',
       badge: '👶 Baby & Toddler',
       btnBg: 'linear-gradient(135deg, #EC4899, #DB2777)',
-      link: '/shop?age=0-2'
+      link: '/category/baby-toddler'
     },
     {
       age: settings.age_3_5_title || '3–5 Years',
       subtitle: settings.age_3_5_subtitle || 'Creative play',
-      img: settings.age_3_5_bg_image || 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600',
+      img: settings.age_3_5_bg_image || '/assets/teddy-banner.png',
       badge: '🧒 Preschoolers',
       btnBg: 'linear-gradient(135deg, #0284C7, #0369A1)',
-      link: '/shop?age=3-5'
+      link: '/category/educational'
     },
     {
       age: settings.age_6_8_title || '6–8 Years',
       subtitle: settings.age_6_8_subtitle || 'Learning & fun',
-      img: settings.age_6_8_bg_image || 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600',
+      img: settings.age_6_8_bg_image || '/assets/train-banner.png',
       badge: '🧠 Early Explorers',
       btnBg: 'linear-gradient(135deg, #10B981, #059669)',
-      link: '/shop?age=6-8'
+      link: '/category/action-figures'
     },
     {
       age: settings.age_9_12_title || '9–12 Years',
       subtitle: settings.age_9_12_subtitle || 'STEM & adventure',
-      img: settings.age_9_12_bg_image || 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600',
+      img: settings.age_9_12_bg_image || '/assets/flash-sale-banner.png',
       badge: '🚀 Young Innovators',
       btnBg: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
-      link: '/shop?age=9-12'
+      link: '/category/remote-control'
     }
   ];
 
@@ -513,54 +513,55 @@ export default function Home() {
                 cursor: 'pointer',
                 backgroundImage: `url(${card.img})`,
                 backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+                backgroundPosition: 'right center',
+                backgroundRepeat: 'no-repeat',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                padding: '20px'
+                padding: '22px 20px'
               }}
               onClick={() => navigate(card.link)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-6px)';
-                e.currentTarget.style.boxShadow = '0 12px 28px rgba(0,0,0,0.2)';
+                e.currentTarget.style.boxShadow = '0 12px 28px rgba(0,0,0,0.12)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.06)';
               }}
             >
-              {/* Light gradient overlay */}
+              {/* Soft text-legibility subtle tint on text side only - zero muddy darkness */}
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.2) 40%, rgba(15, 23, 42, 0.55) 100%)',
-                zIndex: 1
+                background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.4) 45%, rgba(255, 255, 255, 0) 75%)',
+                zIndex: 1,
+                pointerEvents: 'none'
               }} />
 
               {/* Top Tag */}
               <div style={{ position: 'relative', zIndex: 2 }}>
                 <span style={{
-                  background: 'rgba(255, 255, 255, 0.92)',
-                  backdropFilter: 'blur(8px)',
+                  background: 'rgba(255, 255, 255, 0.96)',
                   color: '#0F172A',
                   fontSize: '0.75rem',
                   fontWeight: 800,
                   padding: '5px 12px',
                   borderRadius: '9999px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
                 }}>
                   {card.badge}
                 </span>
               </div>
 
               {/* Bottom Content */}
-              <div style={{ position: 'relative', zIndex: 2 }}>
-                <h3 style={{ fontSize: '1.45rem', fontWeight: 900, color: '#FFFFFF', margin: '0 0 4px', textShadow: '0 2px 4px rgba(0,0,0,0.4)' }}>
+              <div style={{ position: 'relative', zIndex: 2, maxWidth: '68%' }}>
+                <h3 style={{ fontSize: '1.45rem', fontWeight: 900, color: '#0F172A', margin: '0 0 4px', lineHeight: 1.2 }}>
                   {card.age}
                 </h3>
-                <p style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.95)', margin: '0 0 14px', fontWeight: 600, textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
+                <p style={{ fontSize: '0.88rem', color: '#334155', margin: '0 0 14px', fontWeight: 600 }}>
                   {card.subtitle}
                 </p>
                 <span style={{
@@ -573,7 +574,7 @@ export default function Home() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '6px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.25)'
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                 }}>
                   Shop Now <ArrowRight size={14} />
                 </span>

@@ -16,6 +16,7 @@ import Shop from './pages/Shop';
 import Categories from './pages/Categories';
 import NewArrivals from './pages/NewArrivals';
 import SpecialDeals from './pages/SpecialDeals';
+import CategoryDetail from './pages/CategoryDetail';
 import ProductDetail from './pages/ProductDetail';
 import Bag from './pages/Bag';
 import Checkout from './pages/Checkout';
@@ -56,9 +57,10 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/categories" element={<Categories />} />
+                <Route path="/category/:slug" element={<CategoryDetail />} />
                 <Route path="/new-arrivals" element={<NewArrivals />} />
                 <Route path="/deals" element={<SpecialDeals />} />
-                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/product/:slug" element={<ProductDetail />} />
                 <Route path="/bag" element={<Bag />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/login" element={<Login />} />

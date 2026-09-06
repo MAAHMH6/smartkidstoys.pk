@@ -148,10 +148,37 @@ function smartkidstoys_smart_router( $template ) {
     if ( empty( $request_uri ) ) return $template;
 
     $segments  = explode( '/', $request_uri );
+    $first_seg = $segments[0] ?? '';
     $last_slug = end( $segments );
 
     if ( strpos( $last_slug, 'wp-' ) === 0 ) {
         return $template;
+    }
+
+    // 1. Dynamic /category/:slug router
+    if ( $first_seg === 'category' ) {
+        $cat_file = get_template_directory() . '/page-category-detail.php';
+        if ( file_exists( $cat_file ) ) {
+            global $wp_query;
+            if ( isset( $wp_query ) && is_object( $wp_query ) ) {
+                $wp_query->is_404  = false;
+                $wp_query->is_page = true;
+            }
+            return $cat_file;
+        }
+    }
+
+    // 2. Dynamic /product/:slug router
+    if ( $first_seg === 'product' ) {
+        $prod_file = get_template_directory() . '/page-product-detail.php';
+        if ( file_exists( $prod_file ) ) {
+            global $wp_query;
+            if ( isset( $wp_query ) && is_object( $wp_query ) ) {
+                $wp_query->is_404  = false;
+                $wp_query->is_page = true;
+            }
+            return $prod_file;
+        }
     }
 
     $slug_mappings = array(
@@ -250,6 +277,17 @@ function smartkidstoys_ajax_submit_order() {
 }
 add_action( 'wp_ajax_skt_submit_order', 'smartkidstoys_ajax_submit_order' );
 add_action( 'wp_ajax_nopriv_skt_submit_order', 'smartkidstoys_ajax_submit_order' );
+
+// 7b. Helper: Slugify text (100% safe, zero external extension dependency)
+function smartkidstoys_slugify( $text ) {
+    if ( empty( $text ) ) return 'toy';
+    if ( function_exists( 'sanitize_title' ) ) {
+        return sanitize_title( $text );
+    }
+    $text = preg_replace( '/[^A-Za-z0-9-]+/', '-', strtolower( (string) $text ) );
+    $clean = trim( $text, '-' );
+    return ! empty( $clean ) ? $clean : 'toy';
+}
 
 // 8. Dynamic Catalog Helper (Queries skt_toy posts from WP database with sample fallback)
 function smartkidstoys_get_catalog_toys() {

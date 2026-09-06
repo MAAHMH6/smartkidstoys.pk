@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { Star, Heart, Check, ShoppingCart, Sparkles } from 'lucide-react';
+import { slugify } from '../../utils/slugify';
 
 const BUTTON_COLOR_THEMES = [
   { bg: 'linear-gradient(135deg, #0284C7, #0369A1)', hover: '#0369A1', shadow: 'rgba(2, 132, 199, 0.35)' },
@@ -13,6 +14,8 @@ const BUTTON_COLOR_THEMES = [
 ];
 
 export default function ProductCard({ product }) {
+  if (!product) return null;
+
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
   const [isWishlist, setIsWishlist] = useState(false);
@@ -77,7 +80,7 @@ export default function ProductCard({ product }) {
       </div>
 
       {/* Product Image */}
-      <Link to={`/product/${product.id}`} className="demo-product-img-box" tabIndex="-1">
+      <Link to={`/product/${product.slug || slugify(product.name || String(product.id))}`} className="demo-product-img-box" tabIndex="-1">
         <img
           src={product.image_url || '/assets/logo.png'}
           alt={product.name}
@@ -89,9 +92,21 @@ export default function ProductCard({ product }) {
       {/* Category & Age Meta Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '4px' }}>
         {product.category && (
-          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          <Link
+            to={`/category/${slugify(product.category)}`}
+            style={{ 
+              fontSize: '0.7rem', 
+              fontWeight: 800, 
+              color: 'var(--text-muted)', 
+              textTransform: 'uppercase', 
+              letterSpacing: '0.5px',
+              textDecoration: 'none'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#FF4D8D'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+          >
             {product.category}
-          </span>
+          </Link>
         )}
         <span style={{ fontSize: '0.7rem', fontWeight: 800, background: '#EFF6FF', color: '#0284C7', padding: '1px 6px', borderRadius: '6px' }}>
           {product.age_range || 'Age: 3–8 Yrs'}
@@ -100,7 +115,7 @@ export default function ProductCard({ product }) {
 
       {/* Title */}
       <h3 className="demo-product-title">
-        <Link to={`/product/${product.id}`} title={product.name}>
+        <Link to={`/product/${product.slug || slugify(product.name || String(product.id))}`} title={product.name}>
           {product.name}
         </Link>
       </h3>
