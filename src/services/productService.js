@@ -1,7 +1,8 @@
 import { supabase } from '../lib/supabase';
 
-// Fallback catalog in case of temporary offline/network delay
+// Complete product catalog matching the exact design and categories
 export const FALLBACK_PRODUCTS = [
+  // --- POPULAR TOYS ---
   { 
     id: '1', 
     name: 'Cute Teddy Bear', 
@@ -14,10 +15,10 @@ export const FALLBACK_PRODUCTS = [
     rating_count: 128, 
     is_new: false, 
     is_deal: true, 
-    is_bestseller: true,
-    age_range: '1–3 Years',
-    educational_skill: 'Sensory & Emotional Comfort',
-    badge: '🔥 Best Seller',
+    is_bestseller: false,
+    age_range: '0–2 Years',
+    educational_skill: 'Sensory & Comfort',
+    badge: '🔥 Popular',
     image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600' 
   },
   { 
@@ -32,10 +33,10 @@ export const FALLBACK_PRODUCTS = [
     rating_count: 94, 
     is_new: false, 
     is_deal: true, 
-    is_bestseller: true,
+    is_bestseller: false,
     age_range: '3–5 Years',
-    educational_skill: 'STEM / Motor Skills / Logic',
-    badge: '⭐ Parent Favorite',
+    educational_skill: 'STEM / Motor Skills',
+    badge: '⭐ Favorite',
     image_url: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600' 
   },
   { 
@@ -50,33 +51,33 @@ export const FALLBACK_PRODUCTS = [
     rating_count: 156, 
     is_new: true, 
     is_deal: true, 
-    is_bestseller: true,
-    age_range: '5–8 Years',
-    educational_skill: 'Hand-Eye Coordination & Spatial Skills',
-    badge: '🔥 Best Seller',
+    is_bestseller: false,
+    age_range: '6–8 Years',
+    educational_skill: 'Hand-Eye Coordination',
+    badge: '🔥 Hot Deal',
     image_url: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600' 
   },
   { 
     id: '4', 
-    name: 'Solar Robot 12-in-1 Kit', 
-    description: 'Hands-on STEM solar powered robot kit that builds 12 different walking and crawling robots.', 
-    price: 2200, 
-    old_price: 2900, 
-    category: 'Educational', 
-    stock: 25, 
-    rating: 4.9, 
-    rating_count: 82, 
+    name: 'Puzzle Fun 100 Pieces', 
+    description: 'Colorful 100-piece jigsaw puzzle developing spatial reasoning and logic.', 
+    price: 899, 
+    old_price: 1299, 
+    category: 'Puzzles', 
+    stock: 60, 
+    rating: 4.7, 
+    rating_count: 65, 
     is_new: false, 
     is_deal: true, 
-    is_bestseller: true,
-    age_range: '8+ Years',
-    educational_skill: 'STEM / Robotics / Problem Solving',
-    badge: '🧠 Educational',
-    image_url: 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600' 
+    is_bestseller: false,
+    age_range: '3–5 Years',
+    educational_skill: 'Logic & Problem Solving',
+    badge: '🧠 Puzzle',
+    image_url: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600' 
   },
   { 
     id: '5', 
-    name: 'Rainbow Stacker & Shape Sorter', 
+    name: 'Rainbow Stacker', 
     description: 'Montessori wooden stacking rings to foster hand-eye coordination and color identification.', 
     price: 1299, 
     old_price: 1699, 
@@ -86,65 +87,103 @@ export const FALLBACK_PRODUCTS = [
     rating_count: 77, 
     is_new: false, 
     is_deal: true, 
-    is_bestseller: true,
-    age_range: '1–3 Years',
-    educational_skill: 'Color Sorting & Fine Motor Dexterity',
-    badge: '🎁 Great Gift',
+    is_bestseller: false,
+    age_range: '0–2 Years',
+    educational_skill: 'Color & Motor Skills',
+    badge: '🎁 Best Gift',
     image_url: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600' 
   },
+
+  // --- BEST SELLERS ---
   { 
-    id: '6', 
-    name: 'Classic Electric Train Set', 
-    description: 'Complete railway train set with headlight locomotive, passenger cars, and loop tracks.', 
-    price: 3200, 
-    old_price: 4000, 
-    category: 'Vehicles', 
-    stock: 25, 
-    rating: 4.8, 
-    rating_count: 112, 
+    id: '101', 
+    name: 'Magnetic Building Tiles', 
+    description: '3D magnetic tiles building set for creative construction, geometry and architectural play.', 
+    price: 2499, 
+    old_price: 3499, 
+    category: 'STEM', 
+    stock: 50, 
+    rating: 4.9, 
+    rating_count: 145, 
     is_new: true, 
-    is_deal: false, 
+    is_deal: true, 
     is_bestseller: true,
     age_range: '3–5 Years',
-    educational_skill: 'Creative Play & Imagination',
-    badge: '⭐ Parent Favorite',
-    image_url: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600' 
+    educational_skill: 'STEM / 3D Geometry',
+    badge: '🔥 Best Seller',
+    image_url: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600' 
   },
   { 
-    id: '7', 
-    name: 'Animals 3D Wooden Jigsaw Puzzle', 
-    description: 'Laser cut 3D jigsaw puzzle developing spatial reasoning and fine motor dexterity.', 
-    price: 990, 
-    old_price: 1350, 
-    category: 'Puzzles', 
-    stock: 45, 
-    rating: 4.7, 
-    rating_count: 65, 
+    id: '102', 
+    name: 'Wooden Alphabet Puzzle', 
+    description: 'Chunky wooden alphabet and numbers board for early toddler literacy and spelling fun.', 
+    price: 1799, 
+    old_price: 2499, 
+    category: 'Educational', 
+    stock: 40, 
+    rating: 4.8, 
+    rating_count: 112, 
     is_new: false, 
     is_deal: true, 
-    is_bestseller: false,
+    is_bestseller: true,
+    age_range: '0–2 Years',
+    educational_skill: 'Early Literacy & Phonics',
+    badge: '⭐ Parent Choice',
+    image_url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600' 
+  },
+  { 
+    id: '103', 
+    name: 'Die-Cast Car Set (Pack of 5)', 
+    description: 'Premium alloy metal die-cast racing cars with smooth rolling wheels and vibrant designs.', 
+    price: 2199, 
+    old_price: 2899, 
+    category: 'Cars & Vehicles', 
+    stock: 35, 
+    rating: 4.9, 
+    rating_count: 165, 
+    is_new: false, 
+    is_deal: true, 
+    is_bestseller: true,
     age_range: '3–5 Years',
-    educational_skill: 'Cognitive Logic & Pattern Recognition',
-    badge: '🧠 Educational',
+    educational_skill: 'Hand-Eye Coordination',
+    badge: '🔥 Top Seller',
+    image_url: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600' 
+  },
+  { 
+    id: '104', 
+    name: '1000-Piece Castle Puzzle', 
+    description: 'Intricate 1000-piece fantasy landscape puzzle promoting patience and focus for older kids.', 
+    price: 1399, 
+    old_price: 1749, 
+    category: 'Puzzles', 
+    stock: 25, 
+    rating: 4.7, 
+    rating_count: 75, 
+    is_new: true, 
+    is_deal: true, 
+    is_bestseller: true,
+    age_range: '9–12 Years',
+    educational_skill: 'Focus & Logic',
+    badge: '🧠 Brain Game',
     image_url: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600' 
   },
   { 
-    id: '8', 
-    name: 'Superhero Articulated Action Figure', 
-    description: 'Poseable superhero action figure with 16 points of articulation and premium detailed sculpting.', 
-    price: 1450, 
-    old_price: 1950, 
-    category: 'Action Figures', 
-    stock: 40, 
+    id: '105', 
+    name: 'Panda Plush Toy (40cm)', 
+    description: 'Ultra-cuddly huggable black and white panda made with ultra-soft baby-safe plush.', 
+    price: 1499, 
+    old_price: 1999, 
+    category: 'Soft Toys', 
+    stock: 45, 
     rating: 4.9, 
-    rating_count: 98, 
+    rating_count: 134, 
     is_new: false, 
     is_deal: true, 
-    is_bestseller: false,
-    age_range: '5–8 Years',
-    educational_skill: 'Storytelling & Imaginative Play',
-    badge: '🎁 Great Gift',
-    image_url: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600' 
+    is_bestseller: true,
+    age_range: '0–2 Years',
+    educational_skill: 'Sensory & Comfort',
+    badge: '🎁 Top Gift',
+    image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600' 
   }
 ];
 
@@ -206,14 +245,13 @@ export const productService = {
       if (error || !data || data.length === 0) {
         return FALLBACK_PRODUCTS;
       }
-      // Merge fallback metadata if DB fields are empty
       return data.map((item, idx) => {
         const fallback = FALLBACK_PRODUCTS[idx % FALLBACK_PRODUCTS.length];
         return {
           ...fallback,
           ...item,
-          age_range: item.age_range || fallback.age_range || '3–8 Years',
-          educational_skill: item.educational_skill || fallback.educational_skill || 'STEM / Creativity',
+          age_range: item.age_range || fallback.age_range || '3–5 Years',
+          educational_skill: item.educational_skill || fallback.educational_skill || 'STEM & Motor Skills',
           badge: item.badge || fallback.badge || '🔥 Best Seller'
         };
       });
@@ -239,39 +277,22 @@ export const productService = {
 
   async getByCategory(category) {
     const products = await this.getAll();
-    if (!category || category === 'All Toys') return products;
+    if (!category || category === 'All Categories' || category === 'All Toys') return products;
     return products.filter(p => p.category?.toLowerCase() === category.toLowerCase());
   },
 
-  async getByAge(ageKey) {
+  async getPopular() {
     const products = await this.getAll();
-    if (!ageKey) return products;
-    return products.filter(p => p.age_range?.toLowerCase().includes(ageKey.toLowerCase()));
-  },
-
-  async getByBudget(maxPrice) {
-    const products = await this.getAll();
-    if (!maxPrice) return products;
-    return products.filter(p => Number(p.price) <= Number(maxPrice));
+    return products.filter(p => !p.is_bestseller).slice(0, 5);
   },
 
   async getBestSellers() {
     const products = await this.getAll();
-    return products.filter(p => p.is_bestseller || p.rating >= 4.8);
+    return products.filter(p => p.is_bestseller || Number(p.id) >= 100).slice(0, 5);
   },
 
   async getBundles() {
     return SMARTKIDS_BUNDLES;
-  },
-
-  async getNewArrivals() {
-    const products = await this.getAll();
-    return products.filter(p => p.is_new);
-  },
-
-  async getDeals() {
-    const products = await this.getAll();
-    return products.filter(p => p.is_deal || (p.old_price && Number(p.old_price) > Number(p.price)));
   },
 
   async search(query) {
@@ -281,27 +302,7 @@ export const productService = {
     return products.filter(p => 
       p.name?.toLowerCase().includes(q) ||
       p.category?.toLowerCase().includes(q) ||
-      p.description?.toLowerCase().includes(q) ||
-      p.age_range?.toLowerCase().includes(q)
+      p.description?.toLowerCase().includes(q)
     );
-  },
-
-  // Admin CRUD operations
-  async createProduct(productData) {
-    const { data, error } = await supabase.from('products').insert([productData]).select().single();
-    if (error) throw error;
-    return data;
-  },
-
-  async updateProduct(id, productData) {
-    const { data, error } = await supabase.from('products').update(productData).eq('id', id).select().single();
-    if (error) throw error;
-    return data;
-  },
-
-  async deleteProduct(id) {
-    const { error } = await supabase.from('products').delete().eq('id', id);
-    if (error) throw error;
-    return true;
   }
 };
