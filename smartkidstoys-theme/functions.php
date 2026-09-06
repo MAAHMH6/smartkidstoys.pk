@@ -71,20 +71,36 @@ function smartkidstoys_customize_register( $wp_customize ) {
         'settings' => 'skt_hero_banner',
     ) ) );
 
-    // Train Banner (New Arrivals)
+    // Train Banner (New Arrivals Dedicated Page Banner)
     $wp_customize->add_setting( 'skt_train_banner', array( 'default' => '' ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_train_banner', array(
-        'label'    => __( 'New Arrivals Train Banner', 'smartkidstoys' ),
+        'label'    => __( 'New Arrivals Page Banner (Wide Ratio)', 'smartkidstoys' ),
         'section'  => 'skt_media_section',
         'settings' => 'skt_train_banner',
     ) ) );
 
-    // Teddy Bear Banner (Special Deals)
+    // Train Card (New Arrivals Homepage Card)
+    $wp_customize->add_setting( 'skt_train_card', array( 'default' => '' ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_train_card', array(
+        'label'    => __( 'New Arrivals Homepage Card (Grid Card Ratio)', 'smartkidstoys' ),
+        'section'  => 'skt_media_section',
+        'settings' => 'skt_train_card',
+    ) ) );
+
+    // Teddy Bear Banner (Special Deals Dedicated Page Banner)
     $wp_customize->add_setting( 'skt_teddy_banner', array( 'default' => '' ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_teddy_banner', array(
-        'label'    => __( 'Special Deals Teddy Bear Banner', 'smartkidstoys' ),
+        'label'    => __( 'Special Deals Page Banner (Wide Ratio)', 'smartkidstoys' ),
         'section'  => 'skt_media_section',
         'settings' => 'skt_teddy_banner',
+    ) ) );
+
+    // Teddy Bear Card (Special Deals Homepage Card)
+    $wp_customize->add_setting( 'skt_teddy_card', array( 'default' => '' ) );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'skt_teddy_card', array(
+        'label'    => __( 'Special Deals Homepage Card (Grid Card Ratio)', 'smartkidstoys' ),
+        'section'  => 'skt_media_section',
+        'settings' => 'skt_teddy_card',
     ) ) );
 
     // Flash Sale Banner

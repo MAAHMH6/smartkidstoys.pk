@@ -82,8 +82,10 @@ export const DEFAULT_SETTINGS = {
   instagram_img_5: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500',
   instagram_img_6: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500',
 
-  // 7. Last Promotional Cards & Page Banners (New Arrivals & Special Deals)
+  // 7. Promotional Cards & Page Banners (Separate for card vs wide banner)
+  new_arrivals_card_image: '/assets/train-banner.png',
   new_arrivals_banner_image: '/assets/train-banner.png',
+  deals_card_image: '/assets/teddy-banner.png',
   deals_banner_image: '/assets/teddy-banner.png'
 };
 

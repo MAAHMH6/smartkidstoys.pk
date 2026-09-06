@@ -829,7 +829,10 @@ $button_colors = array(
         <!-- Left: New Arrivals Train Banner -->
         <a href="<?php echo esc_url( home_url( '/new-arrivals' ) ); ?>" class="demo-banner-card" style="background:#DCEFFA; text-decoration:none; display:flex;">
             <img 
-                src="<?php echo smartkidstoys_get_image_url( 'skt_train_banner', 'train-banner.png' ); ?>" 
+                src="<?php 
+                    $train_card_img = get_theme_mod( 'skt_train_card' );
+                    echo ! empty( $train_card_img ) ? esc_url( $train_card_img ) : smartkidstoys_get_image_url( 'skt_train_banner', 'train-banner.png' ); 
+                ?>" 
                 alt="New Arrivals Banner" 
                 class="demo-banner-full-bg" 
             />
@@ -843,7 +846,10 @@ $button_colors = array(
         <!-- Right: Special Deals Teddy Bear Banner -->
         <a href="<?php echo esc_url( home_url( '/deals' ) ); ?>" class="demo-banner-card" style="background:#FEF6DF; text-decoration:none; display:flex;">
             <img 
-                src="<?php echo smartkidstoys_get_image_url( 'skt_teddy_banner', 'teddy-banner.png' ); ?>" 
+                src="<?php 
+                    $teddy_card_img = get_theme_mod( 'skt_teddy_card' );
+                    echo ! empty( $teddy_card_img ) ? esc_url( $teddy_card_img ) : smartkidstoys_get_image_url( 'skt_teddy_banner', 'teddy-banner.png' ); 
+                ?>" 
                 alt="Special Deals Banner" 
                 class="demo-banner-full-bg" 
             />

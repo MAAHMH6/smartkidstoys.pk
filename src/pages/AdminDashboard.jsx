@@ -1088,12 +1088,14 @@ export default function AdminDashboard() {
                   ]
                 },
                 {
-                  section: 'New Arrivals & Special Deals (Bottom Cards & Page Banners)',
+                  section: 'New Arrivals & Special Deals (Homepage Cards & Page Banners)',
                   icon: '🚂',
                   bg: '#DCEFFA',
                   cards: [
-                    { label: 'New Arrivals Train Banner / Card Image', key: 'new_arrivals_banner_image' },
-                    { label: 'Special Deals Teddy Banner / Card Image', key: 'deals_banner_image' }
+                    { label: 'New Arrivals Homepage Card Image (Grid Card Ratio)', key: 'new_arrivals_card_image' },
+                    { label: 'New Arrivals Page Banner Image (Wide Header Ratio)', key: 'new_arrivals_banner_image' },
+                    { label: 'Special Deals Homepage Card Image (Grid Card Ratio)', key: 'deals_card_image' },
+                    { label: 'Special Deals Page Banner Image (Wide Header Ratio)', key: 'deals_banner_image' }
                   ]
                 },
                 {

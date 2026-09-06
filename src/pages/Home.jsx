@@ -926,7 +926,7 @@ export default function Home() {
           style={{ background: '#DCEFFA' }}
         >
           <img
-            src={settings.new_arrivals_banner_image || settings.train_banner_image || '/assets/train-banner.png'}
+            src={settings.new_arrivals_card_image || settings.new_arrivals_banner_image || settings.train_banner_image || '/assets/train-banner.png'}
             alt="New Arrivals Banner"
             className="demo-banner-full-bg"
           />
@@ -957,7 +957,7 @@ export default function Home() {
           style={{ background: '#FEF6DF' }}
         >
           <img
-            src={settings.deals_banner_image || settings.teddy_banner_image || '/assets/teddy-banner.png'}
+            src={settings.deals_card_image || settings.deals_banner_image || settings.teddy_banner_image || '/assets/teddy-banner.png'}
             alt="Special Deals Banner"
             className="demo-banner-full-bg"
           />
