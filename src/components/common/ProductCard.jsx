@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
-import { Star, Heart, Check, ShoppingCart, MessageCircle, Sparkles } from 'lucide-react';
+import { Star, Heart, Check, ShoppingCart, Sparkles } from 'lucide-react';
 
 const BUTTON_COLOR_THEMES = [
   { bg: 'linear-gradient(135deg, #0284C7, #0369A1)', hover: '#0369A1', shadow: 'rgba(2, 132, 199, 0.35)' },
@@ -40,13 +40,6 @@ export default function ProductCard({ product }) {
     e.preventDefault();
     e.stopPropagation();
     setIsWishlist(!isWishlist);
-  };
-
-  const handleWhatsAppOrder = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const msg = `Hello SmartKids Toys! 🌟\nI want to order: *${product.name}*\nPrice: PKR ${Number(product.price).toLocaleString()}\nQuantity: 1\nPlease confirm my delivery details.`;
-    window.open(`https://wa.me/923098444501?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   return (
@@ -163,7 +156,7 @@ export default function ProductCard({ product }) {
       </div>
 
       {/* Actions: Add to Cart + Wishlist */}
-      <div className="demo-card-actions" style={{ marginBottom: '8px' }}>
+      <div className="demo-card-actions">
         <button
           onClick={handleAdd}
           className="btn-add-cart-colorful"
@@ -194,34 +187,6 @@ export default function ProductCard({ product }) {
           <Heart size={16} fill={isWishlist ? '#EF4444' : 'none'} />
         </button>
       </div>
-
-      {/* Prominent WhatsApp Order Button */}
-      <button
-        onClick={handleWhatsAppOrder}
-        style={{
-          width: '100%',
-          background: '#25D366',
-          color: '#FFFFFF',
-          border: 'none',
-          borderRadius: '9999px',
-          padding: '8px 12px',
-          fontSize: '0.82rem',
-          fontWeight: 800,
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '6px',
-          boxShadow: '0 2px 8px rgba(37, 211, 102, 0.28)',
-          transition: 'transform 0.15s ease, background 0.15s ease'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        aria-label={`Order ${product.name} on WhatsApp`}
-      >
-        <MessageCircle size={15} fill="currentColor" color="none" />
-        Order on WhatsApp
-      </button>
     </article>
   );
 }

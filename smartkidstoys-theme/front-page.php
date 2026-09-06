@@ -27,37 +27,15 @@ $button_colors = array(
 
 <div class="container woocommerce-page" style="padding-bottom: 40px;">
     
-    <!-- 1. Hero Section -->
-    <section class="demo-hero-section" style="position:relative; overflow:hidden; border-radius:20px; margin:16px 0 24px; background:linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%); border:1px solid #BAE6FD;">
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); align-items:center; padding:36px 40px; gap:24px;">
-            <div>
-                <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-                    <img src="<?php echo smartkidstoys_get_image_url( 'skt_logo', 'logo.png' ); ?>" alt="SmartKids Toys" style="height:36px; width:auto;" />
-                </div>
-
-                <h1 style="font-size:clamp(2rem, 4vw, 3rem); font-weight:900; line-height:1.15; margin:0 0 14px; color:#0F172A;">
-                    <span style="color:#EF4444;">Play</span>, <span style="color:#0284C7;">Learn</span> &amp; <br />
-                    <span style="color:#8B5CF6;">Grow</span> <span style="color:#10B981;">Together</span>
-                </h1>
-
-                <p style="font-size:1.05rem; color:#334155; margin:0 0 24px; font-weight:500; line-height:1.4;">
-                    Safe, fun and educational toys <br />for every age...
-                </p>
-
-                <a href="<?php echo esc_url( home_url( '/shop' ) ); ?>" class="btn" style="background:linear-gradient(135deg, #0284C7, #0369A1); color:#FFFFFF; font-weight:800; font-size:1rem; padding:12px 28px; border-radius:9999px; box-shadow:0 4px 15px rgba(2,132,199,0.35); display:inline-flex; align-items:center; gap:8px; text-decoration:none;">
-                    <span>Shop Now</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
-            </div>
-
-            <div style="display:flex; justify-content:center;">
-                <img 
-                    src="<?php echo smartkidstoys_get_image_url( 'skt_hero_banner', 'hero-banner.png' ); ?>" 
-                    alt="Play, Learn &amp; Grow Together" 
-                    style="width:100%; max-height:340px; object-fit:contain; border-radius:12px;"
-                />
-            </div>
-        </div>
+    <!-- 1. Hero Banner -->
+    <section class="demo-hero-section" style="margin:16px 0 24px; border-radius:20px; overflow:hidden;">
+        <a href="<?php echo esc_url( home_url( '/shop' ) ); ?>" style="display:block; width:100%; border-radius:20px; overflow:hidden;" aria-label="Shop our complete toys collection">
+            <img 
+                src="<?php echo smartkidstoys_get_image_url( 'skt_hero_banner', 'hero-banner.png' ); ?>" 
+                alt="Play, Learn &amp; Grow Together" 
+                style="width:100%; height:auto; display:block; border-radius:20px; object-fit:cover;"
+            />
+        </a>
     </section>
 
     <!-- 2. Trust Bar (4 Items) -->
@@ -265,7 +243,7 @@ $button_colors = array(
                     </div>
 
                     <!-- Actions -->
-                    <div class="demo-card-actions" style="margin-bottom:8px;">
+                    <div class="demo-card-actions">
                         <button 
                             type="button" 
                             class="btn-add-cart-colorful skt-add-to-cart-trigger" 
@@ -280,16 +258,6 @@ $button_colors = array(
                             Add to Cart
                         </button>
                     </div>
-
-                    <a
-                        href="https://wa.me/923098444501?text=<?php echo urlencode( "Hello SmartKids Toys! I want to order: *{$toy['name']}* (Price: PKR " . number_format( $toy['price'] ) . "). Please confirm my order." ); ?>"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style="width:100%; background:#25D366; color:#FFFFFF; border:none; border-radius:9999px; padding:8px 12px; font-size:0.82rem; font-weight:800; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:0 2px 8px rgba(37,211,102,0.28);"
-                    >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                        <span>Order on WhatsApp</span>
-                    </a>
                 </article>
             <?php endforeach; ?>
         </div>
@@ -431,7 +399,7 @@ $button_colors = array(
                     </div>
 
                     <!-- Actions -->
-                    <div class="demo-card-actions" style="margin-bottom:8px;">
+                    <div class="demo-card-actions">
                         <button 
                             type="button" 
                             class="btn-add-cart-colorful skt-add-to-cart-trigger" 
@@ -446,16 +414,6 @@ $button_colors = array(
                             Add to Cart
                         </button>
                     </div>
-
-                    <a
-                        href="https://wa.me/923098444501?text=<?php echo urlencode( "Hello SmartKids Toys! I want to order: *{$toy['name']}* (Price: PKR " . number_format( $toy['price'] ) . "). Please confirm my order." ); ?>"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style="width:100%; background:#25D366; color:#FFFFFF; border:none; border-radius:9999px; padding:8px 12px; font-size:0.82rem; font-weight:800; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:0 2px 8px rgba(37,211,102,0.28);"
-                    >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                        <span>Order on WhatsApp</span>
-                    </a>
                 </article>
             <?php endforeach; ?>
         </div>
@@ -774,19 +732,22 @@ $button_colors = array(
     </section>
 
     <!-- 11. Follow the Fun Instagram -->
-    <section style="margin-bottom: 50px;">
+    <section style="margin-bottom: 40px;">
         <div class="section-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
             <div>
                 <div class="section-title-wrapper" style="display:flex; align-items:center; gap:8px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    <div style="width:32px; height:32px; border-radius:8px; background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); display:flex; align-items:center; justify-content:center; color:#FFFFFF;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </div>
                     <h2 class="section-title-text" style="font-size:1.4rem; font-weight:900; margin:0;">Follow the Fun</h2>
                 </div>
-                <p style="font-size:0.85rem; color:#0284C7; margin:2px 0 0; font-weight:700;">
+                <p style="font-size:0.85rem; color:#DB2777; margin:2px 0 0; font-weight:700;">
                     @SmartKidsToys
                 </p>
             </div>
 
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style="background:#0284C7; color:#FFFFFF; font-weight:800; font-size:0.85rem; padding:8px 18px; border-radius:9999px; display:inline-flex; align-items:center; gap:6px; text-decoration:none;">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style="background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color:#FFFFFF; font-weight:800; font-size:0.88rem; padding:9px 20px; border-radius:9999px; display:inline-flex; align-items:center; gap:8px; text-decoration:none; box-shadow:0 4px 15px rgba(220, 39, 67, 0.35);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                 <span>Follow Us on Instagram &rarr;</span>
             </a>
         </div>
@@ -811,6 +772,37 @@ $button_colors = array(
                 <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="Happy Kids" style="width:100%; height:100%; object-fit:cover;" />
             </div>
         </div>
+    </section>
+
+    <!-- 12. Promotional Banners: New Arrivals & Special Deals -->
+    <section class="demo-banners-grid" style="margin: 36px 0 50px;">
+        <!-- Left: New Arrivals Train Banner -->
+        <a href="<?php echo esc_url( home_url( '/new-arrivals' ) ); ?>" class="demo-banner-card" style="background:#DCEFFA; text-decoration:none; display:flex;">
+            <img 
+                src="<?php echo smartkidstoys_get_image_url( 'skt_train_banner', 'train-banner.png' ); ?>" 
+                alt="New Arrivals Banner" 
+                class="demo-banner-full-bg" 
+            />
+            <div class="demo-banner-card-content">
+                <h3 class="demo-banner-title" style="color:#0369A1;">New Arrivals</h3>
+                <p class="demo-banner-sub">Fresh toys<br>just for your kids!</p>
+                <span class="btn-banner-action" style="background:#0284C7; color:white; display:inline-block;">Shop Now</span>
+            </div>
+        </a>
+
+        <!-- Right: Special Deals Teddy Bear Banner -->
+        <a href="<?php echo esc_url( home_url( '/deals' ) ); ?>" class="demo-banner-card" style="background:#FEF6DF; text-decoration:none; display:flex;">
+            <img 
+                src="<?php echo smartkidstoys_get_image_url( 'skt_teddy_banner', 'teddy-banner.png' ); ?>" 
+                alt="Special Deals Banner" 
+                class="demo-banner-full-bg" 
+            />
+            <div class="demo-banner-card-content">
+                <h3 class="demo-banner-title" style="color:#B45309;">Special Deals</h3>
+                <p class="demo-banner-sub">Up to 30% OFF<br>on selected toys</p>
+                <span class="btn-banner-action" style="background:#F59E0B; color:white; display:inline-block;">Shop Deals</span>
+            </div>
+        </a>
     </section>
 
     <!-- 12. Shopping Made Easy -->

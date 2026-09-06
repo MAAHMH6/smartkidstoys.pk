@@ -233,51 +233,16 @@ export default function Home() {
     <div className="container woocommerce-page" style={{ paddingBottom: '40px' }}>
       <h1 className="sr-only">SmartKids Toys — Play, Learn, Grow Together | Quality Screen-Free Toys for Pakistani Kids</h1>
 
-      {/* 1. HERO SECTION */}
-      <section className="demo-hero-section" style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px', margin: '16px 0 24px', background: 'linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)', border: '1px solid #BAE6FD' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', padding: '36px 40px', gap: '24px' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-              <img src="/assets/logo.png" alt="SmartKids Toys" style={{ height: '36px', width: 'auto' }} />
-            </div>
-
-            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, lineHeight: 1.15, marginBottom: '14px', color: '#0F172A' }}>
-              <span style={{ color: '#EF4444' }}>Play</span>, <span style={{ color: '#0284C7' }}>Learn</span> &amp; <br />
-              <span style={{ color: '#8B5CF6' }}>Grow</span> <span style={{ color: '#10B981' }}>Together</span>
-            </h2>
-
-            <p style={{ fontSize: '1.05rem', color: '#334155', marginBottom: '24px', fontWeight: 500, lineHeight: 1.4 }}>
-              Safe, fun and educational toys <br />for every age...
-            </p>
-
-            <Link 
-              to="/shop" 
-              className="btn" 
-              style={{ 
-                background: 'linear-gradient(135deg, #0284C7, #0369A1)', 
-                color: '#FFFFFF', 
-                fontWeight: 800, 
-                fontSize: '1rem', 
-                padding: '12px 28px', 
-                borderRadius: '9999px', 
-                boxShadow: '0 4px 15px rgba(2, 132, 199, 0.35)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              Shop Now <ArrowRight size={18} />
-            </Link>
-          </div>
-
-          <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-            <img 
-              src={settings.hero_image_url || "/assets/hero-banner.png"} 
-              alt="Kids Playing - SmartKids Toys" 
-              style={{ width: '100%', maxHeight: '340px', objectFit: 'contain', borderRadius: '12px' }} 
-            />
-          </div>
-        </div>
+      {/* 1. HERO BANNER (Full Clickable Banner without duplicate buttons/text) */}
+      <section className="demo-hero-section" style={{ margin: '16px 0 24px', borderRadius: '20px', overflow: 'hidden' }}>
+        <Link to="/shop" className="demo-hero-banner-link" style={{ display: 'block', width: '100%', borderRadius: '20px', overflow: 'hidden' }} aria-label="Shop our complete toys collection">
+          <img
+            src={settings.hero_image_url || "/assets/hero-banner.png"}
+            alt="Play, Learn & Grow Together - SmartKids Toys"
+            className="demo-hero-banner-img"
+            style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '20px', objectFit: 'cover' }}
+          />
+        </Link>
       </section>
 
       {/* 2. TRUST BAR (4 Items) */}
@@ -875,32 +840,57 @@ export default function Home() {
         <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '10px' }}>
           <div>
             <div className="section-title-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Camera size={20} color="#EC4899" />
+              <div style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '8px',
+                background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#FFFFFF'
+              }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </div>
               <h2 className="section-title-text" style={{ fontSize: '1.4rem', fontWeight: 900 }}>Follow the Fun</h2>
             </div>
-            <p style={{ fontSize: '0.85rem', color: '#0284C7', margin: '2px 0 0', fontWeight: 700 }}>
+            <p style={{ fontSize: '0.85rem', color: '#DB2777', margin: '2px 0 0', fontWeight: 700 }}>
               @SmartKidsToys
             </p>
           </div>
 
           <a 
-            href="https://instagram.com" 
+            href={settings.instagram_url || "https://instagram.com/smartkidstoys"} 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{
-              background: '#0284C7',
+              background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
               color: '#FFFFFF',
               fontWeight: 800,
-              fontSize: '0.85rem',
-              padding: '8px 18px',
+              fontSize: '0.88rem',
+              padding: '9px 20px',
               borderRadius: '9999px',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
-              textDecoration: 'none'
+              gap: '8px',
+              textDecoration: 'none',
+              boxShadow: '0 4px 15px rgba(220, 39, 67, 0.35)',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
             }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
           >
-            Follow Us on Instagram <ArrowRight size={14} />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+            <span>Follow Us on Instagram</span>
+            <ArrowRight size={14} />
           </a>
         </div>
 
@@ -919,6 +909,55 @@ export default function Home() {
               <img src={photo.img} alt={photo.caption} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* 12. PROMOTIONAL BANNERS: NEW ARRIVALS & SPECIAL DEALS CARDS */}
+      <section className="demo-banners-grid" style={{ margin: '36px 0 50px' }}>
+        {/* Left: New Arrivals Train Banner */}
+        <div
+          onClick={() => navigate('/new-arrivals')}
+          className="demo-banner-card"
+          style={{ background: '#DCEFFA' }}
+        >
+          <img
+            src="/assets/train-banner.png"
+            alt="New Arrivals Banner"
+            className="demo-banner-full-bg"
+          />
+          <div className="demo-banner-card-content">
+            <h3 className="demo-banner-title" style={{ color: '#0369A1' }}>New Arrivals</h3>
+            <p className="demo-banner-sub">
+              Fresh toys<br />
+              just for your kids!
+            </p>
+            <button className="btn-banner-action" style={{ background: '#0284C7', color: 'white' }}>
+              Shop Now
+            </button>
+          </div>
+        </div>
+
+        {/* Right: Special Deals Teddy Bear Banner */}
+        <div
+          onClick={() => navigate('/deals')}
+          className="demo-banner-card"
+          style={{ background: '#FEF6DF' }}
+        >
+          <img
+            src="/assets/teddy-banner.png"
+            alt="Special Deals Banner"
+            className="demo-banner-full-bg"
+          />
+          <div className="demo-banner-card-content">
+            <h3 className="demo-banner-title" style={{ color: '#B45309' }}>Special Deals</h3>
+            <p className="demo-banner-sub">
+              Up to 30% OFF<br />
+              on selected toys
+            </p>
+            <button className="btn-banner-action" style={{ background: '#F59E0B', color: 'white' }}>
+              Shop Deals
+            </button>
+          </div>
         </div>
       </section>
 
