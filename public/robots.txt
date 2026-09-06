@@ -1,0 +1,14 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Private & admin pages
+Disallow: /checkout
+Disallow: /bag
+Disallow: /admin
+Disallow: /account
+Disallow: /login
+Disallow: /signup
+
+# Sitemap
+Sitemap: https://www.smartkidstoys.pk/sitemap.xml
