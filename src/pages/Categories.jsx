@@ -46,7 +46,7 @@ export default function Categories() {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+      <div className="all-categories-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
         {CATEGORIES_DATA.map((cat) => {
           const theme = categoryThemes[cat.slug] || { emoji: '🎁', bg: 'linear-gradient(135deg, #F1F5F9, #E2E8F0)', count: '15+ Toys' };
           return (
