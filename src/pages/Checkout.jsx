@@ -6,6 +6,7 @@ import { orderService } from '../services/orderService';
 import { settingsService } from '../services/settingsService';
 import confetti from 'canvas-confetti';
 import { MessageCircle, ShieldCheck, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { trackEvent } from '../lib/posthog';
 
 const PAKISTAN_CITIES = [
   'Karachi',
@@ -126,6 +127,20 @@ export default function Checkout() {
         });
       } catch (err) {
         // ignore confetti errors
+      }
+
+      try {
+        trackEvent('order_placed', {
+          order_number: order?.order_number,
+          customer_name: fullName,
+          customer_phone: formData.phone.trim(),
+          city: formData.city,
+          item_count: cartItems.length,
+          total: subtotal,
+          items: cartItems.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price }))
+        });
+      } catch (err) {
+        console.warn('PostHog order tracking notice:', err);
       }
 
       setOrderCompleted(order);

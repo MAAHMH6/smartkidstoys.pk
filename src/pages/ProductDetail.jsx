@@ -6,6 +6,7 @@ import QuantitySelector from '../components/common/QuantitySelector';
 import ProductCard from '../components/common/ProductCard';
 import SEO from '../components/common/SEO';
 import { slugify } from '../utils/slugify';
+import { trackEvent } from '../lib/posthog';
 import { 
   ShoppingCart, 
   Zap, 
@@ -64,6 +65,16 @@ export default function ProductDetail() {
       setProduct(activeProd);
       if (activeProd) {
         setSelectedImage(activeProd.image_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600');
+        try {
+          trackEvent('product_viewed', {
+            product_id: activeProd.id,
+            product_name: activeProd.name,
+            category: activeProd.category,
+            price: Number(activeProd.price),
+            slug: activeProd.slug
+          });
+        } catch (e) {}
+
         productService.getByCategory(activeProd.category).then((rel) => {
           setRelatedProducts(rel.filter((p) => String(p.id) !== String(activeProd.id) && p.slug !== activeProd.slug).slice(0, 4));
         }).catch(() => {});

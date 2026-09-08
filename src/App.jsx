@@ -30,11 +30,13 @@ import ContactUs from './pages/ContactUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import { Terms, ShippingPolicy, ReturnsPolicy } from './pages/PolicyPages';
 import Sitemap from './pages/Sitemap';
+import { trackPageView } from './lib/posthog';
 
-function ScrollToTop() {
+function RouteTracker() {
   const { pathname, search } = useLocation();
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    trackPageView(window.location.href);
   }, [pathname, search]);
   return null;
 }
@@ -44,7 +46,7 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
-          <ScrollToTop />
+          <RouteTracker />
           <AuthModal />
           <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <AnnouncementBar />

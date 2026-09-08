@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
+import { trackEvent } from '../lib/posthog';
 
 const CartContext = createContext();
 
@@ -37,6 +38,14 @@ export const CartProvider = ({ children }) => {
   }, [user, pendingCartItem]);
 
   const performAddToCart = (product, quantity = 1) => {
+    trackEvent('item_added_to_cart', {
+      product_id: product.id,
+      product_name: product.name,
+      price: Number(product.price),
+      quantity,
+      category: product.category || 'general'
+    });
+
     setCartItems(prev => {
       const existing = prev.find(item => item.id === product.id);
       if (existing) {

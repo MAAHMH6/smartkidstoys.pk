@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { identifyUser, resetUser, trackEvent } from '../lib/posthog';
 
 const AuthContext = createContext();
 
@@ -10,6 +11,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Synchronize PostHog user identification with user and profile state
+  useEffect(() => {
+    if (user) {
+      identifyUser(user, profile);
+    }
+  }, [user, profile]);
+
 
   // Helper to load saved local customer accounts
   const getLocalUsers = () => {
@@ -120,6 +129,8 @@ export const AuthProvider = ({ children }) => {
       setUser(adminUser);
       setProfile(adminProfile);
       localStorage.setItem(LOCAL_STORAGE_SESSION_KEY, JSON.stringify({ user: adminUser, profile: adminProfile }));
+      identifyUser(adminUser, adminProfile);
+      trackEvent('user_logged_in', { email: cleanEmail, is_admin: true });
 
       // Also attempt background sync with Supabase Auth
       try {
@@ -140,8 +151,10 @@ export const AuthProvider = ({ children }) => {
 
       if (!error && data?.user) {
         setUser(data.user);
-        await fetchProfile(data.user);
-        localStorage.setItem(LOCAL_STORAGE_SESSION_KEY, JSON.stringify({ user: data.user, profile }));
+        const userProf = await fetchProfile(data.user);
+        localStorage.setItem(LOCAL_STORAGE_SESSION_KEY, JSON.stringify({ user: data.user, profile: userProf }));
+        identifyUser(data.user, userProf);
+        trackEvent('user_logged_in', { email: cleanEmail, is_admin: Boolean(userProf?.is_admin) });
         return data;
       }
       if (error) throw error;
@@ -167,6 +180,8 @@ export const AuthProvider = ({ children }) => {
         setUser(fallbackUser);
         setProfile(fallbackProf);
         localStorage.setItem(LOCAL_STORAGE_SESSION_KEY, JSON.stringify({ user: fallbackUser, profile: fallbackProf }));
+        identifyUser(fallbackUser, fallbackProf);
+        trackEvent('user_logged_in', { email: cleanEmail, is_admin: false });
         return { user: fallbackUser, session: {} };
       }
 
@@ -207,6 +222,8 @@ export const AuthProvider = ({ children }) => {
     setUser(localUserObj);
     setProfile(localProfileObj);
     localStorage.setItem(LOCAL_STORAGE_SESSION_KEY, JSON.stringify({ user: localUserObj, profile: localProfileObj }));
+    identifyUser(localUserObj, localProfileObj);
+    trackEvent('user_signed_up', { email: cleanEmail, full_name: fullName.trim() });
 
     // Also attempt background sync with Supabase Auth
     try {
@@ -229,6 +246,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    try {
+      if (user?.email) {
+        trackEvent('user_logged_out', { email: user.email });
+      }
+      resetUser();
+    } catch (e) {
+      console.warn('PostHog logout notice:', e);
+    }
     try {
       await supabase.auth.signOut();
     } catch (e) {
