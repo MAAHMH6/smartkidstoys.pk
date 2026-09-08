@@ -43,8 +43,9 @@ export default function Footer() {
               <ul className="footer-links-list">
                 <li><Link to="/shop">All Toys</Link></li>
                 <li><Link to="/new-arrivals">New Arrivals</Link></li>
-                <li><Link to="/shop?sort=bestseller">Best Sellers</Link></li>
+                <li><Link to="/best-sellers">Best Sellers</Link></li>
                 <li><Link to="/deals">Special Deals</Link></li>
+                <li><Link to="/categories">Categories</Link></li>
               </ul>
             </div>
 
@@ -56,6 +57,7 @@ export default function Footer() {
                 <li><Link to="/shipping-delivery">Shipping & Delivery</Link></li>
                 <li><Link to="/returns-refunds">Returns & Refunds</Link></li>
                 <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+                <li><Link to="/sitemap">Site Map</Link></li>
               </ul>
             </div>
 

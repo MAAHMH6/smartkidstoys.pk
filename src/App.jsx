@@ -29,6 +29,7 @@ import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import { Terms, ShippingPolicy, ReturnsPolicy } from './pages/PolicyPages';
+import Sitemap from './pages/Sitemap';
 
 function ScrollToTop() {
   const { pathname, search } = useLocation();
@@ -56,6 +57,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
+                <Route path="/best-sellers" element={<Shop />} />
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/category/:slug" element={<CategoryDetail />} />
                 <Route path="/new-arrivals" element={<NewArrivals />} />
@@ -69,7 +71,10 @@ export default function App() {
                 <Route path="/search" element={<SearchResults />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/about" element={<AboutUs />} />
+                <Route path="/about-us" element={<AboutUs />} />
                 <Route path="/contact" element={<ContactUs />} />
+                <Route path="/contact-us" element={<ContactUs />} />
+                <Route path="/sitemap" element={<Sitemap />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/shipping-delivery" element={<ShippingPolicy />} />

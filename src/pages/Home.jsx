@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { productService } from '../services/productService';
 import { settingsService, DEFAULT_SETTINGS } from '../services/settingsService';
 import ProductCard from '../components/common/ProductCard';
+import SEO from '../components/common/SEO';
 import { 
   Truck, 
   RotateCcw, 
@@ -225,6 +226,23 @@ export default function Home() {
 
   return (
     <div className="container woocommerce-page" style={{ paddingBottom: '40px' }}>
+      <SEO
+        title="Play, Learn & Grow Together | Online Toys Store Pakistan"
+        description="Shop safe, fun, and educational toys across Pakistan at SmartKids Toys. Cash on delivery nationwide, child-safe materials, fast shipping, and easy WhatsApp ordering."
+        canonical="https://www.smartkidstoys.pk/"
+        ogImage={settings.hero_image_url || "/assets/hero-banner.png"}
+        schemaJson={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "SmartKids Toys Pakistan",
+          "url": "https://www.smartkidstoys.pk",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.smartkidstoys.pk/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }}
+      />
       <h1 className="sr-only">SmartKids Toys — Play, Learn, Grow Together | Quality Screen-Free Toys for Pakistani Kids</h1>
 
       {/* 1. HERO BANNER (Full Clickable Banner without duplicate buttons/text) */}

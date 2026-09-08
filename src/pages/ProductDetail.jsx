@@ -60,7 +60,7 @@ export default function ProductDetail() {
     setIsAdded(false);
 
     productService.getBySlugOrId(identifier).then((prod) => {
-      const activeProd = prod || (FALLBACK_PRODUCTS && FALLBACK_PRODUCTS[0]) || null;
+      const activeProd = prod || null;
       setProduct(activeProd);
       if (activeProd) {
         setSelectedImage(activeProd.image_url || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600');
@@ -71,8 +71,7 @@ export default function ProductDetail() {
       setLoading(false);
     }).catch((err) => {
       console.warn('Product load exception:', err);
-      const fallback = FALLBACK_PRODUCTS && FALLBACK_PRODUCTS[0] ? FALLBACK_PRODUCTS[0] : null;
-      setProduct(fallback);
+      setProduct(null);
       setLoading(false);
     });
   }, [identifier]);
@@ -89,6 +88,7 @@ export default function ProductDetail() {
   if (!product) {
     return (
       <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
+        <SEO title="Product Not Found" description="The product you requested is currently unavailable." />
         <h2>Product not found</h2>
         <p style={{ margin: '16px 0 24px', color: 'var(--text-muted)' }}>The product you requested is currently unavailable.</p>
         <Link to="/shop" className="btn-hero-shop">

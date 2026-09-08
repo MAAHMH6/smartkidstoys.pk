@@ -1,8 +1,6 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
-
-# Private & admin pages
 Disallow: /checkout
 Disallow: /bag
 Disallow: /admin
@@ -10,5 +8,25 @@ Disallow: /account
 Disallow: /login
 Disallow: /signup
 
-# Sitemap
+User-agent: Googlebot
+Allow: /
+Allow: /shop
+Allow: /new-arrivals
+Allow: /deals
+Allow: /categories
+Allow: /category/
+Allow: /product/
+Allow: /about
+Allow: /about-us
+Allow: /contact
+Allow: /contact-us
+Allow: /sitemap
+Disallow: /checkout
+Disallow: /bag
+Disallow: /admin
+Disallow: /account
+Disallow: /login
+Disallow: /signup
+
 Sitemap: https://www.smartkidstoys.pk/sitemap.xml
+Host: https://www.smartkidstoys.pk

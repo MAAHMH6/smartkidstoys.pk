@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/common/SEO';
 import { 
   Heart, 
   ShieldCheck, 
@@ -15,6 +16,11 @@ import {
 export default function AboutUs() {
   return (
     <div className="container" style={{ padding: '36px 20px 80px' }}>
+      <SEO
+        title="About Us | Our Story & Quality Commitment"
+        description="Learn about SmartKids Toys Pakistan. Our mission is delivering screen-free, brain-stimulating, safe and affordable toys to Pakistani families."
+        canonical="https://www.smartkidstoys.pk/about"
+      />
       {/* 1. Hero Section */}
       <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 50px' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(2, 132, 199, 0.1)', color: 'var(--primary-blue)', padding: '6px 16px', borderRadius: 'var(--radius-full)', fontWeight: 800, fontSize: '0.84rem', marginBottom: '16px' }}>

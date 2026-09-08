@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SEO from '../components/common/SEO';
 import { 
   Phone, 
   MessageCircle, 
@@ -37,6 +38,11 @@ export default function ContactUs() {
 
   return (
     <div className="container" style={{ padding: '36px 20px 80px' }}>
+      <SEO
+        title="Contact Us & WhatsApp Support | Smart Kids Toys"
+        description="Have questions about our toys? WhatsApp us at +92 309 8444501 or send a message. Fast response for order tracking, recommendations, and delivery inquiries."
+        canonical="https://www.smartkidstoys.pk/contact"
+      />
       {/* 1. Header */}
       <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 48px' }}>
         <h1 style={{ fontSize: 'clamp(2rem, 4vw, 2.6rem)', fontWeight: 900, marginBottom: '12px', color: 'var(--dark-heading)' }}>

@@ -403,7 +403,7 @@ export const productService = {
       if (found) return found;
     } catch (e) {}
 
-    return FALLBACK_PRODUCTS[0];
+    return null;
   },
 
   async getById(id) {

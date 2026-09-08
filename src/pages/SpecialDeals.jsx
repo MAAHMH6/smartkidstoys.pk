@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
 import { settingsService, DEFAULT_SETTINGS } from '../services/settingsService';
 import ProductCard from '../components/common/ProductCard';
+import SEO from '../components/common/SEO';
 import { Tag, Filter, SlidersHorizontal } from 'lucide-react';
 
 const CATEGORIES = [
@@ -112,6 +113,12 @@ export default function SpecialDeals() {
 
   return (
     <div className="container archive post-type-archive post-type-archive-product woocommerce-page" style={{ padding: '20px 20px 80px' }}>
+      <SEO
+        title="Special Toy Deals & Discounts Pakistan | Up to 40% OFF"
+        description="Shop special toy deals and flash discounts up to 40% OFF in Pakistan. Save on premium teddy bears, STEM blocks, and puzzles at SmartKids Toys."
+        canonical="https://www.smartkidstoys.pk/deals"
+        ogImage={settings.deals_banner_image || "/assets/teddy-banner.png"}
+      />
       {/* 1. Deals Header Banner (Full background with teddy bear) */}
       <section className="demo-hero-section" style={{ minHeight: '220px', background: '#FEF6DF', marginBottom: '32px' }}>
         <img

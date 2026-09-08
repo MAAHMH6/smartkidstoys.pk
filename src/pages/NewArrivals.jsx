@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
 import { settingsService, DEFAULT_SETTINGS } from '../services/settingsService';
 import ProductCard from '../components/common/ProductCard';
+import SEO from '../components/common/SEO';
 import { Sparkles, Filter, SlidersHorizontal } from 'lucide-react';
 
 const CATEGORIES = [
@@ -103,6 +104,12 @@ export default function NewArrivals() {
 
   return (
     <div className="container archive post-type-archive post-type-archive-product woocommerce-page" style={{ padding: '20px 20px 80px' }}>
+      <SEO
+        title="New Arrival Toys Pakistan | Latest Kids Toys & Games"
+        description="Explore the newest toy arrivals in Pakistan at SmartKids Toys. Fresh stock of educational toys, STEM sets, baby toys, RC vehicles, and puzzles with fast home delivery."
+        canonical="https://www.smartkidstoys.pk/new-arrivals"
+        ogImage={settings.new_arrivals_banner_image || "/assets/train-banner.png"}
+      />
       {/* 1. New Arrivals Header Banner (Full background with train) */}
       <section className="demo-hero-section" style={{ minHeight: '220px', background: '#DCEFFA', marginBottom: '32px' }}>
         <img

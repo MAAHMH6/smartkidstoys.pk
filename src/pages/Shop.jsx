@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { productService } from '../services/productService';
 import ProductCard from '../components/common/ProductCard';
+import SEO from '../components/common/SEO';
 import { Filter, SlidersHorizontal, Sparkles } from 'lucide-react';
 
 const CATEGORIES = [
@@ -162,6 +163,11 @@ export default function Shop() {
 
   return (
     <div className="container archive post-type-archive post-type-archive-product woocommerce-page" style={{ padding: '32px 20px 80px' }}>
+      <SEO
+        title={isBestSellerOnly ? "Best Selling Toys in Pakistan | Top Picks" : (selectedAges.length === 1 ? `Toys for Ages ${selectedAges[0]} Pakistan` : "Shop All Kids Toys Online Pakistan")}
+        description="Browse full collection of educational STEM toys, soft plushies, remote control cars, and puzzles in Pakistan. Affordable prices, cash on delivery, and 100% genuine toys."
+        canonical="https://www.smartkidstoys.pk/shop"
+      />
       {/* Header Banner */}
       <div style={{ marginBottom: '28px' }}>
         <h1 className="woocommerce-products-header__title page-title" style={{ fontSize: '2rem', fontWeight: 900, marginBottom: '6px' }}>
